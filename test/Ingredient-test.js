@@ -5,17 +5,30 @@ import testData from '../src/data/testing-data/ingredients-test-data';
 
 describe('Ingredient', () => {
 	let ingredientOne;
-	let ingredientTwo;
-	let ingredientThree;
-	let ingredientFour;
-	let ingredientFive;
+	
 
 	beforeEach(() => {
 		ingredientOne = new Ingredient(testData.ingredientsData[0])
-		ingredientTwo = new Ingredient(testData.ingredientsData[1]) 
-		ingredientThree = new Ingredient(testData.ingredientsData[2])
-		ingredientFour = new Ingredient(testData.ingredientsData[3])
-		ingredientFive = new Ingredient(testData.ingredientsData[4])	
+	})
+
+	it('should be a function', () => {
+		expect(Ingredient).is.a('function')
+	})
+	
+	it('should be an instantiation of Ingredient', () => {
+		expect(ingredientOne).to.be.an.instanceOf(Ingredient)
+	})
+
+	it('should have an ID', () => {
+		expect(ingredientOne.id).to.deep.equal(20081)
+	})
+
+	it('should have a name', () => {
+		expect(ingredientOne.name).to.deep.equal("wheat flour")
+	})
+
+	it('should contain an estimated cost in cents', () => {
+		expect(ingredientOne.estimatedCostInCents).to.deep.equal(142)
 	})
 
 })

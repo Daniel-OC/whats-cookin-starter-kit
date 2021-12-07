@@ -18,11 +18,6 @@ const ingredientsData = [
 		"id": 19335,
 		"name": "sucrose",
 		"estimatedCostInCents": 902
-	},
-	{
-		"id": 19206,
-		"name": "instant vanilla pudding",
-		"estimatedCostInCents": 660
 	}
 ];
 
