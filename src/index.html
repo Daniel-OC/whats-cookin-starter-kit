@@ -2,28 +2,26 @@
 <html lang="en-us" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="text/css" href="./styles.css">
     <title>What's Cookin, Good Lookin? 😉</title>
   </head>
-  <body class="flex">
-    <header class="flex row">
-      <div>
-        <section class="flex row">
-          <p>What's Cookin, Good Lookin? 😉</p>
-          <img>
+  <body>
+    <header class="flex row around apricot">
+      <section class="flex row">
+        <h1>What's Cookin, Good Lookin? 😉</h1>
+        <img>
+      </section>
+      <section class="flex row">
+        <input> </input>
+        <button class="btn">
+      </section>
+      <section class="flex end">
+        <img>
+        <button class="btn">Your Favs</button>
+        <section class="flex column hidden">
+          <p><span></span></p>
         </section>
-        <section class="flex row">
-          <input> </input>
-          <button>
-        </section>
-        <section class="flex row">
-          <img>
-          <button>
-          <section class="flex column hidden">
-            <p><span></span></p>
-          </section>
-        </section>
-      </div>
+      </section>
     </header>
     <main class="flex row">
       <section class="flex column hidden" id="bigModal">
@@ -41,7 +39,7 @@
           </div>
         </div>
       </section>
-      <section class="flex">
+      <section class="flex apricot" id="mainDisplay">
         <article class="flex column">
           <img>
           <div class="flex row">
@@ -84,8 +82,8 @@
         </article>
       </section>
       <aside class="flex column">
-        <button>
-        <button>
+        <button class="btn">
+        <button class="btn">
         <section class="flex column hidden">
           <p><span></span></p>
         </section>
