@@ -1,3 +1,24 @@
-body {
-  background-color: blueviolet;
+* {
+  margin: 0;
+}
+
+main {
+  height: 100%;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
 }
