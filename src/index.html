@@ -5,91 +5,176 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+				<script src="https://kit.fontawesome.com/06c158b401.js" crossorigin="anonymous"></script>
     <link rel="text/css" href="./styles.css">
     <title>What's Cookin, Good Lookin?</title>
   </head>
   <body>
     <header class="flex row around apricot">
-      <section class="flex row around">
+      <section class="flex row">
         <h1 class="flex">What's Cookin, Good Lookin?</h1>
-        <img type="image/png" src="../assets/cookin_pan_icon.png"/>
+        <img type="image/png" class="logo-img" src="https://www.pinclipart.com/picdir/middle/92-929052_hat-clipart-kitchen-cartoon-cooking-pot-png-transparent.png"/>
       </section>
       <section class="flex row">
-        <input> </input>
-        <button class="btn">
+        <input class="no-brdr" placeholder="search recipes"></input>
+								<button class="fas fa-search"></button>
       </section>
       <section class="flex end">
         <img>
-        <button class="btn">Your Favs</button>
-        <section class="flex column hidden">
+        <button class="sml-btn med-brdr-radius no-brdr shadow">Your Favs</button>
+        <section class="flex column modal hidden">
           <p><span></span></p>
         </section>
       </section>
     </header>
     <main class="flex row around">
-      <section class="flex column hidden" id="bigModal">
-        <img>
-        <div class="flex row">
-          <section class="flex">
+					
+      <section class="big-modal flex column around main-display lrg-brdr-radius med-marg apricot shadow hidden" id="bigModal">
+								<div class="flex column full-width half-height">
+        		<img class="big-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+								</div>
+        <div class="flex row full-width full-height med-marg">
+          <section class="flex column half-width full-height med-marg med-brdr-radius blue">
+												<ul>Intructions
+													<li>step 2</li>
+													<li>step 2</li>
+													<li>step 2</li>
+													<li>step 2</li>
+													<li>step 2</li>
+											</ul>
           </section>
-          <div class="flex">
-            <section class="flex">
+          <div class="flex column half-width full-height">
+            <section class="flex column full-width half-height med-brdr-radius blue">
+													<p>This is to represent the cost</p>
+													<p>This is to represent the cost</p>
+													<p>This is to represent the cost</p>
             </section>
-            <section class="flex row">
-              <img>
-              <img>
+            <section class="flex row full-width full-height">
+              <div class="flex column half-width half-height">
+              <img class="med-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png">
+													</div>
+													<div class="flex column half-width half-height">
+              <img class="med-img" src="https://content.fortune.com/wp-content/uploads/2019/04/brb05.19.plus_.jpg">
+													</div>
             </section>
           </div>
         </div>
       </section>
-      <section class="flex row main-display apricot around" id="mainDisplay">
-        <article class="flex column">
-          <img>
-          <div class="flex row">
-            <p></p>
-            <div class="flex row">
-              <img>
-              <img>
+					
+      <section class="flex row around main-display lrg-brdr-radius med-marg apricot shadow" id="mainDisplay">
+        <article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <div class="flex row full-width half-height yellow">
+            <p class="half-width full-height text-cntr">This is the recipe for the food that will display above</p>
+            <div class="flex row half-width full-height">
+													<div class="flex column half-width half-height">
+														<button><i class="far fa-heart"></i></button>
+													</div>
+													<div class="flex column half-width half-height">
+														<button><i class="fas fa-plus"></i></button>
+													</div>
             </div>
           </div>
         </article>
-        <article class="flex column">
-          <img>
-          <div class="flex row">
-            <p></p>
-            <div class="flex row">
-              <img>
-              <img>
+				<article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <div class="flex row full-width half-height yellow">
+            <p class="half-width full-height text-cntr">This is the recipe for the food that will display above</p>
+            <div class="flex row half-width full-height">
+													<div class="flex column half-width half-height">
+														<button><i class="far fa-heart"></i></button>
+													</div>
+													<div class="flex column half-width half-height">
+														<button><i class="fas fa-plus"></i></button>
+													</div>
             </div>
           </div>
         </article>
-        <article class="flex column">
-          <img>
-          <div class="flex row">
-            <p></p>
-            <div class="flex row">
-              <img>
-              <img>
+				<article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <div class="flex row full-width half-height yellow">
+            <p class="half-width full-height text-cntr">This is the recipe for the food that will display above</p>
+            <div class="flex row half-width full-height">
+													<div class="flex column half-width half-height">
+														<button><i class="far fa-heart"></i></button>
+													</div>
+													<div class="flex column half-width half-height">
+														<button><i class="fas fa-plus"></i></button>
+													</div>
             </div>
           </div>
         </article>
-        <article class="flex column">
-          <img>
-          <div class="flex row">
-            <p></p>
-            <div class="flex row">
-              <img>
-              <img>
+				<article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <div class="flex row full-width half-height yellow">
+            <p class="half-width full-height text-cntr">This is the recipe for the food that will display above</p>
+            <div class="flex row half-width full-height">
+													<div class="flex column half-width half-height">
+														<button><i class="far fa-heart"></i></button>
+													</div>
+													<div class="flex column half-width half-height">
+														<button><i class="fas fa-plus"></i></button>
+													</div>
             </div>
           </div>
         </article>
+				<article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <div class="flex row full-width half-height yellow">
+            <p class="half-width full-height text-cntr">This is the recipe for the food that will display above</p>
+            <div class="flex row half-width full-height">
+													<div class="flex column half-width half-height">
+														<button><i class="far fa-heart"></i></button>
+													</div>
+													<div class="flex column half-width half-height">
+														<button><i class="fas fa-plus"></i></button>
+													</div>
+            </div>
+          </div>
+        </article>
+				<article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <div class="flex row full-width half-height yellow">
+            <p class="half-width full-height text-cntr">This is the recipe for the food that will display above</p>
+            <div class="flex row half-width full-height">
+													<div class="flex column half-width half-height">
+														<button><i class="far fa-heart"></i></button>
+													</div>
+													<div class="flex column half-width half-height">
+														<button><i class="fas fa-plus"></i></button>
+													</div>
+            </div>
+          </div>
+        </article>
+				<article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <div class="flex row full-width half-height yellow">
+            <p class="half-width full-height text-cntr">This is the recipe for the food that will display above</p>
+            <div class="flex row half-width full-height">
+													<div class="flex column half-width half-height">
+														<button><i class="far fa-heart"></i></button>
+													</div>
+													<div class="flex column half-width half-height">
+														<button><i class="fas fa-plus"></i></button>
+													</div>
+            </div>
+          </div>
+        </article>
+							
+							
       </section>
-      <aside class="flex column">
-        <button class="btn">
-        <button class="btn">
-        <section class="flex column hidden">
-          <p><span></span></p>
-        </section>
+      <aside class="flex column lrg-brdr-radius med-marg apricot shadow">
+							<button class="lrg-btn med-brdr-radius no-brdr shadow">Filter</button>
+							<button class="lrg-btn med-brdr-radius no-brdr shadow">Meal Plan</button>
+							<section class="flex column around filter med-brdr-radius blue modal hidden">
+									<ul class="flex column around">Intructions
+											<li>filter 1<span>X</span></li>
+											<li>filter 1<span>X</span></li>
+											<li>filter 1<span>X</span></li>
+											<li>filter 1<span>X</span></li>
+											<li>filter 1<span>X</span></li>
+										</ul>
+							</section>
       </aside>
     </main>
   </body>
