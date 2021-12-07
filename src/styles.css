@@ -1,15 +1,16 @@
-* {
+body {
   margin: 0;
-}
-
-main {
-  height: 100%;
   overflow: hidden;
+  height: 100vh;
 }
 
 header {
   width: 100%;
-  height: 75px;
+  height: 60px;
+}
+
+main {
+  height: 93%;
 }
 
 .flex {
@@ -38,18 +39,33 @@ header > section {
 }
 
 h1 {
-  max-width: 100px;
-  font-size: 16px;
+  max-width: 150px;
+  font-size: 18px;
 }
 
 input {
-  width: 350px;
   border: 0;
+  width: 350px;
   height: 50px;
+  font-size: 24px;
 }
 
 input > button {
   border-radius: none;
+}
+
+.main-display {
+  height: 85%;
+  width: 85%;
+  border: 2px solid white;
+  margin: 30px;
+}
+
+aside {
+  height: 85%;
+  width: 30%;
+  border: 2px solid blue;
+  margin: 30px;
 }
 
 .btn {
@@ -58,6 +74,10 @@ input > button {
   background-color: #FFF;
   width: 75px;
   height: 25px;
+}
+
+.cyan {
+  background-color: #CBF3F0;
 }
 
 .apricot {
