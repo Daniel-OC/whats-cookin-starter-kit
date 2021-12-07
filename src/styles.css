@@ -1,3 +1,93 @@
 body {
-  background-color: blueviolet;
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+}
+
+header {
+  width: 100%;
+  height: 60px;
+}
+
+main {
+  height: 93%;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+  align-items: center;
+}
+
+.end {
+  flex-direction: row-reverse;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.around {
+  justify-content: space-around;
+}
+
+header > section {
+  width: 30%;
+}
+
+h1 {
+  max-width: 150px;
+  font-size: 18px;
+}
+
+input {
+  border: 0;
+  width: 350px;
+  height: 50px;
+  font-size: 24px;
+}
+
+input > button {
+  border-radius: none;
+}
+
+.main-display {
+  height: 85%;
+  width: 85%;
+  border: 2px solid white;
+  margin: 30px;
+}
+
+aside {
+  height: 85%;
+  width: 30%;
+  border: 2px solid blue;
+  margin: 30px;
+}
+
+.btn {
+  border-radius: 10px;
+  border: none;
+  background-color: #FFF;
+  width: 75px;
+  height: 25px;
+}
+
+.cyan {
+  background-color: #CBF3F0;
+}
+
+.apricot {
+  background-color: #FFBF69;
+}
+
+.orange {
+  border-color: #FF9F1C;
+}
+
+.hidden {
+  display: none;
 }
