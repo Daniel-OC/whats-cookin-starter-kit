@@ -4,24 +4,28 @@ const recipeData = [
     "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
     "ingredients": [
       {
-    		"id": 20081,
-    		"name": "wheat flour",
-    		"estimatedCostInCents": 142
+        "id": 20081,
+        "quantity": {
+          "amount": 1.5,
+          "unit": "c"
     	},
     	{
-    		"id": 18372,
-    		"name": "bicarbonate of soda",
-    		"estimatedCostInCents": 582
+        "id": 18372,
+        "quantity": {
+          "amount": 0.5,
+          "unit": "tsp"
     	},
     	{
-    		"id": 1123,
-    		"name": "eggs",
-    		"estimatedCostInCents": 472
+        "id": 1123,
+        "quantity": {
+          "amount": 1,
+          "unit": "large"
     	},
     	{
-    		"id": 19335,
-    		"name": "sucrose",
-    		"estimatedCostInCents": 902
+        "id": 19335,
+        "quantity": {
+          "amount": 0.5,
+          "unit": "c"
     	}
     ],
     "instructions": [
@@ -45,24 +49,28 @@ const recipeData = [
     "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
     "ingredients": [
       {
-    		"id": 20081,
-    		"name": "wheat flour",
-    		"estimatedCostInCents": 142
+        "id": 20081,
+        "quantity": {
+          "amount": 1.5,
+          "unit": "c"
     	},
     	{
-    		"id": 18372,
-    		"name": "bicarbonate of soda",
-    		"estimatedCostInCents": 582
+        "id": 18372,
+        "quantity": {
+          "amount": 0.5,
+          "unit": "tsp"
     	},
     	{
-    		"id": 1123,
-    		"name": "eggs",
-    		"estimatedCostInCents": 472
+        "id": 1123,
+        "quantity": {
+          "amount": 1,
+          "unit": "large"
     	},
     	{
-    		"id": 19335,
-    		"name": "sucrose",
-    		"estimatedCostInCents": 902
+        "id": 19335,
+        "quantity": {
+          "amount": 0.5,
+          "unit": "c"
     	}
     ],
     "instructions": [
@@ -71,7 +79,7 @@ const recipeData = [
         "number": 1
       }
     ],
-    "name": "Loaded Chocolate Chip Pudding Cookie Cups",
+    "name": "Dad's Favorite Pudding",
     "tags": [
       "lunch",
       "main course",
@@ -84,24 +92,28 @@ const recipeData = [
     "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
     "ingredients": [
       {
-    		"id": 20081,
-    		"name": "wheat flour",
-    		"estimatedCostInCents": 142
+        "id": 20081,
+        "quantity": {
+          "amount": 1.5,
+          "unit": "c"
     	},
     	{
-    		"id": 18372,
-    		"name": "bicarbonate of soda",
-    		"estimatedCostInCents": 582
+        "id": 18372,
+        "quantity": {
+          "amount": 0.5,
+          "unit": "tsp"
     	},
     	{
-    		"id": 1123,
-    		"name": "eggs",
-    		"estimatedCostInCents": 472
+        "id": 1123,
+        "quantity": {
+          "amount": 1,
+          "unit": "large"
     	},
     	{
-    		"id": 19335,
-    		"name": "sucrose",
-    		"estimatedCostInCents": 902
+        "id": 19335,
+        "quantity": {
+          "amount": 0.5,
+          "unit": "c"
     	}
     ],
     "instructions": [
@@ -110,7 +122,7 @@ const recipeData = [
         "number": 1
       }
     ],
-    "name": "Loaded Chocolate Chip Pudding Cookie Cups",
+    "name": "Mom's Favorite Egg Sauce",
     "tags": [
       "sauce"
     ]
