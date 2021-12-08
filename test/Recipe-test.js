@@ -49,4 +49,22 @@ describe('Recipe', () => {
     expect(recipe.instructions[0].instruction).to.deep.equal('Instructions for 1st Recipe');
     expect(recipe.instructions[0].number).to.deep.equal(1);
   });
-})
+
+  it('should have a have way to get ingredients', () => {
+    const ingredientNames = recipe.getIngredientNames();
+
+    expect(ingredientNames).to.deep.equal(['wheat flour', 'bicarbonate of soda', 'eggs', 'sucrose']);
+  });
+
+  it('should get total cost of recipe', () => {
+    const ingredientsCost = recipe.getCost();
+
+    expect(ingredientCost).to.deep.equal('$14.27');
+  });
+
+  it('should give instructions', () => {
+    const recipeInstructions = recipe.getInstructions();
+
+    expect(recipeInstructions).to.deep.equal('Step 1: Instructions for 1st Recipe');
+  });
+});
