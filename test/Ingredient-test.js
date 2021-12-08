@@ -1,13 +1,13 @@
 import { expect as _expect } from 'chai';
 const expect = _expect;
 import Ingredient from '../src/classes/Ingredient';
-import testData from '../src/data/testing-data/ingredients-test-data';
+import ingredientTestData from '../src/data/testing-data/ingredients-test-data';
 
 describe('Ingredient', () => {
   let ingredientOne;
 
   beforeEach(() => {
-    ingredientOne = new Ingredient(testData.ingredientsData[0]);
+    ingredientOne = new Ingredient(ingredientTestData.ingredientsData[0]);
   });
 
   it('should be a function', () => {
