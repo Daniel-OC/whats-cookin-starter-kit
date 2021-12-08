@@ -36,6 +36,10 @@ const recipeData = [
       {
         "instruction": "Instructions for 1st Recipe",
         "number": 1
+      },
+      {
+        "instruction": "Instructions for 2nd Recipe",
+        "number": 2
       }
     ],
     "name": "Loaded Chocolate Chip Pudding Cookie Cups",
