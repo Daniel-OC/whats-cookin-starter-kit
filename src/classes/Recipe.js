@@ -1,39 +1,36 @@
-import recipeTestData from '../src/data/testing-data/recipe-test-data';
-import ingredientTestData from '../src/data/testing-data/ingredients-test-data';
+// import recipeTestData from '../src/data/testing-data/recipe-test-data.js';
+// import ingredientTestData from '../src/data/testing-data/ingredients-test-data.js';
 
 class Recipe {
   constructor(recipe) {
     this.id = recipe.id;
-    this.image = recipe.image;
-    this.ingredients = recipe.ingredients;
     this.name = recipe.name;
+    this.image = recipe.image;
     this.tags = recipe.tags;
+    this.ingredients = recipe.ingredients;
     this.instructions = recipe.instructions;
   }
 
-  getIngredientNames() {
-    return this.ingredients.map(ingredient => ingredient.name);
+  getIngredientNames(ingredientData) {
+    return this.ingredients.map(ingredient => {
+      return ingredientData.find(data => ingredient.id === data.id).name;
+    });
+
   }
 
-  getCost() {
-    const totalCost = this.ingredients.reduce((total, ingredient) => {
-      let ingredientIds = this.ingredients.map(ingredient => {
-        return {
-          id: ingredient.id,
-          quantity: ingredient.quantity.amount;
-        }
-      });
-
-
-      total += .quantity * .estimatedCostInCents;
+  getCost(ingredientData) {
+    const costInCents = this.ingredients.reduce((total, ingredient) => {
+      total += ingredient.amount * ingredientData.find(data =>
+          data.id === ingredient.id).estimatedCostInCents;
       return total;
     }, 0);
-    return totalCost;
+    return `$${(costInCents / 100).toFixed(2)}`;
   }
 
   getInstructions() {
     this.instructions.forEach(instruction => {
-      return `Step ${instruction.number}: ${instruction.instruction}`;
+      let step = `Step ${instruction.number}: ${instruction.instruction}`;
+      return step;
     });
   }
 }
