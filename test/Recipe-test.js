@@ -2,11 +2,14 @@ import { expect as _expect } from 'chai';
 const expect = _expect;
 import Recipe from '../src/classes/Recipe';
 import recipeTestData from '../src/data/testing-data/recipe-test-data';
+import ingredientTestData from '../src/data/testing-data/ingredients-test-data';
 
 describe('Recipe', () => {
   let recipe;
+  let ingredients;
 
   beforeEach(() => {
+    ingredients = ingredientTestData.ingredientsData;
     recipe = new Recipe(recipeTestData.recipeData[0]);
   });
 
@@ -51,7 +54,7 @@ describe('Recipe', () => {
   });
 
   it('should have a have way to get ingredients', () => {
-    const ingredientNames = recipe.getIngredientNames();
+    const ingredientNames = recipe.getIngredientNames(ingredients);
 
     expect(ingredientNames).to.deep.equal(['wheat flour', 'bicarbonate of soda', 'eggs', 'sucrose']);
   });
