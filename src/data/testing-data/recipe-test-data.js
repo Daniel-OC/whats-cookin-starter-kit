@@ -8,24 +8,28 @@ const recipeData = [
         "quantity": {
           "amount": 1.5,
           "unit": "c"
+        }
     	},
     	{
         "id": 18372,
         "quantity": {
           "amount": 0.5,
           "unit": "tsp"
+        }
     	},
     	{
         "id": 1123,
         "quantity": {
           "amount": 1,
           "unit": "large"
+        }
     	},
     	{
         "id": 19335,
         "quantity": {
           "amount": 0.5,
           "unit": "c"
+        }
     	}
     ],
     "instructions": [
@@ -53,24 +57,28 @@ const recipeData = [
         "quantity": {
           "amount": 1.5,
           "unit": "c"
+        }
     	},
     	{
         "id": 18372,
         "quantity": {
           "amount": 0.5,
           "unit": "tsp"
+        }
     	},
     	{
         "id": 1123,
         "quantity": {
           "amount": 1,
           "unit": "large"
+        }
     	},
     	{
         "id": 19335,
         "quantity": {
           "amount": 0.5,
           "unit": "c"
+        }
     	}
     ],
     "instructions": [
@@ -96,24 +104,28 @@ const recipeData = [
         "quantity": {
           "amount": 1.5,
           "unit": "c"
+        }
     	},
     	{
         "id": 18372,
         "quantity": {
           "amount": 0.5,
           "unit": "tsp"
+        }
     	},
     	{
         "id": 1123,
         "quantity": {
           "amount": 1,
           "unit": "large"
+        }
     	},
     	{
         "id": 19335,
         "quantity": {
           "amount": 0.5,
           "unit": "c"
+        }
     	}
     ],
     "instructions": [
