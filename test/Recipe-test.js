@@ -7,7 +7,7 @@ describe('Recipe', () => {
   let recipe;
 
   beforeEach(() => {
-    recipe = new Recipe(recipeTestData[0]);
+    recipe = new Recipe(recipeTestData.recipeData[0]);
   });
 
   it('should be a function', () => {
