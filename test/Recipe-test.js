@@ -45,7 +45,7 @@ describe('Recipe', () => {
 
   it('should have instructions', () => {
     expect(recipe.instructions).to.be.an('array');
-    expect(recipe.instructions.length).to.deep.equal(1);
+    expect(recipe.instructions.length).to.deep.equal(2);
   });
 
   it('should have instructions with steps', () => {
@@ -60,14 +60,15 @@ describe('Recipe', () => {
   });
 
   it('should get total cost of recipe', () => {
-    const ingredientsCost = recipe.getCost();
+    const ingredientsCost = recipe.getCost(ingredients);
 
-    expect(ingredientCost).to.deep.equal('$14.27');
+    expect(ingredientsCost).to.deep.equal('$14.27');
   });
 
   it('should give instructions', () => {
     const recipeInstructions = recipe.getInstructions();
 
-    expect(recipeInstructions).to.deep.equal('Step 1: Instructions for 1st Recipe');
+    expect(recipeInstructions[0]).to.deep.equal('Step 1: Instructions for 1st Recipe');
+    expect(recipeInstructions[1]).to.deep.equal('Step 2: Instructions for 2nd Recipe');
   });
 });
