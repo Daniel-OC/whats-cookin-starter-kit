@@ -35,6 +35,10 @@ describe('Cookbook', () => {
     expect(cookbook.recipes[0]).to.be.an.instanceOf(Recipe);
   });
 
+  it('should be able to store all ingredients information', () => {
+    expect(cookbook.ingredients).to.be.an('array');
+  });
+
   it('should be able to filter by 1 tag', () => {
     cookbook.filterByTag(['snack']);
     expect(cookbook.currentRecipes.length).to.deep.equal(2);
@@ -56,7 +60,7 @@ describe('Cookbook', () => {
   });
 
   it('should reset search or filter terms', () => {
-    cookbook.filterByKeyword('eggs');
+    cookbook.filterByIngredient('eggs');
     expect(cookbook.currentRecipes.length).to.deep.equal(3);
     cookbook.clearFilter();
     expect(cookbook.currentRecipes).to.deep.equal(cookbook.recipes);
