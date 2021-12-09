@@ -8,30 +8,38 @@ const recipeData = [
         "quantity": {
           "amount": 1.5,
           "unit": "c"
+        }
     	},
     	{
         "id": 18372,
         "quantity": {
           "amount": 0.5,
           "unit": "tsp"
+        }
     	},
     	{
         "id": 1123,
         "quantity": {
           "amount": 1,
           "unit": "large"
+        }
     	},
     	{
         "id": 19335,
         "quantity": {
           "amount": 0.5,
           "unit": "c"
+        }
     	}
     ],
     "instructions": [
       {
         "instruction": "Instructions for 1st Recipe",
         "number": 1
+      },
+      {
+        "instruction": "Instructions for 2nd Recipe",
+        "number": 2
       }
     ],
     "name": "Loaded Chocolate Chip Pudding Cookie Cups",
@@ -53,24 +61,28 @@ const recipeData = [
         "quantity": {
           "amount": 1.5,
           "unit": "c"
+        }
     	},
     	{
         "id": 18372,
         "quantity": {
           "amount": 0.5,
           "unit": "tsp"
+        }
     	},
     	{
         "id": 1123,
         "quantity": {
           "amount": 1,
           "unit": "large"
+        }
     	},
     	{
         "id": 19335,
         "quantity": {
           "amount": 0.5,
           "unit": "c"
+        }
     	}
     ],
     "instructions": [
@@ -96,24 +108,28 @@ const recipeData = [
         "quantity": {
           "amount": 1.5,
           "unit": "c"
+        }
     	},
     	{
         "id": 18372,
         "quantity": {
           "amount": 0.5,
           "unit": "tsp"
+        }
     	},
     	{
         "id": 1123,
         "quantity": {
           "amount": 1,
           "unit": "large"
+        }
     	},
     	{
         "id": 19335,
         "quantity": {
           "amount": 0.5,
           "unit": "c"
+        }
     	}
     ],
     "instructions": [
