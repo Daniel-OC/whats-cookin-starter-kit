@@ -96,7 +96,8 @@ const recipeData = [
       "lunch",
       "main course",
       "main dish",
-      "dinner"
+      "dinner",
+      "snack"
     ]
   },
   {
