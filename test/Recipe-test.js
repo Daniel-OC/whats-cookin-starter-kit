@@ -35,7 +35,7 @@ describe('Recipe', () => {
   });
 
   it('should have a name', () => {
-    expect(recipe.name).to.deep.equal('Loaded Chocolate Chip Pudding Cookie Cups')
+    expect(recipe.name).to.deep.equal('Loaded Chocolate Chip Pudding Cookie Cups');
   });
 
   it('should have an array of tags', () => {
