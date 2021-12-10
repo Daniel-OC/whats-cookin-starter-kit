@@ -147,4 +147,4 @@ const usersTestData = [
   }
 ]
 
-export default {userData}
+export default {usersTestData}
