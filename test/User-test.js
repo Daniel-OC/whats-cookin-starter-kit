@@ -37,7 +37,7 @@ describe('User', () => {
   });
 
   it('should have a pantry', () => {
-
+    expect(testUser.pantry).to.be.an('array')
   });
 
   it('should be able to keep track of favorite recipes', () => {
