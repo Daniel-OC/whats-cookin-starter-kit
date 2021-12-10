@@ -48,7 +48,7 @@ describe('User', () => {
   });
 
   it('should be able to keep track of meals to cook', () => {
-    expect(testUser.mealPlan).to.be.an('array')
+    expect(testUser.mealPlan).to.be.an('array');
   });
 
   it('should be able to add favorite recipes', () => {
