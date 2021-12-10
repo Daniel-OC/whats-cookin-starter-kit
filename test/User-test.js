@@ -21,7 +21,7 @@ describe('User', () => {
   });
 
   it('should be a function', () => {
-    
+    expect(User).to.be.a('function')
   });
 
   it('should be an instantiation of User', () => {
