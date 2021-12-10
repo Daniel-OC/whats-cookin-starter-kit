@@ -3,30 +3,30 @@
 }
 
 body {
-margin: 0;
-overflow: hidden;
-height: 100vh;
+	margin: 0;
+	overflow: hidden;
+	height: 100vh;
 	background-color: rgba(105, 169, 255, .6);
 }
 
 header {
-width: 100%;
-height: 60px;
+	width: 100%;
+	height: 60px;
 	font-family: 'Comfortaa', cursive;
 	border-bottom: 3px solid #FF9F1C;
 }
 
 main {
-height: 93%;
+	height: 93%;
 }
 
 .flex {
-display: flex;
+	display: flex;
 }
 
 .row {
-flex-direction: row;
-align-items: center;
+	flex-direction: row;
+	align-items: center;
 }
 
 .start {
@@ -34,16 +34,29 @@ align-items: center;
 }
 
 .end {
-flex-direction: row-reverse;
+	flex-direction: row-reverse;
 }
 
 .column {
-flex-direction: column;
+	flex-direction: column;
 	align-items: center;
 }
 
 .around {
-justify-content: space-around;
+	justify-content: space-around;
+}
+
+.align-start {
+	align-items: flex-start;
+}
+
+.center {
+	align-self: center;
+	justify-self: center;
+}
+
+.basis {
+	flex-basis: 40%;
 }
 
 .text-center {
@@ -55,8 +68,8 @@ width: 30%;
 }
 
 h1 {
-max-width: 150px;
-font-size: 16px;
+	max-width: 150px;
+	font-size: 16px;
 }
 
 h1 ~ img {
@@ -65,9 +78,9 @@ h1 ~ img {
 }
 
 input {
-width: 350px;
-height: 50px;
-font-size: 24px;
+	width: 350px;
+	height: 50px;
+	font-size: 24px;
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
 }
@@ -77,57 +90,55 @@ input:hover {
 }
 
 input ~ button {
-height: 52px;
-width: 50px;
-background: white;
-border: none;
-border-top-right-radius: 3px;
-border-bottom-right-radius: 3px;
+	height: 52px;
+	width: 50px;
+	background: white;
+	border: none;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
 }
 
 button:hover {
-background-color: rgba(255, 153, 94, .9);
+	background-color: rgba(255, 153, 94, .9);
+}
+
+.clickable:hover {
+	cursor: pointer;
 }
 
 .main-display {
 	flex-wrap: wrap;
 	flex-flow: row wrap;
 	height: 85%;
-width: 90%;
-	overflow-y: scroll;
-}
-
-.main-display::-webkit-scrollbar {
- display: none;
+	width: 90%;
 }
 
 .big-modal {
 	height: 85%;
-width: 90%;
-	overflow-y: scroll;
+	width: 90%;
 }
 
 aside {
-height: 85%;
-width: 30%;
+	height: 85%;
+	width: 30%;
 }
 
 article {
-background-color: white;
-height: 225px;
-width: 275px;
-margin: 25px;
+	background-color: white;
+	height: 225px;
+	width: 275px;
+	margin: 25px;
 }
 
 article:hover {
 	-webkit-box-shadow: -5px -5px 5px 0px #26222D;
--moz-box-shadow: -5px -5px 5px 0px #26222D;
-box-shadow: -5px -5px 5px 0px #26222D;
+	-moz-box-shadow: -5px -5px 5px 0px #26222D;
+	box-shadow: -5px -5px 5px 0px #26222D;
 }
 
 article > img {
-border-top-left-radius: 5px;
-border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 article button {
@@ -136,16 +147,16 @@ article button {
 }
 
 .sml-btn {
-background-color: #FFF;
-width: 100px;
-height: 40px;
+	background-color: #FFF;
+	width: 100px;
+	height: 40px;
 	font-size: 16px;
 }
 
 .lrg-btn {
-background-color: #FFF;
-width: 200px;
-height: 60px;
+	background-color: #FFF;
+	width: 200px;
+	height: 60px;
 	margin: 20px;
 	font-size: 20px;
 }
@@ -156,8 +167,16 @@ height: 60px;
 	margin-top: 80px;
 }
 
+.line {
+	line-height: 150%;
+}
+
+.sml-top-marg {
+	margin-top: 10px;
+}
+
 .sml-marg {
-margin: 10px;
+	margin: 10px;
 }
 
 .med-marg {
@@ -165,11 +184,11 @@ margin: 10px;
 }
 
 .sml-brdr-radius {
-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .med-brdr-radius {
-border-radius: 20px;
+	border-radius: 20px;
 }
 
 .lrg-brdr-radius {
@@ -186,6 +205,10 @@ border-radius: 20px;
 
 .half-width {
 	width: 50%;
+}
+
+.eighty-width {
+	width: 80%;
 }
 
 .full-width {
@@ -205,11 +228,11 @@ border-radius: 20px;
 }
 
 .apricot {
-background-color: #FFBF69;
+	background-color: #FFBF69;
 }
 
 .orange {
-border-color: #FF9F1C;
+	border-color: #FF9F1C;
 }
 
 .yellow {
@@ -217,12 +240,12 @@ border-color: #FF9F1C;
 }
 
 .blue {
-background-color: rgba(105, 169, 255, .6);
+	background-color: rgba(105, 169, 255, .6);
 }
 
 .sml-img {
-height: 50px;
-width: 50px;
+	height: 50px;
+	width: 50px;
 }
 
 .med-img {
@@ -235,6 +258,34 @@ width: 50px;
 	width: 350px;
 }
 
+.filter {
+	width: 20px;
+	height: 20px;
+}
+
+.main-display::-webkit-scrollbar,
+.big-modal::-webkit-scrollbar,
+.tags::-webkit-scrollbar {
+	display: none;
+}
+
+.y-scroll {
+	overflow-y: scroll;
+}
+
+ul {
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+}
+
+.fa-cog-heart {
+  color: red;
+}
+
+.fa-cog-plus-filled {
+	color: blue;
+}
+
 .hidden {
-display: none;
+	display: none;
 }
