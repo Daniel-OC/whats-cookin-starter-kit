@@ -19,7 +19,7 @@ describe('Cookbook', () => {
       sum.push(new Recipe(recipe));
       return sum;
     }, []);
-    cookbook = new Cookbook(recipes, ingredients);
+    cookbook = new Cookbook(ingredients, recipes);
   });
 
   it('Should be a function', () => {
