@@ -29,11 +29,11 @@ describe('User', () => {
   });
 
   it('should have a name', () => {
-
+    expect(testUser.name).to.deep.equal('Saige O\'Kon')
   });
 
-  it('should have an ID', () => {
-
+  it('should have an id', () => {
+    expect(testUser.id).to.deep.equal(1)
   });
 
   it('should have a pantry', () => {
