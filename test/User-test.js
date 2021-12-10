@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import Cookbook from '../src/classes/Cookbook';
 import User from '../src/classes/User';
-// import recipeTestData from '../src/data/testing-data/recipe-test-data';
 import ingredientTestData from '../src/data/testing-data/ingredients-test-data';
 import userTestData from '../src/data/testing-data/user-test-data';
 import recipeTestData from '../src/data/testing-data/recipe-test-data';
