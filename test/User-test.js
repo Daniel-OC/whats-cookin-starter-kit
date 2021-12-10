@@ -25,7 +25,7 @@ describe('User', () => {
   });
 
   it('should be an instantiation of User', () => {
-
+    expect(testUser).to.be.instanceOf(User)
   });
 
   it('should have a name', () => {
