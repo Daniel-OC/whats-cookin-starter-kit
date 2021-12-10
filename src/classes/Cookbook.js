@@ -1,7 +1,8 @@
 class Cookbook {
-  constructor(recipes, ingredients) {
-    this.recipes = recipes;
+  constructor(ingredients, recipes) {
     this.ingredients = ingredients;
+    this.recipes = recipes || [];
+    this.currentRecipes = this.recipes;
   }
 
   filterByTag(searchTags) {
