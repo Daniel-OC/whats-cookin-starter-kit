@@ -17,7 +17,7 @@ describe('User', () => {
   beforeEach(() => {
     recipes = recipeTestData.recipeData;
     ingredients = ingredientTestData.ingredientsData;
-    users = userTestData.userData;
+    users = userTestData.usersTestData;
     favorites = new Cookbook(ingredients);
     testUser = new User(users[0], favorites);
 
@@ -78,5 +78,4 @@ describe('User', () => {
     testUser.removeFromMealPlan(newRecipe);
     expect(testUser.mealPlan.length).to.deep.equal(0);
   });
-
 });
