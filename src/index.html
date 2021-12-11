@@ -12,110 +12,86 @@
   <body>
     <header class="flex row around apricot">
       <section class="flex row">
+        <img type="image/png" class="sml-img sml-right-marg" id="logoImage" src="./images/cookin_pan_icon.png"/>
         <h1 class="flex">What's Cookin, Good Lookin?</h1>
-        <img type="image/png" class="logo-img" src="https://www.pinclipart.com/picdir/middle/92-929052_hat-clipart-kitchen-cartoon-cooking-pot-png-transparent.png"/>
       </section>
       <section class="flex row">
         <input class="no-brdr" placeholder="search recipes"></input>
 					<button class="fas fa-search clickable"></button>
       </section>
-      <section class="flex between">
-        <div>
-          <!-- INCLUDE ICON FOR USER -->
-          <p>Ethan Tweitmann</p>
+      <section class="flex between end">
+        <div class="flex row">
+          <p class="sml-right-marg"><u></u></p>
+          <i class="fas fa-user-alt fa-2x"></i>
         </div>
         <button class="sml-btn med-brdr-radius no-brdr shadow clickable hidden">Home</button>
         <button class="sml-btn med-brdr-radius no-brdr shadow clickable">Your Favs</button>
       </section>
     </header>
     <main class="flex row around">
-
-      <section class="big-modal flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="bigModal">
-				<div class="flex column full-width half-height">
+      <section class="flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="bigModal">
+				<div class="flex column center full-width half-height">
           <img class="big-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
 				</div>
         <div class="flex row full-width full-height med-marg">
-          <section class="flex column half-width full-height med-marg med-brdr-radius blue">
+          <section class="flex column eighty-width full-height med-marg med-brdr-radius blue">
 						<ul>Intructions
-							<li>step 2</li>
-							<li>step 2</li>
-							<li>step 2</li>
-							<li>step 2</li>
 							<li>step 2</li>
 					  </ul>
           </section>
-          <div class="flex column half-width full-height">
-            <section class="flex column full-width half-height med-brdr-radius blue">
-							<p>This is to represent the cost</p>
-							<p>This is to represent the cost</p>
-							<p>This is to represent the cost</p>
+          <div class="flex column full-height">
+            <section class="flex column full-width med-brdr-radius blue">
+							<p class="text-center">$40.75</p>
             </section>
-            <section class="flex row full-width full-height">
-              <div class="flex column half-width half-height">
-                <img class="med-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png">
+            <div class="flex column around basis half-width med-top-marg">
+							<div class="flex column">
+								<i class="far fa-heart fa-10x fa-cog-heart clickable"></i>
+                <i class="fas fa-heart fa-6x fa-cog-heart-filled clickable hidden"></i>
 							</div>
-							<div class="flex column half-width half-height">
-                <img class="med-img" src="https://content.fortune.com/wp-content/uploads/2019/04/brb05.19.plus_.jpg">
+							<div class="flex column">
+								<i class="fas fa-plus fa-10x fa-cog-plus clickable"></i>
+                <i class="fas fa-plus fa-6x fa-cog-plus-filled clickable hidden"></i>
 							</div>
-            </section>
+            </div>
           </div>
         </div>
       </section>
-
       <section class="flex row around main-display lrg-brdr-radius med-marg apricot shadow y-scroll" id="mainDisplay">
-
         <article class="flex column sml-brdr-radius shadow">
-
           <img class="full-width half-height" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
-
           <div class="flex row around full-width half-height yellow">
-
             <p class="full-width text-cntr line">Loaded meal meal</p>
-
             <div class="flex column around basis half-width full-height">
-
 							<div class="flex column">
 								<i class="far fa-heart fa-2x fa-cog-heart clickable"></i>
                 <i class="fas fa-heart fa-2x fa-cog-heart-filled clickable hidden"></i>
 							</div>
-
 							<div class="flex column">
 								<i class="fas fa-plus fa-2x fa-cog-plus clickable"></i>
                 <i class="fas fa-plus fa-2x fa-cog-plus-filled clickable hidden"></i>
 							</div>
-
             </div>
-
           </div>
-
         </article>
-
       </section>
-
       <aside class="flex column around lrg-brdr-radius med-marg apricot shadow">
-
         <div class="flex column">
           <button class="lrg-btn med-brdr-radius no-brdr shadow clickable">Filter</button>
           <button class="lrg-btn med-brdr-radius no-brdr shadow clickable">Meal Plan</button>
         </div>
-
-        <div class="flex column tags full-height eighty-width med-marg med-brdr-radius blue y-scroll">
-
+        <div class="flex column tags full-height eighty-width med-marg med-brdr-radius blue y-scroll hidden">
           <section class="flex column align-start eighty-width sml-marg">
             <section class="flex row sml-marg hidden">
               <input class="filter" type="checkbox" name="antipasti" />
               <label for="antipasti">Antipasti</label>
             </section>
           </section>
-
           <section class="flex column align-start full-width sml-marg hidden">
             <ul class="flex column align-start">
               <li class="sml-top-marg">meal meal meal</li>
             </ul>
           </section>
-
         </div>
-
       </aside>
     </main>
   </body>
