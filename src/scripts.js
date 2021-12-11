@@ -43,8 +43,8 @@ const addClass = (elements, rule) => {
     elements.forEach(item => item.classList.add(rule));
 }
 
-const displayCurrentRecipes = (currentRecipes) => {
-  let display = currentRecipes;
+const displayCurrentRecipes = () => {
+  let display = cookbook.currentRecipes;
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
     mainDisplay.innerHTML +=
@@ -70,17 +70,46 @@ const displayCurrentRecipes = (currentRecipes) => {
 const clickFilterButton = () => {
   if (sideBarModal.classList.contains('hidden')) {
     removeClass([sideBarModal], 'hidden')
+    let tags = getFilterTags()
+    console.log(tags)
+    populateFilterTags(tags)
   } else {
     addClass([sideBarModal], 'hidden')
   }
+  
 }
+
+
+const populateFilterTags = (tags) => {
+  sideBarModal.innerHTML = ''
+  tags.forEach(tag => {
+    sideBarModal.innerHTML += 
+    `<section class="flex column align-start eighty-width sml-marg">
+    <section class="flex row">
+      <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
+      <label for="${tag}">${tag}</label>
+    </section>
+  </section>`
+  })
+}
+
+const getFilterTags = () => {
+  return cookbook.currentRecipes.reduce((accumulator, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (!accumulator.includes(tag)) {
+        accumulator.push(tag)
+      }
+    })
+    return accumulator
+  }, [])
+}
+
+
 
 
 
 //event listeners
 
-window.addEventListener('load', () => {
-  displayCurrentRecipes(cookbook.currentRecipes)
-})
+window.addEventListener('load', displayCurrentRecipes)
 
 filterButton.addEventListener('click', clickFilterButton)
