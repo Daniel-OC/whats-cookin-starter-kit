@@ -11,21 +11,21 @@
   </head>
   <body>
     <header class="flex row around apricot">
-      <section class="flex row">
+      <section class="flex row" id="logoSection">
         <h1 class="flex">What's Cookin, Good Lookin?</h1>
         <img type="image/png" class="logo-img" src="https://www.pinclipart.com/picdir/middle/92-929052_hat-clipart-kitchen-cartoon-cooking-pot-png-transparent.png"/>
       </section>
       <section class="flex row">
-        <input class="no-brdr" placeholder="search recipes"></input>
-					<button class="fas fa-search clickable"></button>
+        <input class="no-brdr" id="searchBar" placeholder="search recipes"></input>
+					<button class="fas fa-search clickable" id="searchButton"></button>
       </section>
       <section class="flex between">
         <div>
           <!-- INCLUDE ICON FOR USER -->
           <p>Ethan Tweitmann</p>
         </div>
-        <button class="sml-btn med-brdr-radius no-brdr shadow clickable hidden">Home</button>
-        <button class="sml-btn med-brdr-radius no-brdr shadow clickable">Your Favs</button>
+        <button class="sml-btn med-brdr-radius no-brdr shadow clickable hidden" id="homeButton">Home</button>
+        <button class="sml-btn med-brdr-radius no-brdr shadow clickable" id="yourFavsButton">Your Favs</button>
       </section>
     </header>
     <main class="flex row around">
@@ -95,14 +95,14 @@
       <aside class="flex column around lrg-brdr-radius med-marg apricot shadow">
 
         <div class="flex column">
-          <button class="lrg-btn med-brdr-radius no-brdr shadow clickable">Filter</button>
-          <button class="lrg-btn med-brdr-radius no-brdr shadow clickable">Meal Plan</button>
+          <button class="lrg-btn med-brdr-radius no-brdr shadow clickable" id="filterButton">Filter</button>
+          <button class="lrg-btn med-brdr-radius no-brdr shadow clickable" id="mealPlanButton">Meal Plan</button>
         </div>
 
-        <div class="flex column tags full-height eighty-width med-marg med-brdr-radius blue y-scroll">
+        <div class="flex column tags full-height eighty-width med-marg med-brdr-radius blue y-scroll hidden" id="sideBarModal">
 
-          <section class="flex column align-start eighty-width sml-marg">
-            <section class="flex row sml-marg hidden">
+          <section class="flex column align-start eighty-width sml-marg hidden">
+            <section class="flex row sml-marg">
               <input class="filter" type="checkbox" name="antipasti" />
               <label for="antipasti">Antipasti</label>
             </section>
