@@ -19,18 +19,18 @@ const mainDisplay = document.querySelector('#mainDisplay');
 const filterButton = document.querySelector('#filterButton');
 const mealPlanButton = document.querySelector('#mealPlanButton');
 const sideBarModal = document.querySelector('#sideBarModal');
-const bigModalInstructions = document.querySelector('#bigModalInstructions')
-const bigModalImage = document.querySelector('#bigModalImage')
-const bigModalCost = document.querySelector('#bigModalCost')
-const bigModalHeart = document.querySelector('#bigModalHeart')
-const bigModalPlus = document.querySelector('#bigModalPlus')
+const bigModalInstructions = document.querySelector('#bigModalInstructions');
+const bigModalImage = document.querySelector('#bigModalImage');
+const bigModalCost = document.querySelector('#bigModalCost');
+const bigModalHeart = document.querySelector('#bigModalHeart');
+const bigModalPlus = document.querySelector('#bigModalPlus');
 
 
 const ingredients = ingredientData.ingredientsData;
 const recipes = recipeData.recipeData.reduce((sum, recipe) => {
   sum.push(new Recipe(recipe));
   return sum
-},[]);
+}, []);
 const users = userData.usersData;
 const cookbook = new Cookbook(ingredients, recipes);
 
@@ -38,15 +38,15 @@ const cookbook = new Cookbook(ingredients, recipes);
 // helper functions
 
 const updateInnerText = (element, update) => {
-    element.innerText = update;
+  element.innerText = update;
 }
 
 const removeClass = (elements, rule) => {
-    elements.forEach(item => item.classList.remove(rule));
+  elements.forEach(item => item.classList.remove(rule));
 }
 
 const addClass = (elements, rule) => {
-    elements.forEach(item => item.classList.add(rule));
+  elements.forEach(item => item.classList.add(rule));
 }
 
 const displayCurrentRecipes = () => {
@@ -69,21 +69,19 @@ const displayCurrentRecipes = () => {
           </div>
         </article>`;
   }); 
-  createRecipeCardEventListener()
+  createRecipeCardEventListener();
 } 
 
 const clickFilterButton = () => {
   if (sideBarModal.classList.contains('hidden')) {
-    removeClass([sideBarModal], 'hidden')
-    let tags = getFilterTags()
-    populateFilterTags(tags)
-    createFilterEventListener()
+    removeClass([sideBarModal], 'hidden');
+    let tags = getFilterTags();
+    populateFilterTags(tags);
+    createFilterEventListener();
   } else {
-    addClass([sideBarModal], 'hidden')
+    addClass([sideBarModal], 'hidden');
   }
-  
 }
-
 
 const populateFilterTags = (tags) => {
   sideBarModal.innerHTML = ''
@@ -95,73 +93,72 @@ const populateFilterTags = (tags) => {
       <label for="${tag}">${tag}</label>
     </section>
   </section>`
-  })
+  });
 }
 
 const getFilterTags = () => {
   return cookbook.currentRecipes.reduce((accumulator, recipe) => {
     recipe.tags.forEach(tag => {
       if (!accumulator.includes(tag)) {
-        accumulator.push(tag)
+        accumulator.push(tag);
       }
-    })
-    return accumulator
-  }, [])
+    });
+    return accumulator;
+  }, []);
 }
 
 const createFilterEventListener = () => {
   const checkBoxes = document.querySelectorAll('.filter');
   checkBoxes.forEach(checkBox => {
     checkBox.addEventListener('click', (event) => {
-      displayByTag(event.target.id)
-    })  
-  })
+      displayByTag(event.target.id);
+    });
+  });
 }
 
 const displayByTag = (tag) => {
   if (!cookbook.tags.includes(tag)) {
-    cookbook.tags.push(tag)
+    cookbook.tags.push(tag);
   } else {
-    cookbook.tags.splice(cookbook.tags.indexOf(tag), 1)
+    cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
   }
-  cookbook.filterByTag(cookbook.tags)
-  displayCurrentRecipes()
-  
+  cookbook.filterByTag(cookbook.tags);
+  displayCurrentRecipes();
 }
 
 const createRecipeCardEventListener = () => {
   const recipeCards = document.querySelectorAll('article');
   recipeCards.forEach(recipeCard => {
     recipeCard.addEventListener('click', (event) => {
-      displayBigModal(event)
-      console.log(event.target.id)
-    })  
-  })
+      displayBigModal(event);
+      console.log(event.target.id);
+    });
+  });
 }
 
 const displayBigModal = (event) => {
-  removeClass([bigModal], 'hidden')
-  addClass([mainDisplay], 'hidden')
-  populateBigModal(event)  
+  removeClass([bigModal], 'hidden');
+  addClass([mainDisplay], 'hidden');
+  populateBigModal(event);
 }
 
 const populateBigModal = (event) => {
-  let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.parentNode.id))
-  bigModalImage.src = selectedRecipe.image
-  bigModalInstructions.innerText = selectedRecipe.name
+  let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.parentNode.id));
+  bigModalImage.src = selectedRecipe.image;
+  updateInnerText(bigModalInstructions, selectedRecipe.name);
   selectedRecipe.instructions.forEach((instruction, i) => {
     bigModalInstructions.innerHTML += `<li>${selectedRecipe.getInstructions()[i]}</li>`;
   });
-  bigModalCost.innerText = selectedRecipe.getCost(cookbook.ingredients)
+  updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
 
 
 
 //event listeners
 
-window.addEventListener('load', displayCurrentRecipes)
+window.addEventListener('load', displayCurrentRecipes);
 
-filterButton.addEventListener('click', clickFilterButton)
+filterButton.addEventListener('click', clickFilterButton);
 
 
 

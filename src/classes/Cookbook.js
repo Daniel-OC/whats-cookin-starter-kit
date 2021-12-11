@@ -13,7 +13,7 @@ class Cookbook {
         return recipe.tags.some(tag => searchTags.includes(tag));
       });
     } else {
-      this.clearFilter()
+      this.clearFilter();
     }
   }
 
@@ -23,7 +23,7 @@ class Cookbook {
         return recipe.name.toLowerCase().includes(keywords.toLowerCase());
       });
     } else {
-      this.clearFilter()
+      this.clearFilter();
     }
   }
 
@@ -33,9 +33,8 @@ class Cookbook {
         return recipe.getIngredientNames(this.ingredients).includes(keywords.toLowerCase());
       });
     } else {
-      this.clearFilter()
+      this.clearFilter();
     }
-    
   }
 
   clearFilter() {
