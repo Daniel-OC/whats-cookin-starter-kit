@@ -19,6 +19,12 @@ const mainDisplay = document.querySelector('#mainDisplay');
 const filterButton = document.querySelector('#filterButton');
 const mealPlanButton = document.querySelector('#mealPlanButton');
 const sideBarModal = document.querySelector('#sideBarModal');
+const bigModalInstructions = document.querySelector('#bigModalInstructions')
+const bigModalImage = document.querySelector('#bigModalImage')
+const bigModalCost = document.querySelector('#bigModalCost')
+const bigModalHeart = document.querySelector('#bigModalHeart')
+const bigModalPlus = document.querySelector('#bigModalPlus')
+
 
 const ingredients = ingredientData.ingredientsData;
 const recipes = recipeData.recipeData.reduce((sum, recipe) => {
@@ -48,23 +54,22 @@ const displayCurrentRecipes = () => {
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
     mainDisplay.innerHTML +=
-    `<article class="flex column sml-brdr-radius shadow">
+    `<article class="flex column sml-brdr-radius shadow ${recipe.id}" id="${recipe.id}">
           <img class="full-width half-height" src=${recipe.image}>
           <div class="flex row around full-width half-height yellow">
             <p class="full-width text-cntr line">${recipe.name}</p>
             <div class="flex column around basis half-width full-height">
 							<div class="flex column">
-								<i class="far fa-heart fa-2x fa-cog-heart clickable" id="heartUnclicked${recipe.id}"></i>
-                <i class="fas fa-heart fa-2x fa-cog-heart-filled clickable hidden" id="heartClicked${recipe.id}"></i>
+								<i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
 							</div>
 							<div class="flex column">
-								<i class="fas fa-plus fa-2x fa-cog-plus clickable" id="plusUnclicked${recipe.id}"></i>
-                <i class="fas fa-plus fa-2x fa-cog-plus-filled clickable hidden" id="plusClicked${recipe.id}"></i>
+								<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
 							</div>
             </div>
           </div>
         </article>`;
   }); 
+  createRecipeCardEventListener()
 } 
 
 const clickFilterButton = () => {
@@ -124,7 +129,31 @@ const displayByTag = (tag) => {
   
 }
 
+const createRecipeCardEventListener = () => {
+  const recipeCards = document.querySelectorAll('article');
+  recipeCards.forEach(recipeCard => {
+    recipeCard.addEventListener('click', (event) => {
+      displayBigModal(event)
+      console.log(event.target.id)
+    })  
+  })
+}
 
+const displayBigModal = (event) => {
+  removeClass([bigModal], 'hidden')
+  addClass([mainDisplay], 'hidden')
+  populateBigModal(event)  
+}
+
+const populateBigModal = (event) => {
+  let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.parentNode.id))
+  bigModalImage.src = selectedRecipe.image
+  bigModalInstructions.innerText = selectedRecipe.name
+  selectedRecipe.instructions.forEach((instruction, i) => {
+    bigModalInstructions.innerHTML += `<li>${selectedRecipe.getInstructions()[i]}</li>`;
+  });
+  bigModalCost.innerText = selectedRecipe.getCost(cookbook.ingredients)
+}
 
 
 
@@ -133,5 +162,7 @@ const displayByTag = (tag) => {
 window.addEventListener('load', displayCurrentRecipes)
 
 filterButton.addEventListener('click', clickFilterButton)
+
+
 
 // sideBarModal.addEventListener('change', )

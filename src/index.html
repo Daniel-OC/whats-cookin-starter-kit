@@ -31,26 +31,24 @@
     <main class="flex row around">
       <section class="flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="bigModal">
 				<div class="flex column center full-width half-height">
-          <img class="big-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <img class="big-img" id="bigModalImage" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
 				</div>
         <div class="flex row full-width full-height med-marg">
           <section class="flex column eighty-width full-height med-marg med-brdr-radius blue">
-						<ul>Intructions
+						<ul class="instructions" id="bigModalInstructions">Instructions
 							<li>step 2</li>
 					  </ul>
           </section>
           <div class="flex column full-height">
             <section class="flex column full-width med-brdr-radius blue">
-							<p class="text-center">$40.75</p>
+							<p class="text-center" id="bigModalCost">$40.75</p>
             </section>
             <div class="flex column around basis half-width med-top-marg">
-							<div class="flex column">
+							<div class="flex column" id="bigModalHeart">
 								<i class="far fa-heart fa-10x fa-cog-heart clickable"></i>
-                <i class="fas fa-heart fa-6x fa-cog-heart-filled clickable hidden"></i>
 							</div>
-							<div class="flex column">
-								<i class="fas fa-plus fa-10x fa-cog-plus clickable"></i>
-                <i class="fas fa-plus fa-6x fa-cog-plus-filled clickable hidden"></i>
+							<div class="flex column" id="bigModalPlus">
+								<i class="fas fa-plus fa-10x clickable"></i>
 							</div>
             </div>
           </div>
