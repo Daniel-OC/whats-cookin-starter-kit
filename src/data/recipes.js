@@ -5381,3 +5381,5 @@ const recipeData = [
       ]
     }
   ]
+
+export default {recipeData};
