@@ -3,24 +3,38 @@ class Cookbook {
     this.ingredients = ingredients;
     this.recipes = recipes || [];
     this.currentRecipes = this.recipes;
+    this.tags = [];
+    this.keywords = [];
   }
 
   filterByTag(searchTags) {
-    this.currentRecipes = this.recipes.filter(recipe => {
-      return recipe.tags.some(tag => searchTags.includes(tag));
-    });
+    if (this.tags.length) {
+      this.currentRecipes = this.recipes.filter(recipe => {
+        return recipe.tags.some(tag => searchTags.includes(tag));
+      });
+    } else {
+      this.clearFilter();
+    }
   }
 
   filterByRecipeName(keywords) {
-    this.currentRecipes = this.recipes.filter(recipe => {
-      return recipe.name.toLowerCase().includes(keywords.toLowerCase());
-    });
+    if (this.keywords.length) {
+      this.currentRecipes = this.recipes.filter(recipe => {
+        return recipe.name.toLowerCase().includes(keywords.toLowerCase());
+      });
+    } else {
+      this.clearFilter();
+    }
   }
 
   filterByIngredient(keywords) {
-    this.currentRecipes = this.recipes.filter(recipe => {
-      return recipe.getIngredientNames(this.ingredients).includes(keywords.toLowerCase());
-    });
+    if (this.keywords.length) {
+      this.currentRecipes = this.recipes.filter(recipe => {
+        return recipe.getIngredientNames(this.ingredients).includes(keywords.toLowerCase());
+      });
+    } else {
+      this.clearFilter();
+    }
   }
 
   clearFilter() {
