@@ -3,12 +3,17 @@ class Cookbook {
     this.ingredients = ingredients;
     this.recipes = recipes || [];
     this.currentRecipes = this.recipes;
+    this.tags = [];
   }
 
   filterByTag(searchTags) {
-    this.currentRecipes = this.recipes.filter(recipe => {
-      return recipe.tags.some(tag => searchTags.includes(tag));
-    });
+    if (this.tags.length) {
+      this.currentRecipes = this.recipes.filter(recipe => {
+        return recipe.tags.some(tag => searchTags.includes(tag));
+      });
+    } else {
+      this.currentRecipes = this.recipes
+    }
   }
 
   filterByRecipeName(keywords) {

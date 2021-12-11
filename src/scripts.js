@@ -71,8 +71,8 @@ const clickFilterButton = () => {
   if (sideBarModal.classList.contains('hidden')) {
     removeClass([sideBarModal], 'hidden')
     let tags = getFilterTags()
-    console.log(tags)
     populateFilterTags(tags)
+    createFilterEventListener()
   } else {
     addClass([sideBarModal], 'hidden')
   }
@@ -104,6 +104,26 @@ const getFilterTags = () => {
   }, [])
 }
 
+const createFilterEventListener = () => {
+  const checkBoxes = document.querySelectorAll('.filter');
+  checkBoxes.forEach(checkBox => {
+    checkBox.addEventListener('click', (event) => {
+      displayByTag(event.target.id)
+    })  
+  })
+}
+
+const displayByTag = (tag) => {
+  if (!cookbook.tags.includes(tag)) {
+    cookbook.tags.push(tag)
+  } else {
+    cookbook.tags.splice(cookbook.tags.indexOf(tag), 1)
+  }
+  cookbook.filterByTag(cookbook.tags)
+  displayCurrentRecipes()
+  
+}
+
 
 
 
@@ -113,3 +133,5 @@ const getFilterTags = () => {
 window.addEventListener('load', displayCurrentRecipes)
 
 filterButton.addEventListener('click', clickFilterButton)
+
+// sideBarModal.addEventListener('change', )
