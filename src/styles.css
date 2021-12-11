@@ -56,7 +56,7 @@ main {
 
 .center {
 	align-self: center;
-	justify-self: center;
+	justify-content: center;
 }
 
 .basis {
@@ -113,11 +113,6 @@ button:hover {
 .main-display {
 	flex-wrap: wrap;
 	flex-flow: row wrap;
-	height: 85%;
-	width: 90%;
-}
-
-.big-modal {
 	height: 85%;
 	width: 90%;
 }
@@ -179,8 +174,16 @@ article button {
 	margin-top: 10px;
 }
 
+.med-top-marg {
+	margin-top: 30px;
+}
+
 .sml-marg {
 	margin: 10px;
+}
+
+.sml-right-marg {
+	margin-right: 10px;
 }
 
 .med-marg {
