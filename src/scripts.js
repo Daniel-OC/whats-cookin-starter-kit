@@ -24,19 +24,15 @@ const ingredients = ingredientData.ingredientsData;
 const recipes = recipeData.recipeData.reduce((sum, recipe) => {
   sum.push(new Recipe(recipe));
   return sum
-},[])
+},[]);
 const users = userData.usersData;
-const cookbook = new Cookbook(ingredients, recipes)
+const cookbook = new Cookbook(ingredients, recipes);
+
 
 // helper functions
 
 const updateInnerText = (element, update) => {
     element.innerText = update;
-}
-
-const toggleClass = (remove, add) => {
-  removeClass(remove);
-  addClass(add);  
 }
 
 const removeClass = (elements, rule) => {
@@ -49,7 +45,7 @@ const addClass = (elements, rule) => {
 
 const displayCurrentRecipes = (currentRecipes) => {
   let display = currentRecipes;
-  mainDisplay.innerHTML = ""
+  mainDisplay.innerHTML = '';
   display.forEach(recipe => {
     mainDisplay.innerHTML +=
     `<article class="flex column sml-brdr-radius shadow">
@@ -67,9 +63,17 @@ const displayCurrentRecipes = (currentRecipes) => {
 							</div>
             </div>
           </div>
-        </article>`
-  }) 
+        </article>`;
+  }); 
 } 
+
+const clickFilterButton = () => {
+  if (sideBarModal.classList.contains('hidden')) {
+    removeClass([sideBarModal], 'hidden')
+  } else {
+    addClass([sideBarModal], 'hidden')
+  }
+}
 
 
 
@@ -78,3 +82,5 @@ const displayCurrentRecipes = (currentRecipes) => {
 window.addEventListener('load', () => {
   displayCurrentRecipes(cookbook.currentRecipes)
 })
+
+filterButton.addEventListener('click', clickFilterButton)
