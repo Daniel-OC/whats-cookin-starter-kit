@@ -7,6 +7,7 @@ import Ingredient from '../src/classes/Ingredient';
 import userData from './data/users';
 import recipeData from './data/recipes';
 import ingredientData from './data/ingredients';
+import './images/cookin_pan_icon.png';
 
 const ingredients = ingredientData.ingredientsData;
 const recipes = recipeData.recipeData;
@@ -22,3 +23,7 @@ const mainDisplay = document.querySelector('#mainDisplay');
 const filterButton = document.querySelector('#filterButton');
 const mealPlanButton = document.querySelector('#mealPlanButton');
 const sideBarModal = document.querySelector('#sideBarModal');
+
+
+console.log('Hello world');
+
