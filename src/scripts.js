@@ -9,17 +9,17 @@ import recipeData from './data/recipes';
 import ingredientData from './data/ingredients';
 import './images/cookin_pan_icon.png';
 
-const logoSection = document.querySelector('#logoSection');
 const logoImage = document.querySelector('#logoImage');
+const dropDown = document.querySelector('#dropDown');
 const searchBar = document.querySelector('#searchBar');
 const searchButton = document.querySelector('#searchButton');
 const homeButton = document.querySelector('#homeButton');
 const yourFavsButton = document.querySelector('#yourFavsButton');
-const bigModal = document.querySelector('#bigModal');
-const mainDisplay = document.querySelector('#mainDisplay');
 const filterButton = document.querySelector('#filterButton');
 const mealPlanButton = document.querySelector('#mealPlanButton');
 const sideBarModal = document.querySelector('#sideBarModal');
+const mainDisplay = document.querySelector('#mainDisplay');
+const bigModal = document.querySelector('#bigModal');
 const bigModalInstructions = document.querySelector('#bigModalInstructions');
 const bigModalImage = document.querySelector('#bigModalImage');
 const bigModalCost = document.querySelector('#bigModalCost');
@@ -168,6 +168,21 @@ const populateBigModal = (event) => {
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
 
+const searchForRecipe = () => {
+  let userInput = searchBar.value;
+  if (dropDown.value === 'name' && searchBar.value) {
+    cookbook.keywords.push(userInput.toLowerCase());
+    cookbook.filterByRecipeName();
+  } else if (dropDown.value === 'ingredient' && searchBar.value) {
+    cookbook.keywords.push(userInput.toLowerCase());
+    cookbook.filterByIngredient();
+  } else {
+    searchBar.placeholder = "Please select a category to search by!"
+  }
+  displayCurrentRecipes();
+  cookbook.clearFilter();
+}
+
 
 
 //event listeners
@@ -182,8 +197,10 @@ logoImage.addEventListener('click', () => {
   location.reload();
 });
 
+searchButton.addEventListener('click', searchForRecipe);
 
-
-
-
-// sideBarModal.addEventListener('change', )
+searchBar.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    searchForRecipe();
+  }
+});
