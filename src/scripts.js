@@ -168,39 +168,20 @@ const populateBigModal = (event) => {
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
 
-// const searchForRecipe = () => {
-//   let userInput = searchBar.value;
-//   if (dropDown.value === 'name' && searchBar.value) {
-//     // cookbook.keywords.push(userInput.toLowerCase());
-//     cookbook.filterByRecipeName(userInput);
-//   } else if (dropDown.value === 'ingredient' && searchBar.value) {
-//     // cookbook.keywords.push(userInput.toLowerCase());
-//     cookbook.filterByIngredient(userInput);
-//   } else {
-//     searchBar.placeholder = "Please select a category to search by!"
-//   }
-//   displayCurrentRecipes();
-//   cookbook.clearFilter();
-// }
-
 const searchForRecipe = () => {
   let search = searchBar.value.toLowerCase();
   cookbook.keywords = search.split(' ');
-  console.log(cookbook.keywords)
   if (dropDown.value === 'name' && searchBar.value) {
-    // cookbook.keywords.push(userInput.toLowerCase());
     cookbook.filterByRecipeName();
+    displayCurrentRecipes();
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
-    // cookbook.keywords.push(userInput.toLowerCase());
     cookbook.filterByIngredient();
-  } else {
-    searchBar.placeholder = "Please select a category to search by!"
+    displayCurrentRecipes();
+  } else if (!dropDown.value || !searchBar.value) {
+    mainDisplay.innerText = "Please select a category or search term!"
   }
-  displayCurrentRecipes();
   cookbook.clearFilter();
 }
-
-
 
 //event listeners
 
