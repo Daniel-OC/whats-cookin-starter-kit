@@ -39,6 +39,7 @@ class Cookbook {
 
   clearFilter() {
     this.currentRecipes = this.recipes;
+    this.tags = [];
   }
 }
 

@@ -106,10 +106,6 @@ button:hover {
 	background-color: rgba(255, 153, 94, .9);
 }
 
-.clickable:hover {
-	cursor: pointer;
-}
-
 .main-display {
 	flex-wrap: wrap;
 	flex-flow: row wrap;
@@ -239,7 +235,7 @@ article button {
 }
 
 .orange {
-	border-color: #FF9F1C;
+	background-color: #FF9F1C;
 }
 
 .yellow {
@@ -291,6 +287,14 @@ ul {
 
 .plus-blue {
 	color: blue;
+}
+
+.not-clickable {
+	pointer-events: none;
+}
+
+.clickable:hover {
+	cursor: pointer;
 }
 
 .hidden {

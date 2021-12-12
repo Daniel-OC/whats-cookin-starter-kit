@@ -7,9 +7,10 @@ import Ingredient from '../src/classes/Ingredient';
 import userData from './data/users';
 import recipeData from './data/recipes';
 import ingredientData from './data/ingredients';
-import './images/cookin_pan_icon.png'; 
+import './images/cookin_pan_icon.png';
 
 const logoSection = document.querySelector('#logoSection');
+const logoImage = document.querySelector('#logoImage');
 const searchBar = document.querySelector('#searchBar');
 const searchButton = document.querySelector('#searchButton');
 const homeButton = document.querySelector('#homeButton');
@@ -34,7 +35,6 @@ const recipes = recipeData.recipeData.reduce((sum, recipe) => {
 const users = userData.usersData;
 const cookbook = new Cookbook(ingredients, recipes);
 
-
 // helper functions
 
 const updateInnerText = (element, update) => {
@@ -53,51 +53,67 @@ const displayCurrentRecipes = () => {
   let display = cookbook.currentRecipes;
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
-    mainDisplay.innerHTML +=
-    `<article class="flex column sml-brdr-radius shadow ${recipe.id}" id="${recipe.id}">
-          <img class="full-width half-height" src=${recipe.image}>
-          <div class="flex row around full-width half-height yellow">
-            <p class="full-width text-cntr line">${recipe.name}</p>
-            <div class="flex column around basis half-width full-height">
-							<div class="flex column">
-								<i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
-							</div>
-							<div class="flex column">
-								<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
-							</div>
-            </div>
-          </div>
-        </article>`;
-  }); 
+    mainDisplay.innerHTML +=`
+    <article class="flex column sml-brdr-radius shadow clickable" id="${recipe.id}">
+      <img class="full-width half-height not-clickable" src=${recipe.image}>
+      <div class="flex row around full-width half-height yellow not-clickable">
+        <p class="full-width text-cntr line not-clickable">${recipe.name}</p>
+        <div class="flex column around basis half-width full-height not-clickable">
+					<div class="flex column not-clickable">
+						<i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
+					</div>
+					<div class="flex column not-clickable">
+						<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
+					</div>
+        </div>
+      </div>
+    </article>`;
+  });
   createRecipeCardEventListener();
-} 
+}
+
+const clickHomeButton = () => {
+  addClass([homeButton, bigModal], 'hidden');
+  removeClass([mainDisplay], 'hidden');
+}
 
 const clickFilterButton = () => {
   if (sideBarModal.classList.contains('hidden')) {
+    addClass([filterButton], 'orange')
     removeClass([sideBarModal], 'hidden');
     let tags = getFilterTags();
     populateFilterTags(tags);
     createFilterEventListener();
+    updateInnerText(filterButton, 'Clear Filters');
   } else {
     addClass([sideBarModal], 'hidden');
+    removeClass([filterButton], 'orange');
+    cookbook.clearFilter();
+    displayCurrentRecipes();
+    clearCheckBoxes();
   }
+}
+
+const clearCheckBoxes = () => {
+  sideBarModal.innerHTML = '';
+  updateInnerText(filterButton, 'Filter');
 }
 
 const populateFilterTags = (tags) => {
   sideBarModal.innerHTML = ''
   tags.forEach(tag => {
-    sideBarModal.innerHTML += 
-    `<section class="flex column align-start eighty-width sml-marg">
-    <section class="flex row">
-      <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
-      <label for="${tag}">${tag}</label>
-    </section>
-  </section>`
+    sideBarModal.innerHTML +=`
+    <section class="flex column align-start eighty-width sml-marg">
+      <section class="flex row">
+        <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
+        <label for="${tag}">${tag}</label>
+      </section>
+    </section>`
   });
 }
 
 const getFilterTags = () => {
-  return cookbook.currentRecipes.reduce((accumulator, recipe) => {
+  return cookbook.recipes.reduce((accumulator, recipe) => {
     recipe.tags.forEach(tag => {
       if (!accumulator.includes(tag)) {
         accumulator.push(tag);
@@ -130,20 +146,20 @@ const createRecipeCardEventListener = () => {
   const recipeCards = document.querySelectorAll('article');
   recipeCards.forEach(recipeCard => {
     recipeCard.addEventListener('click', (event) => {
+      console.log(event.target);
       displayBigModal(event);
-      console.log(event.target.id);
     });
   });
 }
 
 const displayBigModal = (event) => {
-  removeClass([bigModal], 'hidden');
+  removeClass([bigModal, homeButton], 'hidden');
   addClass([mainDisplay], 'hidden');
   populateBigModal(event);
 }
 
 const populateBigModal = (event) => {
-  let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.parentNode.id));
+  let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.id));
   bigModalImage.src = selectedRecipe.image;
   updateInnerText(bigModalInstructions, selectedRecipe.name);
   selectedRecipe.instructions.forEach((instruction, i) => {
@@ -159,6 +175,14 @@ const populateBigModal = (event) => {
 window.addEventListener('load', displayCurrentRecipes);
 
 filterButton.addEventListener('click', clickFilterButton);
+
+homeButton.addEventListener('click', clickHomeButton);
+
+logoImage.addEventListener('click', () => {
+  location.reload();
+});
+
+
 
 
 
