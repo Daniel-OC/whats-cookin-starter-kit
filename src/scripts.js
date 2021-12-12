@@ -168,13 +168,30 @@ const populateBigModal = (event) => {
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
 
+// const searchForRecipe = () => {
+//   let userInput = searchBar.value;
+//   if (dropDown.value === 'name' && searchBar.value) {
+//     // cookbook.keywords.push(userInput.toLowerCase());
+//     cookbook.filterByRecipeName(userInput);
+//   } else if (dropDown.value === 'ingredient' && searchBar.value) {
+//     // cookbook.keywords.push(userInput.toLowerCase());
+//     cookbook.filterByIngredient(userInput);
+//   } else {
+//     searchBar.placeholder = "Please select a category to search by!"
+//   }
+//   displayCurrentRecipes();
+//   cookbook.clearFilter();
+// }
+
 const searchForRecipe = () => {
-  let userInput = searchBar.value;
+  let search = searchBar.value.toLowerCase();
+  cookbook.keywords = search.split(' ');
+  console.log(cookbook.keywords)
   if (dropDown.value === 'name' && searchBar.value) {
-    cookbook.keywords.push(userInput.toLowerCase());
+    // cookbook.keywords.push(userInput.toLowerCase());
     cookbook.filterByRecipeName();
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
-    cookbook.keywords.push(userInput.toLowerCase());
+    // cookbook.keywords.push(userInput.toLowerCase());
     cookbook.filterByIngredient();
   } else {
     searchBar.placeholder = "Please select a category to search by!"
