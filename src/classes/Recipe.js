@@ -10,7 +10,7 @@ class Recipe {
 
   getIngredientNames(ingredientData) {
     return this.ingredients.map(ingredient => {
-      return ingredientData.find(data => ingredient.id === data.id).name.toLowerCase();
+      return ingredientData.find(data => ingredient.id === data.id).name.toLowerCase().split(' ').flat();
     });
   }
 
