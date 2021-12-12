@@ -17,21 +17,23 @@ class Cookbook {
     }
   }
 
-  filterByRecipeName(keywords) {
+  filterByRecipeName() {
     if (this.keywords.length) {
       this.currentRecipes = this.recipes.filter(recipe => {
-        return recipe.name.toLowerCase().includes(keywords.toLowerCase());
+        return recipe.name.toLowerCase().includes(this.keywords);
       });
     } else {
       this.clearFilter();
     }
   }
 
-  filterByIngredient(keywords) {
+  filterByIngredient() {
     if (this.keywords.length) {
       this.currentRecipes = this.recipes.filter(recipe => {
-        return recipe.getIngredientNames(this.ingredients).includes(keywords.toLowerCase());
+        console.log(recipe.getIngredientNames(this.ingredients).includes(this.keywords))
+        return recipe.getIngredientNames(this.ingredients).includes(this.keywords[0]);
       });
+      console.log(this.currentRecipes);
     } else {
       this.clearFilter();
     }
@@ -40,7 +42,9 @@ class Cookbook {
   clearFilter() {
     this.currentRecipes = this.recipes;
     this.tags = [];
+    this.keywords = [];
   }
+
 }
 
 export default Cookbook;
