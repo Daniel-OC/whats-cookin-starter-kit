@@ -17,26 +17,15 @@ class Cookbook {
     }
   }
 
-  filterByRecipeName(userInput) {
-    if (userInput.length) {
+  filterByRecipeName() {
+    if (this.keywords.length) {
       this.currentRecipes = this.recipes.filter(recipe => {
-        return recipe.name.toLowerCase().includes(userInput);
+        return recipe.name.toLowerCase().includes(this.keywords.join(" "));
       });
     } else {
       this.clearFilter();
     }
   }
-
-  // filterByIngredient(userInput) {
-  //   if (userInput.length) {
-  //     this.currentRecipes = this.recipes.filter(recipe => {
-  //       return recipe.getIngredientNames(this.ingredients).includes(userInput.toLowerCase());
-  //     });
-  //     console.log(this.currentRecipes)
-  //   } else {
-  //     this.clearFilter();
-  //   }
-  // }
 
   filterByIngredient() {
     if (this.keywords.length) {
