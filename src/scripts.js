@@ -5,7 +5,7 @@ import User from '../src/classes/User';
 import Recipe from '../src/classes/Recipe';
 import './images/cookin_pan_icon.png';
 
-const clearSearch = document.querySelector('#clearSearch')
+const clearSearch = document.querySelector('#clearSearch');
 const userName = document.querySelector('#userName');
 const logoImage = document.querySelector('#logoImage');
 const dropDown = document.querySelector('#dropDown');
@@ -396,27 +396,19 @@ const populateMealsToCook = () => {
   }
 }
 
-// const clickFilterButton = () => {
-//   if (favsButton.classList.contains('hidden')) {
-//     clickFilterFavView()
-//   } else {
-//     clickFilterHomeView()
-//   }
-// }
-
 const clearSearchBar = () => {
   if (favsButton.classList.contains('hidden')) {
     cookbook.currentRecipes = user.favoriteRecipes
-  } 
-  searchBar.value = null
-  addClass([clearSearch], 'hidden')
-  displayCurrentRecipes()
-  }
+  };
+  searchBar.value = null;
+  addClass([clearSearch], 'hidden');
+  displayCurrentRecipes();
+  };
   
 
 //event listeners
 
-clearSearch.addEventListener('click', clearSearchBar)
+clearSearch.addEventListener('click', clearSearchBar);
 
 mealPlanButton.addEventListener('click', populateMealsToCook);
 
