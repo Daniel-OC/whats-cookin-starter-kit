@@ -40,8 +40,9 @@ describe('Cookbook', () => {
   });
 
   it('should be able to filter by 1 tag', () => {
-    cookbook.filterByTag(['snack']);
-    expect(cookbook.currentRecipes.length).to.deep.equal(2);
+    cookbook.filterByTag(['sauce']);
+    console.log(cookbook.currentRecipes)
+    expect(cookbook.currentRecipes.length).to.deep.equal(1);
   });
 
   it('should be able to filter by 2 or more tags', () => {

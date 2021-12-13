@@ -44,7 +44,7 @@ describe('User', () => {
   });
 
   it('should be able to keep track of favorite recipes', () => {
-    expect(testUser.favoriteRecipes).to.be.instanceOf(Cookbook);
+    expect(testUser.favoriteRecipes).to.be.an('array');
   });
 
   it('should be able to keep track of meals to cook', () => {
@@ -54,15 +54,15 @@ describe('User', () => {
   it('should be able to add favorite recipes', () => {
     let newRecipe = new Recipe(recipes[0]);
     testUser.addFavoriteRecipe(newRecipe);
-    expect(testUser.favoriteRecipes.currentRecipes.length).to.deep.equal(1);
+    expect(testUser.favoriteRecipes.length).to.deep.equal(1);
   });
 
   it('should be able to remove favorite recipes', () => {
     let newRecipe = new Recipe(recipes[0]);
     testUser.addFavoriteRecipe(newRecipe);
-    expect(testUser.favoriteRecipes.currentRecipes.length).to.deep.equal(1);
+    expect(testUser.favoriteRecipes.length).to.deep.equal(1);
     testUser.removeFavoriteRecipe(newRecipe);
-    expect(testUser.favoriteRecipes.currentRecipes.length).to.deep.equal(0);
+    expect(testUser.favoriteRecipes.length).to.deep.equal(0);
   });
 
   it('should be able to add recipes to mealplan', () => {
