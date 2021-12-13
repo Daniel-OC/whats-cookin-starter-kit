@@ -257,8 +257,9 @@ article button {
 }
 
 .big-img {
-	height: 250px;
-	width: 350px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
 }
 
 .filter {
