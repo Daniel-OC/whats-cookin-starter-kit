@@ -20,8 +20,7 @@ const bigModal = document.querySelector('#bigModal');
 const bigModalInstructions = document.querySelector('#bigModalInstructions');
 const bigModalImage = document.querySelector('#bigModalImage');
 const bigModalCost = document.querySelector('#bigModalCost');
-const bigModalHeart = document.querySelector('#bigModalHeart');
-const bigModalPlus = document.querySelector('#bigModalPlus');
+const aside = document.querySelector('#aside');
 
 let cookbook;
 let user;
@@ -81,7 +80,7 @@ const displayCurrentRecipes = () => {
 
 const clickHomeButton = () => {
   addClass([homeButton, bigModal], 'hidden');
-  removeClass([mainDisplay, favsButton], 'hidden');
+  removeClass([mainDisplay, favsButton, aside], 'hidden');
   cookbook.currentRecipes = cookbook.recipes;
   displayCurrentRecipes();
 }
@@ -170,17 +169,21 @@ const createRecipeHeartListener = () => {
   const recipeHearts = document.querySelectorAll('.fa-heart');
   recipeHearts.forEach(heart => {
     heart.addEventListener('click', (event) => {
-      let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id)
-      if (!user.favoriteRecipes.includes(selectedRecipe)) {
-        addClass([event.target], 'fas');
-        user.addFavoriteRecipe(selectedRecipe);
-      } else {
-        removeClass([event.target], 'fas');
-        user.removeFavoriteRecipe(selectedRecipe);
-        displayCurrentRecipes();
-      }
+      let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
+      toggleFavoriteRecipe(selectedRecipe);
     });
   });
+}
+
+const toggleFavoriteRecipe = (selectedRecipe) => {
+  if (!user.favoriteRecipes.includes(selectedRecipe)) {
+    addClass([event.target], 'fas');
+    user.addFavoriteRecipe(selectedRecipe);
+  } else {
+    removeClass([event.target], 'fas');
+    user.removeFavoriteRecipe(selectedRecipe);
+    displayCurrentRecipes();
+  }
 }
 
 const createRecipePlusListener = () => {
@@ -188,19 +191,23 @@ const createRecipePlusListener = () => {
   recipePluses.forEach(plus => {
     plus.addEventListener('click', (event) => {
       let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
-      if (!user.mealPlan.includes(selectedRecipe)) {
-        user.addToMealPlan(selectedRecipe);
-      } else {
-        user.removeFromMealPlan(selectedRecipe);
-      }
-      displayMealsToCook();
+      toggleMealPlan(selectedRecipe);
     });
   });
 }
 
+const toggleMealPlan = (selectedRecipe) => {
+  if (!user.mealPlan.includes(selectedRecipe)) {
+    user.addToMealPlan(selectedRecipe);
+  } else {
+    user.removeFromMealPlan(selectedRecipe);
+  }
+  displayMealsToCook();
+}
+
 const displayBigModal = (event) => {
-  removeClass([bigModal, homeButton], 'hidden');
-  addClass([mainDisplay], 'hidden');
+  removeClass([bigModal, homeButton, favsButton], 'hidden');
+  addClass([mainDisplay, aside], 'hidden');
   populateBigModal(event);
 }
 
@@ -212,6 +219,8 @@ const populateBigModal = (event) => {
     bigModalInstructions.innerHTML += `<li>${selectedRecipe.getInstructions()[i]}</li>`;
   });
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
+  bigModalHeart.id = `bigModalHeart${event.target.id}`;
+  bigModalPlus.id = `bigModalPlus${event.target.id}`;
 }
 
 const searchForRecipe = () => {
@@ -241,8 +250,8 @@ const startSite = () => {
 const displayFavs = () => {
   cookbook.currentRecipes = user.favoriteRecipes;
   displayCurrentRecipes();
-  addClass([favsButton], 'hidden');
-  removeClass([homeButton], 'hidden');
+  addClass([favsButton, bigModal], 'hidden');
+  removeClass([homeButton, mainDisplay, aside], 'hidden');
 }
 
 const displayMealsToCook = () => {
@@ -251,7 +260,7 @@ const displayMealsToCook = () => {
     sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
-        <i class="fas fa-times fa-2x sml-right-marg" id="delete${meal.id}"></i>
+        <i class="fas fa-times fa-2x sml-right-marg clickable" id="delete${meal.id}"></i>
         <p id="${meal.id}">${meal.name}</p>
       </section>
     </section>`
@@ -261,12 +270,9 @@ const displayMealsToCook = () => {
 
 const createMealPlanDeleteListener = () => {
   const mealDeletes = document.querySelectorAll('.fa-times');
-  console.log(mealDeletes)
   mealDeletes.forEach(meal => {
     meal.addEventListener('click', (event) => {
       let selectedMeal = user.mealPlan.find(meal => `delete${meal.id}` === event.target.id);
-      console.log(selectedMeal)
-      console.log(user.mealPlan)
       user.removeFromMealPlan(selectedMeal);
       displayMealsToCook();
     })
