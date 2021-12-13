@@ -1,12 +1,8 @@
 import './styles.css';
-import apiCalls from './apiCalls';
+import {recipeCalls, ingredientCalls, userCalls} from './apiCalls';
 import Cookbook from '../src/classes/Cookbook';
 import User from '../src/classes/User';
 import Recipe from '../src/classes/Recipe';
-import Ingredient from '../src/classes/Ingredient';
-import userData from './data/users';
-import recipeData from './data/recipes';
-import ingredientData from './data/ingredients';
 import './images/cookin_pan_icon.png';
 
 const userName = document.querySelector('#userName');
@@ -27,20 +23,25 @@ const bigModalCost = document.querySelector('#bigModalCost');
 const bigModalHeart = document.querySelector('#bigModalHeart');
 const bigModalPlus = document.querySelector('#bigModalPlus');
 
+let cookbook;
+let user;
 
-const ingredients = ingredientData.ingredientsData;
-const recipes = recipeData.recipeData.reduce((sum, recipe) => {
-  sum.push(new Recipe(recipe));
-  return sum;
-}, []);
-const users = userData.usersData;
-const cookbook = new Cookbook(ingredients, recipes);
-const user = new User(users[getRandomIndex(users)]);
+Promise.all([recipeCalls, ingredientCalls, userCalls])
+  .then(data => {
+    const recipes = data[0].recipeData.reduce((sum, recipe) => {
+      sum.push(new Recipe(recipe));
+      return sum;
+    }, []);
+    cookbook = new Cookbook(data[1].ingredientsData, recipes);
+    user = new User(data[2].usersData[getRandomIndex(data[2].usersData)]);
+    startSite();
+  }).catch('this is an error!!!');
+
 
 // helper functions
 
 function getRandomIndex(array) {
- return Math.floor(Math.random() * array.length);
+  return Math.floor(Math.random() * array.length);
 }
 
 function updateInnerText(element, update) {
@@ -59,7 +60,7 @@ const displayCurrentRecipes = () => {
   let display = cookbook.currentRecipes;
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
-    mainDisplay.innerHTML +=`
+    mainDisplay.innerHTML += `
     <article class="flex column sml-brdr-radius shadow clickable">
       <img class="full-width half-height recipe-image" id="${recipe.id}" src=${recipe.image}>
       <div class="flex row around full-width half-height yellow">
@@ -108,9 +109,9 @@ const clearCheckBoxes = () => {
 }
 
 const populateFilterTags = (tags) => {
-  sideBarModal.innerHTML = ''
+  sideBarModal.innerHTML = '';
   tags.forEach(tag => {
-    sideBarModal.innerHTML +=`
+    sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
         <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
@@ -192,6 +193,7 @@ const createRecipePlusListener = () => {
       } else {
         user.removeFromMealPlan(selectedRecipe);
       }
+      displayMealsToCook();
     });
   });
 }
@@ -243,11 +245,50 @@ const displayFavs = () => {
   removeClass([homeButton], 'hidden');
 }
 
+const displayMealsToCook = () => {
+  sideBarModal.innerHTML = '';
+  user.mealPlan.forEach(meal => {
+    sideBarModal.innerHTML += `
+    <section class="flex column align-start eighty-width sml-marg">
+      <section class="flex row">
+        <i class="fas fa-times fa-2x sml-right-marg" id="delete${meal.id}"></i>
+        <p id="${meal.id}">${meal.name}</p>
+      </section>
+    </section>`
+  });
+  createMealPlanDeleteListener();
+}
+
+const createMealPlanDeleteListener = () => {
+  const mealDeletes = document.querySelectorAll('.fa-times');
+  console.log(mealDeletes)
+  mealDeletes.forEach(meal => {
+    meal.addEventListener('click', (event) => {
+      let selectedMeal = user.mealPlan.find(meal => `delete${meal.id}` === event.target.id);
+      console.log(selectedMeal)
+      console.log(user.mealPlan)
+      user.removeFromMealPlan(selectedMeal);
+      displayMealsToCook();
+    })
+  })
+}
+
+const populateMealsToCook = () => {
+  if (sideBarModal.classList.contains('hidden')) {
+    removeClass([sideBarModal], 'hidden');
+    addClass([mealPlanButton], 'orange');
+    displayMealsToCook();
+  } else {
+    removeClass([mealPlanButton], 'orange');
+    addClass([sideBarModal], 'hidden');
+  }
+}
+
 //event listeners
 
-favsButton.addEventListener('click', displayFavs);
+mealPlanButton.addEventListener('click', populateMealsToCook);
 
-window.addEventListener('load', startSite);
+favsButton.addEventListener('click', displayFavs);
 
 filterButton.addEventListener('click', clickFilterButton);
 
