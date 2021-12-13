@@ -9,12 +9,13 @@ import recipeData from './data/recipes';
 import ingredientData from './data/ingredients';
 import './images/cookin_pan_icon.png';
 
+const userName = document.querySelector('#userName');
 const logoImage = document.querySelector('#logoImage');
 const dropDown = document.querySelector('#dropDown');
 const searchBar = document.querySelector('#searchBar');
 const searchButton = document.querySelector('#searchButton');
 const homeButton = document.querySelector('#homeButton');
-const yourFavsButton = document.querySelector('#yourFavsButton');
+const favsButton = document.querySelector('#yourFavsButton');
 const filterButton = document.querySelector('#filterButton');
 const mealPlanButton = document.querySelector('#mealPlanButton');
 const sideBarModal = document.querySelector('#sideBarModal');
@@ -30,22 +31,27 @@ const bigModalPlus = document.querySelector('#bigModalPlus');
 const ingredients = ingredientData.ingredientsData;
 const recipes = recipeData.recipeData.reduce((sum, recipe) => {
   sum.push(new Recipe(recipe));
-  return sum
+  return sum;
 }, []);
 const users = userData.usersData;
 const cookbook = new Cookbook(ingredients, recipes);
+const user = new User(users[getRandomIndex(users)]);
 
 // helper functions
 
-const updateInnerText = (element, update) => {
+function getRandomIndex(array) {
+ return Math.floor(Math.random() * array.length);
+}
+
+function updateInnerText(element, update) {
   element.innerText = update;
 }
 
-const removeClass = (elements, rule) => {
+function removeClass(elements, rule) {
   elements.forEach(item => item.classList.remove(rule));
 }
 
-const addClass = (elements, rule) => {
+function addClass(elements, rule) {
   elements.forEach(item => item.classList.add(rule));
 }
 
@@ -54,15 +60,15 @@ const displayCurrentRecipes = () => {
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
     mainDisplay.innerHTML +=`
-    <article class="flex column sml-brdr-radius shadow clickable" id="${recipe.id}">
-      <img class="full-width half-height not-clickable" src=${recipe.image}>
-      <div class="flex row around full-width half-height yellow not-clickable">
+    <article class="flex column sml-brdr-radius shadow clickable">
+      <img class="full-width half-height recipe-image" id="${recipe.id}" src=${recipe.image}>
+      <div class="flex row around full-width half-height yellow">
         <p class="full-width text-cntr line not-clickable">${recipe.name}</p>
-        <div class="flex column around basis half-width full-height not-clickable">
-					<div class="flex column not-clickable">
+        <div class="flex column around basis half-width full-height">
+					<div class="flex column">
 						<i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
 					</div>
-					<div class="flex column not-clickable">
+					<div class="flex column">
 						<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
 					</div>
         </div>
@@ -74,12 +80,14 @@ const displayCurrentRecipes = () => {
 
 const clickHomeButton = () => {
   addClass([homeButton, bigModal], 'hidden');
-  removeClass([mainDisplay], 'hidden');
+  removeClass([mainDisplay, favsButton], 'hidden');
+  cookbook.currentRecipes = cookbook.recipes;
+  displayCurrentRecipes();
 }
 
 const clickFilterButton = () => {
   if (sideBarModal.classList.contains('hidden')) {
-    addClass([filterButton], 'orange')
+    addClass([filterButton], 'orange');
     removeClass([sideBarModal], 'hidden');
     let tags = getFilterTags();
     populateFilterTags(tags);
@@ -143,11 +151,47 @@ const displayByTag = (tag) => {
 }
 
 const createRecipeCardEventListener = () => {
-  const recipeCards = document.querySelectorAll('article');
+  createWholeCardListener();
+  createRecipeHeartListener();
+  createRecipePlusListener();
+}
+
+const createWholeCardListener = () => {
+  const recipeCards = document.querySelectorAll('.recipe-image');
   recipeCards.forEach(recipeCard => {
     recipeCard.addEventListener('click', (event) => {
-      console.log(event.target);
       displayBigModal(event);
+    });
+  });
+}
+
+const createRecipeHeartListener = () => {
+  const recipeHearts = document.querySelectorAll('.fa-heart');
+  recipeHearts.forEach(heart => {
+    heart.addEventListener('click', (event) => {
+      let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id)
+      if (!user.favoriteRecipes.includes(selectedRecipe)) {
+        addClass([event.target], 'fas');
+        user.addFavoriteRecipe(selectedRecipe);
+      } else {
+        removeClass([event.target], 'fas');
+        user.removeFavoriteRecipe(selectedRecipe);
+        displayCurrentRecipes();
+      }
+    });
+  });
+}
+
+const createRecipePlusListener = () => {
+  const recipePluses = document.querySelectorAll('.fa-plus');
+  recipePluses.forEach(plus => {
+    plus.addEventListener('click', (event) => {
+      let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
+      if (!user.mealPlan.includes(selectedRecipe)) {
+        user.addToMealPlan(selectedRecipe);
+      } else {
+        user.removeFromMealPlan(selectedRecipe);
+      }
     });
   });
 }
@@ -178,14 +222,32 @@ const searchForRecipe = () => {
     cookbook.filterByIngredient();
     displayCurrentRecipes();
   } else if (!dropDown.value || !searchBar.value) {
-    mainDisplay.innerText = "Please select a category or search term!"
+    mainDisplay.innerText = "Please select a category or search term!";
   }
   cookbook.clearFilter();
 }
 
+const createUser = () => {
+  userName.innerText = user.name;
+}
+
+const startSite = () => {
+  displayCurrentRecipes();
+  createUser();
+}
+
+const displayFavs = () => {
+  cookbook.currentRecipes = user.favoriteRecipes;
+  displayCurrentRecipes();
+  addClass([favsButton], 'hidden');
+  removeClass([homeButton], 'hidden');
+}
+
 //event listeners
 
-window.addEventListener('load', displayCurrentRecipes);
+favsButton.addEventListener('click', displayFavs);
+
+window.addEventListener('load', startSite);
 
 filterButton.addEventListener('click', clickFilterButton);
 

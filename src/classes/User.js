@@ -1,23 +1,21 @@
 class User {
-  constructor(user, favRecipes) {
+  constructor(user) {
     this.id = user.id;
     this.name = user.name;
     this.pantry = user.pantry;
-    this.favoriteRecipes = favRecipes;
+    this.favoriteRecipes = [];
     this.mealPlan = [];
   }
 
   addFavoriteRecipe(favRecipe) {
-    let favs = this.favoriteRecipes.currentRecipes;
-    if (!favs.includes(favRecipe)) {
-      favs.push(favRecipe);
+    if (!this.favoriteRecipes.includes(favRecipe)) {
+      this.favoriteRecipes.push(favRecipe);
     };
   }
 
   removeFavoriteRecipe(favRecipe) {
-    let favs = this.favoriteRecipes.currentRecipes;
-    let index = favs.findIndex(recipe => recipe === favRecipe);
-    favs.splice(index, 1);
+    let index = this.favoriteRecipes.findIndex(recipe => recipe === favRecipe);
+    this.favoriteRecipes.splice(index, 1);
   }
 
   addToMealPlan(meal) {

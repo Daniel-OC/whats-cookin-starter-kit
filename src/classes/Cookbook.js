@@ -9,7 +9,7 @@ class Cookbook {
 
   filterByTag(searchTags) {
     if (this.tags.length) {
-      this.currentRecipes = this.recipes.filter(recipe => {
+      this.currentRecipes = this.currentRecipes.filter(recipe => {
         return recipe.tags.some(tag => searchTags.includes(tag));
       });
     } else {
@@ -19,7 +19,7 @@ class Cookbook {
 
   filterByRecipeName() {
     if (this.keywords.length) {
-      this.currentRecipes = this.recipes.filter(recipe => {
+      this.currentRecipes = this.currentRecipes.filter(recipe => {
         return recipe.name.toLowerCase().includes(this.keywords.join(" "));
       });
     } else {
@@ -31,10 +31,8 @@ class Cookbook {
     if (this.keywords.length) {
       this.currentRecipes = this.recipes.filter(recipe => {
         let ingredientNamesArray = recipe.getIngredientNames(this.ingredients).flat();
-        console.log(ingredientNamesArray);
         return this.keywords.every(keyword => ingredientNamesArray.includes(keyword));
       });
-      console.log(this.currentRecipes)
     } else {
       this.clearFilter();
     }
@@ -45,7 +43,6 @@ class Cookbook {
     this.tags = [];
     this.keywords = [];
   }
-
 }
 
 export default Cookbook;
