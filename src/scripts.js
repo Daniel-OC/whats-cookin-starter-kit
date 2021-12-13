@@ -138,7 +138,7 @@ const populateFilterTags = (tags) => {
       sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
-        <input class="filter" type="checkbox" checked name="${tag}" id ="${tag}" />
+        <input class="filter" type="checkbox" checked name="${tag}" id="${tag}"/ >
         <label for="${tag}">${tag}</label>
       </section>
     </section>`;
@@ -146,7 +146,7 @@ const populateFilterTags = (tags) => {
       sideBarModal.innerHTML += `
       <section class="flex column align-start eighty-width sml-marg">
         <section class="flex row">
-          <input class="filter" type="checkbox"  name="${tag}" id ="${tag}" />
+          <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
           <label for="${tag}">${tag}</label>
         </section>
       </section>`;
