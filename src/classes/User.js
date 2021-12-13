@@ -7,6 +7,25 @@ class User {
     this.mealPlan = [];
   }
 
+  filterFavoritesByRecipeName(cookbook) {
+    cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
+      return recipe.name.toLowerCase().includes(cookbook.keywords.join(" "));
+    });
+  }     
+
+  filterFavoritesByIngredient(cookbook) {
+    cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
+      let ingredientNamesArray = recipe.getIngredientNames(cookbook.ingredients).flat();
+      return cookbook.keywords.every(keyword => ingredientNamesArray.includes(keyword));
+    });
+  }
+
+  filterFavoritesByTag(searchTags, cookbook) {
+    cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
+      return recipe.tags.some(tag => searchTags.includes(tag));
+    });
+  }
+
   addFavoriteRecipe(favRecipe) {
     if (!this.favoriteRecipes.includes(favRecipe)) {
       this.favoriteRecipes.push(favRecipe);
