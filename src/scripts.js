@@ -60,16 +60,16 @@ const displayCurrentRecipes = () => {
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
     mainDisplay.innerHTML += `
-    <article class="flex column sml-brdr-radius shadow clickable">
-      <img class="full-width half-height recipe-image" id="${recipe.id}" src=${recipe.image}>
+    <article class="flex column sml-brdr-radius shadow">
+      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
       <div class="flex row around full-width half-height yellow">
-        <p class="full-width text-cntr line not-clickable">${recipe.name}</p>
+        <p class="full-width not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
 					<div class="flex column">
 						<i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
 					</div>
 					<div class="flex column">
-						<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
+						<i class="fas fa-plus fa-2x clickable plus" id="plus${recipe.id}"></i>
 					</div>
         </div>
       </div>
@@ -216,7 +216,7 @@ const populateBigModal = (event) => {
   bigModalImage.src = selectedRecipe.image;
   updateInnerText(bigModalInstructions, selectedRecipe.name);
   selectedRecipe.instructions.forEach((instruction, i) => {
-    bigModalInstructions.innerHTML += `<li>${selectedRecipe.getInstructions()[i]}</li>`;
+    bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
   });
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
   bigModalHeart.id = `bigModalHeart${event.target.id}`;

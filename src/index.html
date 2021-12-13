@@ -16,7 +16,7 @@
         <h1 class="flex">What's Cookin, Good Lookin?</h1>
       </section>
       <section class="flex row">
-        <select class="sml-marg" name="categories" id="dropDown">
+        <select class="sml-marg clickable" name="categories" id="dropDown">
           <option value="" disabled selected hidden>Search By:</option>
           <option value="name">Recipe Name</option>
           <option value="ingredient">Ingredients</option>
@@ -36,17 +36,17 @@
     <main class="flex row around">
       <section class="flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="bigModal">
 				<div class="flex column center full-width half-height">
-          <img class="big-img" id="bigModalImage" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
+          <img class="big-img sml-brdr-radius" id="bigModalImage" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80">
 				</div>
         <div class="flex row full-width full-height med-marg">
-          <section class="flex column eighty-width full-height med-marg med-brdr-radius blue">
-						<ul class="instructions" id="bigModalInstructions">Instructions
+          <section class="instruction-box flex column eighty-width full-height med-marg med-brdr-radius blue y-scroll">
+						<ul class="instructions med-marg" id="bigModalInstructions">Instructions
 							<li>step 2</li>
 					  </ul>
           </section>
           <div class="flex column full-height">
             <section class="flex column full-width med-brdr-radius blue">
-							<p class="text-center" id="bigModalCost">$40.75</p>
+							<p class="text-center med-font" id="bigModalCost"></p>
             </section>
           </div>
         </div>
@@ -61,7 +61,7 @@
         <div class="flex column tags full-height eighty-width med-marg med-brdr-radius blue y-scroll hidden" id="sideBarModal">
           <section class="flex column align-start full-width sml-marg hidden">
             <ul class="flex column align-start">
-              <li class="sml-top-marg">meal meal meal</li>
+              <li class="sml-top-marg"></li>
             </ul>
           </section>
         </div>

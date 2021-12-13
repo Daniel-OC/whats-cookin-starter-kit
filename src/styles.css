@@ -6,7 +6,7 @@ body {
 	margin: 0;
 	overflow: hidden;
 	height: 100vh;
-	background-color: rgba(105, 169, 255, .6);
+	background-color: white;
 }
 
 header {
@@ -68,7 +68,7 @@ main {
 }
 
 header > section {
-width: 30%;
+  width: 30%;
 }
 
 h1 {
@@ -82,7 +82,7 @@ h1 ~ img {
 }
 
 input {
-	width: 350px;
+	width: 100%;
 	height: 50px;
 	font-size: 24px;
 	border-top-left-radius: 3px;
@@ -115,7 +115,7 @@ button:hover {
 
 aside {
 	height: 85%;
-	width: 30%;
+	width: 20%;
 }
 
 article {
@@ -136,10 +136,17 @@ article > img {
 	border-top-right-radius: 5px;
 }
 
-article button {
+article p {
+  line-height: 150%;
+  text-align: center;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+/* article button {
 	border: none;
 	background: none;
-}
+} */
 
 .sml-btn {
 	background-color: #FFF;
@@ -160,10 +167,6 @@ article button {
 	height: 65%;
 	width: 85%;
 	margin-top: 80px;
-}
-
-.line {
-	line-height: 150%;
 }
 
 .sml-top-marg {
@@ -242,6 +245,10 @@ article button {
 	background-color: rgba(255, 153, 94, .5);
 }
 
+.plus {
+  color: blue;
+}
+
 .blue {
 	background-color: rgba(105, 169, 255, .6);
 }
@@ -260,6 +267,7 @@ article button {
 	background-size: cover;
 	background-repeat: no-repeat;
 	overflow: hidden;
+  width: 60%;
 }
 
 .filter {
@@ -269,7 +277,8 @@ article button {
 
 .main-display::-webkit-scrollbar,
 .big-modal::-webkit-scrollbar,
-.tags::-webkit-scrollbar {
+.tags::-webkit-scrollbar,
+.instruction-box::-webkit-scrollbar {
 	display: none;
 }
 
@@ -280,6 +289,13 @@ article button {
 ul {
 	margin-block-start: 0em;
 	margin-block-end: 0em;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.med-font {
+  font-size: 18px;
+  font-weight: normal;
 }
 
 .fa-cog-heart {
@@ -291,11 +307,16 @@ ul {
 }
 
 .not-clickable {
-	pointer-events: none;
+  pointer-events: none;
 }
 
 .clickable:hover {
 	cursor: pointer;
+}
+
+section ~ div {
+  height: 100%;
+  width: 250px;
 }
 
 .hidden {
