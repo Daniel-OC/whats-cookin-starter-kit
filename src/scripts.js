@@ -132,6 +132,8 @@ const clickHomeButton = () => {
   addClass([homeButton, bigModal], 'hidden');
   removeClass([mainDisplay, favsButton, aside], 'hidden');
   cookbook.clearFilter();
+  populateFilterTags(getFilterTags())
+  createFilterEventListener()
   displayCurrentRecipes();
 }
 
@@ -155,6 +157,7 @@ const clickFilterFavView = () => {
     addClass([sideBarModal], 'hidden');
     removeClass([filterButton], 'orange');
     cookbook.currentRecipes = user.favoriteRecipes;
+    cookbook.tags = []
     displayCurrentRecipes();
     clearCheckBoxes();
   }
@@ -250,11 +253,11 @@ const displayByTag = (tag, cookbook) => {
 
 const displayFavsByTag = (tag, cookbook) => {
   if (!cookbook.tags.includes(tag)) {
-    console.log('favsbyTagafterIF1')
+    console.log('favsbyTagafterIF1',cookbook.tags)
     cookbook.tags.push(tag);
     user.filterFavoritesByTag(cookbook.tags, cookbook);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
-    console.log('favsbyTagafterIF2')
+    console.log('favsbyTagafterIF2',console.log(cookbook.tags))
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
     user.filterFavoritesByTag(cookbook.tags, cookbook);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
@@ -404,6 +407,9 @@ const startSite = () => {
 const displayFavs = () => {
   cookbook.currentRecipes = user.favoriteRecipes;
   displayCurrentRecipes();
+  cookbook.tags = []
+  populateFilterTags(getFilterTags())
+  createFilterEventListener()
   addClass([favsButton, bigModal], 'hidden');
   removeClass([homeButton, mainDisplay, aside], 'hidden');
 }
