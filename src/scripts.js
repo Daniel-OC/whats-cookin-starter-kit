@@ -62,7 +62,7 @@ const displayCurrentRecipes = () => {
     if (user.favoriteRecipes.includes(recipe) && user.mealPlan.includes(recipe)) {
       mainDisplay.innerHTML += `
     <article class="flex column sml-brdr-radius shadow">
-      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
+      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
       <div class="flex row around full-width half-height yellow">
         <p class="full-width not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
@@ -78,7 +78,7 @@ const displayCurrentRecipes = () => {
     } else if (user.favoriteRecipes.includes(recipe) && !user.mealPlan.includes(recipe)) {
       mainDisplay.innerHTML += `
     <article class="flex column sml-brdr-radius shadow">
-      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
+      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
       <div class="flex row around full-width half-height yellow">
         <p class="full-width not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
@@ -94,7 +94,7 @@ const displayCurrentRecipes = () => {
     } else if (!user.favoriteRecipes.includes(recipe) && user.mealPlan.includes(recipe)) {
       mainDisplay.innerHTML += `
         <article class="flex column sml-brdr-radius shadow">
-          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
+          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
           <div class="flex row around full-width half-height yellow">
             <p class="full-width not-clickable">${recipe.name}</p>
             <div class="flex column around basis half-width full-height">
@@ -110,7 +110,7 @@ const displayCurrentRecipes = () => {
     } else if (!user.favoriteRecipes.includes(recipe) && !user.mealPlan.includes(recipe)) {
       mainDisplay.innerHTML += `
         <article class="flex column sml-brdr-radius shadow">
-          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
+          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
           <div class="flex row around full-width half-height yellow">
             <p class="full-width not-clickable">${recipe.name}</p>
             <div class="flex column around basis half-width full-height">
