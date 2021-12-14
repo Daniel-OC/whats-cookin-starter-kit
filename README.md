@@ -31,6 +31,16 @@ If the user sees a recipe they'd like to cook for later, they may store it by cl
 
 The user may select the Filter Button to display all the available tags to filter the recipes by. The filtering is set to be more inclusive, so any checkbox that is displayed will show recipes that include that particular tag. They may work back towards the whole database by unchecking boxes OR reclicking the Filter button that now says "Clear Filters".
 
+![](https://media.giphy.com/media/qsnVxH7cCAi7o13rHP/giphy.gif)
+
+The user may also use the search bar to filter through all potential recipes by ingredient name. In the example above, the user filters by eggs, then eggs AND salt, then eggs AND salt AND chicken to finally display one single recipe requring all 3 pieces.
+
+![](https://media.giphy.com/media/8sXVYIRjJjxdigxjQm/giphy.gif)
+
+![](https://media.giphy.com/media/IPeYrEPRmqKO9S3tEA/giphy.gif)
+
+The filtering tags will also work within the user's favorited recipes section, as does the search by Recipe Name or ingredients in the search bar.
+
 
 ### FUTURE FEATURES
 - Introduce a pantry feature that allows the user to keep track of their current ingredients to determine if they can cook selected meals based on the current ingredients in their pantry
