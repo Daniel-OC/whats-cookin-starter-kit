@@ -294,12 +294,8 @@ ul {
   font-weight: normal;
 }
 
-.fa-cog-heart {
+.red {
   color: red;
-}
-
-.plus-blue {
-	color: blue;
 }
 
 .not-clickable {

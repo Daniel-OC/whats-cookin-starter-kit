@@ -59,14 +59,15 @@ const displayCurrentRecipes = () => {
   let display = cookbook.currentRecipes;
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
-    mainDisplay.innerHTML += `
+    if (user.favoriteRecipes.includes(recipe) && user.mealPlan.includes(recipe)) {
+      mainDisplay.innerHTML += `
     <article class="flex column sml-brdr-radius shadow">
       <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
       <div class="flex row around full-width half-height yellow">
         <p class="full-width not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
 					<div class="flex column">
-						<i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
+						<i class="far fa-heart fa-2x red clickable fas" id="heart${recipe.id}"></i>
 					</div>
 					<div class="flex column">
 						<i class="fas fa-plus fa-2x clickable plus" id="plus${recipe.id}"></i>
@@ -74,6 +75,55 @@ const displayCurrentRecipes = () => {
         </div>
       </div>
     </article>`;
+    } else if (user.favoriteRecipes.includes(recipe) && !user.mealPlan.includes(recipe)) {
+      mainDisplay.innerHTML += `
+    <article class="flex column sml-brdr-radius shadow">
+      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
+      <div class="flex row around full-width half-height yellow">
+        <p class="full-width not-clickable">${recipe.name}</p>
+        <div class="flex column around basis half-width full-height">
+					<div class="flex column">
+						<i class="far fa-heart fa-2x red clickable fas" id="heart${recipe.id}"></i>
+					</div>
+					<div class="flex column">
+						<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
+					</div>
+        </div>
+      </div>
+    </article>`;
+    } else if (!user.favoriteRecipes.includes(recipe) && user.mealPlan.includes(recipe)) {
+      mainDisplay.innerHTML += `
+        <article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
+          <div class="flex row around full-width half-height yellow">
+            <p class="full-width not-clickable">${recipe.name}</p>
+            <div class="flex column around basis half-width full-height">
+              <div class="flex column">
+                <i class="far fa-heart fa-2x red clickable" id="heart${recipe.id}"></i>
+              </div>
+              <div class="flex column">
+                <i class="fas fa-plus fa-2x clickable plus" id="plus${recipe.id}"></i>
+              </div>
+            </div>
+          </div>
+        </article>`
+    } else if (!user.favoriteRecipes.includes(recipe) && !user.mealPlan.includes(recipe)) {
+      mainDisplay.innerHTML += `
+        <article class="flex column sml-brdr-radius shadow">
+          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image}>
+          <div class="flex row around full-width half-height yellow">
+            <p class="full-width not-clickable">${recipe.name}</p>
+            <div class="flex column around basis half-width full-height">
+              <div class="flex column">
+                <i class="far fa-heart fa-2x red clickable" id="heart${recipe.id}"></i>
+              </div>
+              <div class="flex column">
+                <i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
+              </div>
+            </div>
+          </div>
+        </article>`
+    }
   });
   createRecipeCardEventListener();
 }
@@ -258,8 +308,10 @@ const createRecipePlusListener = () => {
 
 const toggleMealPlan = (selectedRecipe) => {
   if (!user.mealPlan.includes(selectedRecipe)) {
+    addClass([event.target], 'plus')
     user.addToMealPlan(selectedRecipe);
   } else {
+    removeClass([event.target], 'plus')
     user.removeFromMealPlan(selectedRecipe);
   }
   displayMealsToCook();
@@ -341,7 +393,7 @@ const displayMealsToCook = () => {
     sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
-        <i class="fas fa-times fa-2x sml-right-marg clickable" id="delete${meal.id}"></i>
+        <i class="fas fa-times fa-2x sml-right-marg clickable red" id="delete${meal.id}"></i>
         <p id="${meal.id}">${meal.name}</p>
       </section>
     </section>`;
@@ -356,6 +408,7 @@ const createMealPlanDeleteListener = () => {
       let selectedMeal = user.mealPlan.find(meal => `delete${meal.id}` === event.target.id);
       user.removeFromMealPlan(selectedMeal);
       displayMealsToCook();
+      displayCurrentRecipes();
     });
   });
 }
