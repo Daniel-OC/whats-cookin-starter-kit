@@ -251,7 +251,7 @@ const getFilterTags = () => {
 const populateFilterTags = (tags) => {
   sideBarModal.innerHTML = '';
   tags.forEach(tag => {
-      sideBarModal.innerHTML += `
+    sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
         <input class="filter" type="checkbox" name="${tag}" id="${tag}"/ >
@@ -272,25 +272,20 @@ const createFilterEventListener = () => {
 
 const displayByTag = (tag, cookbook) => {
   if (favsButton.classList.contains('hidden')) {
-    console.log('invoking favsbytag')
     displayFavsByTag(tag, cookbook);
   } else {
-    console.log('invoking allbytag')
     displayAllByTag(tag);
   }
 }
 
 const displayFavsByTag = (tag, cookbook) => {
   if (!cookbook.tags.includes(tag)) {
-    console.log('favsbyTagafterIF1',cookbook.tags)
     cookbook.tags.push(tag);
     user.filterFavoritesByTag(cookbook.tags, cookbook);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
-    console.log('favsbyTagafterIF2',console.log(cookbook.tags))
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
     user.filterFavoritesByTag(cookbook.tags, cookbook);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
-    console.log('favsbyTagafterIF3')
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
     cookbook.currentRecipes = user.favoriteRecipes;
   }
@@ -299,15 +294,12 @@ const displayFavsByTag = (tag, cookbook) => {
 
 const displayAllByTag = (tag) => {
   if (!cookbook.tags.includes(tag)) {
-    console.log('AllbyTagafterIF1')
     cookbook.tags.push(tag);
     cookbook.filterByTag(cookbook.tags);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
-    console.log('AllbyTagafterIF2', cookbook.currentRecipes)
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
     cookbook.filterByTag(cookbook.tags);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
-    console.log('AllbyTagafterIF3')
     cookbook.clearFilter();
   }
   displayCurrentRecipes();
@@ -385,9 +377,9 @@ const startSite = () => {
 const displayFavs = () => {
   cookbook.currentRecipes = user.favoriteRecipes;
   displayCurrentRecipes();
-  cookbook.tags = []
-  populateFilterTags(getFilterTags())
-  createFilterEventListener()
+  cookbook.tags = [];
+  populateFilterTags(getFilterTags());
+  createFilterEventListener();
   addClass([favsButton, bigModal], 'hidden');
   removeClass([homeButton, mainDisplay, aside], 'hidden');
 }
@@ -432,11 +424,11 @@ const populateMealsToCook = () => {
 const clearSearchBar = () => {
   if (favsButton.classList.contains('hidden')) {
     cookbook.currentRecipes = user.favoriteRecipes
-  };
+  }
   searchBar.value = null;
   addClass([clearSearch], 'hidden');
   displayCurrentRecipes();
-  };
+};
 
 //event listeners
 
