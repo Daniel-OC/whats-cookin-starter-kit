@@ -11,6 +11,26 @@
 
 Turing's Mod 2 "What's Cookin" group project continued to build on on class-to-class interaction, Test-Driven Development, and the freshly taught ES6 syntax and iterator methods, while introducing new technologies like webpack and and GET network requests. The [spec](https://frontend.turing.edu/projects/whats-cookin-part-one.html) asked us to start with some very real-world steps such as creating a project board with wireframes, laying out our goals, detailing the steps of how we'd achieve those, and truly thinking big picture. Over the course of 10 days, our group of **three** developers designed a site that pulled its data using Fetch API, and allows the user to filter through a database of recipes, store their favorites or upcoming meals-to-cook, and select recipes to their specific details such as instructions and total cost. 
 
+![](https://media.giphy.com/media/TxJL6ay7GAHKnXIsH3/giphy.gif)
+
+On page load, the user will be able to scroll through a database of potential recipes.
+
+![](https://media.giphy.com/media/YrUU1bToSi4Y3TszV0/giphy.gif)
+
+If the user sees a recipe they like, they may favorite that recipe by clicking the heart. A filled in heart indicates the recipe has been favorited.
+
+![](https://media.giphy.com/media/fSaNaY81D0g2DgcVMW/giphy.gif)
+
+If the user decides they no longer love the recipe, they can "un-heart" it and they will no longer see the recipe in their fav view. The recipe can also be removed from the faved view.
+
+![](https://media.giphy.com/media/FlSlD76305vOiqkqke/giphy.gif)
+
+If the user sees a recipe they'd like to cook for later, they may store it by clicking the plus. If they want to view their meals stored to cook later, they may click the "Meal Plan" button on the right of the screen. If they cook that meal or decide they don't want it after all, simply click the red X. 
+
+![](https://media.giphy.com/media/2aOSXQvdaIgYELOihI/giphy.gif)
+
+The user may select the Filter Button to display all the available tags to filter the recipes by. The filtering is set to be more inclusive, so any checkbox that is displayed will show recipes that include that particular tag. They may work back towards the whole database by unchecking boxes OR reclicking the Filter button that now says "Clear Filters".
+
 
 ### FUTURE FEATURES
 - Introduce a pantry feature that allows the user to keep track of their current ingredients to determine if they can cook selected meals based on the current ingredients in their pantry
