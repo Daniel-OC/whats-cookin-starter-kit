@@ -8,7 +8,7 @@ class Cookbook {
   }
 
   filterByTag(searchTags) {
-    this.currentRecipes = this.currentRecipes.filter(recipe => {
+    this.currentRecipes = this.recipes.filter(recipe => {
       return recipe.tags.some(tag => searchTags.includes(tag));
     });
   }
