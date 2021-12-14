@@ -35,8 +35,7 @@ Promise.all([recipeCalls, ingredientCalls, userCalls])
     cookbook = new Cookbook(data[1].ingredientsData, recipes);
     user = new User(data[2].usersData[getRandomIndex(data[2].usersData)]);
     startSite();
-  }).catch('this is an error!!!');
-
+  }).catch(error => console.log(error));
 
 // helper functions
 
@@ -82,16 +81,15 @@ const displayCurrentRecipes = () => {
 const clickHomeButton = () => {
   addClass([homeButton, bigModal], 'hidden');
   removeClass([mainDisplay, favsButton, aside], 'hidden');
-  // cookbook.clearFilter()
   cookbook.currentRecipes = cookbook.recipes;
   displayCurrentRecipes();
 }
 
 const clickFilterButton = () => {
   if (favsButton.classList.contains('hidden')) {
-    clickFilterFavView()
+    clickFilterFavView();
   } else {
-    clickFilterHomeView()
+    clickFilterHomeView();
   }
 }
 
@@ -106,7 +104,7 @@ const clickFilterFavView = () => {
   } else {
     addClass([sideBarModal], 'hidden');
     removeClass([filterButton], 'orange');
-    cookbook.currentRecipes = user.favoriteRecipes
+    cookbook.currentRecipes = user.favoriteRecipes;
     displayCurrentRecipes();
     clearCheckBoxes();
   }
@@ -135,28 +133,25 @@ const clearCheckBoxes = () => {
 }
 
 const populateFilterTags = (tags) => {
-  console.log(tags)
   sideBarModal.innerHTML = '';
   tags.forEach(tag => {
-    if(cookbook.tags.includes(tag)) {
+    if (cookbook.tags.includes(tag)) {
       sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
-        <input class="filter" type="checkbox" checked name="${tag}" id ="${tag}" />
+        <input class="filter" type="checkbox" checked name="${tag}" id="${tag}"/ >
         <label for="${tag}">${tag}</label>
       </section>
-    </section>`
+    </section>`;
     } else {
-      sideBarModal.innerHTML +=
-      `
+      sideBarModal.innerHTML += `
       <section class="flex column align-start eighty-width sml-marg">
-      <section class="flex row">
-        <input class="filter" type="checkbox"  name="${tag}" id ="${tag}" />
-        <label for="${tag}">${tag}</label>
-      </section>
-      </section>`
+        <section class="flex row">
+          <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
+          <label for="${tag}">${tag}</label>
+        </section>
+      </section>`;
     }
-    
   });
 }
 
@@ -180,35 +175,24 @@ const createFilterEventListener = () => {
   });
 }
 
-// const displayByTag = (tag) => {
-//   if (!cookbook.tags.includes(tag)) {
-//     cookbook.tags.push(tag);
-//   } else {
-//     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-//   }
-//   cookbook.filterByTag(cookbook.tags);
-//   displayCurrentRecipes();
-// }
-
 const displayByTag = (tag, cookbook) => {
   if (favsButton.classList.contains('hidden')) {
-    displayFavsByTag(tag, cookbook)
+    displayFavsByTag(tag, cookbook);
   } else {
-    displayAllByTag(tag)
+    displayAllByTag(tag);
   }
 }
 
 const displayFavsByTag = (tag, cookbook) => {
   if (!cookbook.tags.includes(tag)) {
     cookbook.tags.push(tag);
-    console.log(cookbook.tags)
-    user.filterFavoritesByTag(cookbook.tags, cookbook)
+    user.filterFavoritesByTag(cookbook.tags, cookbook);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    user.filterFavoritesByTag(cookbook.tags, cookbook)
+    user.filterFavoritesByTag(cookbook.tags, cookbook);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    cookbook.currentRecipes = user.favoriteRecipes
+    cookbook.currentRecipes = user.favoriteRecipes;
   }
   displayCurrentRecipes();
 }
@@ -216,19 +200,13 @@ const displayFavsByTag = (tag, cookbook) => {
 const displayAllByTag = (tag) => {
   if (!cookbook.tags.includes(tag)) {
     cookbook.tags.push(tag);
-    console.log(cookbook.currentRecipes, 'BEGINNING OF IF');
     cookbook.filterByTag(cookbook.tags);
-    console.log(cookbook.currentRecipes, "AFTER FILTERBYTAG INVOKED");
-    console.log(cookbook.tags, "AFTER IF");
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
     cookbook.filterByTag(cookbook.tags);
-    console.log(cookbook.tags, "AFTER 1st ELSE IF")
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
     cookbook.clearFilter();
-    console.log(cookbook.tags, "AFTER 2nd ElSE IF");
   }
-  //console.log(cookbook.tags, "AFTER IF/ELSE");
   displayCurrentRecipes();
 }
 
@@ -306,11 +284,9 @@ const populateBigModal = (event) => {
 const searchForRecipe = () => {
   removeClass([clearSearch], 'hidden')
   if (homeButton.classList.contains('hidden')) {
-    console.log('invoking searchForRecipeHome')
-    searchForRecipeHome()
+    searchForRecipeHome();
   } else {
-    console.log('invoking searchForRecipeFavs')
-    searchForRecipeFavs(cookbook)
+    searchForRecipeFavs(cookbook);
   }
 }
 
@@ -341,7 +317,6 @@ const searchForRecipeFavs = (cookbook) => {
   } else if (!dropDown.value || !searchBar.value) {
     mainDisplay.innerText = "Please select a category or search term!";
   }
-  // cookbook.clearFilter();
 }
 
 const createUser = () => {
@@ -369,7 +344,7 @@ const displayMealsToCook = () => {
         <i class="fas fa-times fa-2x sml-right-marg clickable" id="delete${meal.id}"></i>
         <p id="${meal.id}">${meal.name}</p>
       </section>
-    </section>`
+    </section>`;
   });
   createMealPlanDeleteListener();
 }
@@ -381,8 +356,8 @@ const createMealPlanDeleteListener = () => {
       let selectedMeal = user.mealPlan.find(meal => `delete${meal.id}` === event.target.id);
       user.removeFromMealPlan(selectedMeal);
       displayMealsToCook();
-    })
-  })
+    });
+  });
 }
 
 const populateMealsToCook = () => {
