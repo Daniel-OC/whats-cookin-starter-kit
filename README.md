@@ -15,6 +15,10 @@ Turing's Mod 2 "What's Cookin" group project continued to build on on class-to-c
 
 On page load, the user will be able to scroll through a database of potential recipes.
 
+![](https://media.giphy.com/media/3fdireDamtCOX3JYnj/giphy.gif)
+
+If the user would like to learn more about the recipe, such as instructions for cooking it or the total cost of all the ingredients involved, simply click on a small card to see a larger display.
+
 ![](https://media.giphy.com/media/YrUU1bToSi4Y3TszV0/giphy.gif)
 
 If the user sees a recipe they like, they may favorite that recipe by clicking the heart. A filled in heart indicates the recipe has been favorited.
