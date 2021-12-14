@@ -5,6 +5,7 @@ import User from '../src/classes/User';
 import Recipe from '../src/classes/Recipe';
 import './images/cookin_pan_icon.png';
 
+const clearSearch = document.querySelector('#clearSearch');
 const userName = document.querySelector('#userName');
 const logoImage = document.querySelector('#logoImage');
 const dropDown = document.querySelector('#dropDown');
@@ -303,6 +304,7 @@ const populateBigModal = (event) => {
 }
 
 const searchForRecipe = () => {
+  removeClass([clearSearch], 'hidden')
   if (homeButton.classList.contains('hidden')) {
     console.log('invoking searchForRecipeHome')
     searchForRecipeHome()
@@ -394,7 +396,19 @@ const populateMealsToCook = () => {
   }
 }
 
+const clearSearchBar = () => {
+  if (favsButton.classList.contains('hidden')) {
+    cookbook.currentRecipes = user.favoriteRecipes
+  };
+  searchBar.value = null;
+  addClass([clearSearch], 'hidden');
+  displayCurrentRecipes();
+  };
+  
+
 //event listeners
+
+clearSearch.addEventListener('click', clearSearchBar);
 
 mealPlanButton.addEventListener('click', populateMealsToCook);
 
