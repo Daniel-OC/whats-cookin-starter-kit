@@ -7,16 +7,6 @@ class Cookbook {
     this.keywords = [];
   }
 
-  // filterByTag(searchTags) {
-  //   if (this.tags.length) {
-  //     this.currentRecipes = this.currentRecipes.filter(recipe => {
-  //       return recipe.tags.some(tag => searchTags.includes(tag));
-  //     });
-  //   } else {
-  //     this.clearFilter();
-  //   }
-  // }
-
   filterByTag(searchTags) {
     this.currentRecipes = this.currentRecipes.filter(recipe => {
       return recipe.tags.some(tag => searchTags.includes(tag));
@@ -48,6 +38,10 @@ class Cookbook {
     this.currentRecipes = this.recipes;
     this.tags = [];
     this.keywords = [];
+  }
+
+  addKeywords(keywords) {
+    this.keywords = keywords;
   }
 }
 
