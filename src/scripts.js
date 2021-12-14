@@ -131,7 +131,7 @@ const displayCurrentRecipes = () => {
 const clickHomeButton = () => {
   addClass([homeButton, bigModal], 'hidden');
   removeClass([mainDisplay, favsButton, aside], 'hidden');
-  // cookbook.clearFilter();
+  cookbook.clearFilter();
   displayCurrentRecipes();
 }
 
@@ -185,25 +185,38 @@ const clearCheckBoxes = () => {
 const populateFilterTags = (tags) => {
   sideBarModal.innerHTML = '';
   tags.forEach(tag => {
-    if (cookbook.tags.includes(tag)) {
       sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
-        <input class="filter" type="checkbox" checked name="${tag}" id="${tag}"/ >
+        <input class="filter" type="checkbox" name="${tag}" id="${tag}"/ >
         <label for="${tag}">${tag}</label>
       </section>
     </section>`;
-    } else {
-      sideBarModal.innerHTML += `
-      <section class="flex column align-start eighty-width sml-marg">
-        <section class="flex row">
-          <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
-          <label for="${tag}">${tag}</label>
-        </section>
-      </section>`;
-    }
   });
 }
+
+// const populateFilterTags = (tags) => {
+//   sideBarModal.innerHTML = '';
+//   tags.forEach(tag => {
+//     if (cookbook.tags.includes(tag)) {
+//       sideBarModal.innerHTML += `
+//     <section class="flex column align-start eighty-width sml-marg">
+//       <section class="flex row">
+//         <input class="filter" type="checkbox" checked name="${tag}" id="${tag}"/ >
+//         <label for="${tag}">${tag}</label>
+//       </section>
+//     </section>`;
+//     } else {
+//       sideBarModal.innerHTML += `
+//       <section class="flex column align-start eighty-width sml-marg">
+//         <section class="flex row">
+//           <input class="filter" type="checkbox" name="${tag}" id ="${tag}" />
+//           <label for="${tag}">${tag}</label>
+//         </section>
+//       </section>`;
+//     }
+//   });
+// }
 
 const getFilterTags = () => {
   return cookbook.recipes.reduce((accumulator, recipe) => {
