@@ -11,7 +11,7 @@ class User {
     cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
       return recipe.name.toLowerCase().includes(cookbook.keywords.join(" "));
     });
-  }     
+  }
 
   filterFavoritesByIngredient(cookbook) {
     cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
@@ -49,7 +49,6 @@ class User {
     let index = meals.findIndex(recipe => recipe === meal);
     meals.splice(index, 1);
   }
-
 }
 
 export default User;

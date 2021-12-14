@@ -35,13 +35,16 @@ describe('Cookbook', () => {
     expect(cookbook.recipes[0]).to.be.an.instanceOf(Recipe);
   });
 
+  it('should be able to store tags', () => {
+    expect(cookbook.tags).to.be.an('array');
+  });
+
   it('should be able to store all ingredients information', () => {
     expect(cookbook.ingredients).to.be.an('array');
   });
 
   it('should be able to filter by 1 tag', () => {
     cookbook.filterByTag(['sauce']);
-    console.log(cookbook.currentRecipes)
     expect(cookbook.currentRecipes.length).to.deep.equal(1);
   });
 
@@ -50,8 +53,15 @@ describe('Cookbook', () => {
     expect(cookbook.currentRecipes.length).to.deep.equal(2);
   });
 
+  it('should be able to store keywords', () => {
+    expect(cookbook.keywords).to.be.an('array');
+    cookbook.addKeywords(['loaded', 'chocolate']);
+    expect(cookbook.keywords.length).to.deep.equal(2);
+  });
+
   it('should be able to filter by name', () => {
-    cookbook.filterByRecipeName('Loaded Chocolate');
+    cookbook.keywords = ['loaded', 'chocolate'];
+    cookbook.filterByRecipeName();
     expect(cookbook.currentRecipes.length).to.deep.equal(1);
   });
 

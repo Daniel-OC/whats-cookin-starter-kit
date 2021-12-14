@@ -175,7 +175,7 @@ const clickFilterHomeView = () => {
     displayCurrentRecipes();
     clearCheckBoxes();
   }
-} 
+}
 
 const clearCheckBoxes = () => {
   sideBarModal.innerHTML = '';
@@ -344,7 +344,7 @@ const searchForRecipe = () => {
 
 const searchForRecipeHome = () => {
   let search = searchBar.value.toLowerCase();
-  cookbook.keywords = search.split(' ');
+  cookbook.addKeywords(search.split(' '));
   if (dropDown.value === 'name' && searchBar.value) {
     cookbook.filterByRecipeName();
     displayCurrentRecipes();
@@ -359,7 +359,7 @@ const searchForRecipeHome = () => {
 
 const searchForRecipeFavs = (cookbook) => {
   let search = searchBar.value.toLowerCase();
-  cookbook.keywords = search.split(' ');
+  cookbook.addKeywords(search.split(' '));
   if (dropDown.value === 'name' && searchBar.value) {
     user.filterFavoritesByRecipeName(cookbook);
     displayCurrentRecipes();

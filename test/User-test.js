@@ -11,15 +11,18 @@ describe('User', () => {
   let ingredients;
   let users;
   let testUser;
-  let favorites;
+  let cookbook;
   let recipes;
-  
+
   beforeEach(() => {
-    recipes = recipeTestData.recipeData;
+    recipes = recipeTestData.recipeData.reduce((sum, recipe) => {
+      sum.push(new Recipe(recipe));
+      return sum;
+    }, []);
     ingredients = ingredientTestData.ingredientsData;
     users = userTestData.usersTestData;
-    favorites = new Cookbook(ingredients);
-    testUser = new User(users[0], favorites);
+    cookbook = new Cookbook(ingredients, recipes);
+    testUser = new User(users[0]);
 
   });
 
@@ -63,6 +66,36 @@ describe('User', () => {
     expect(testUser.favoriteRecipes.length).to.deep.equal(1);
     testUser.removeFavoriteRecipe(newRecipe);
     expect(testUser.favoriteRecipes.length).to.deep.equal(0);
+  });
+
+  it('should be able to filter favorite recipes by name', () => {
+    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
+    testUser.addFavoriteRecipe(recipes[0]);
+    testUser.addFavoriteRecipe(recipes[1]);
+    testUser.addFavoriteRecipe(recipes[2]);
+    cookbook.addKeywords(['loaded', 'chocolate']);
+    testUser.filterFavoritesByRecipeName(cookbook);
+    expect(cookbook.currentRecipes.length).to.be.deep.equal(1);
+  });
+
+  it('should be able to filter favorite recipes by ingredients', () => {
+    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
+    testUser.addFavoriteRecipe(recipes[0]);
+    testUser.addFavoriteRecipe(recipes[1]);
+    testUser.addFavoriteRecipe(recipes[2]);
+    cookbook.addKeywords(['eggs', 'sucrose']);
+    testUser.filterFavoritesByIngredient(cookbook);
+    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
+  });
+
+  it('should be able to filter favorite recipes by tags', () => {
+    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
+    testUser.addFavoriteRecipe(recipes[0]);
+    testUser.addFavoriteRecipe(recipes[1]);
+    testUser.addFavoriteRecipe(recipes[2]);
+    cookbook.tags.push('sauce');
+    testUser.filterFavoritesByTag('sauce', cookbook);
+    expect(cookbook.currentRecipes.length).to.be.deep.equal(1);
   });
 
   it('should be able to add recipes to mealplan', () => {
