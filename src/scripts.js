@@ -67,7 +67,7 @@ const displayCurrentRecipes = () => {
         <p class="full-width not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
 					<div class="flex column">
-						<i class="far fa-heart fa-2x fa-cog-heart clickable fas" id="heart${recipe.id}"></i>
+						<i class="far fa-heart fa-2x red clickable fas" id="heart${recipe.id}"></i>
 					</div>
 					<div class="flex column">
 						<i class="fas fa-plus fa-2x clickable plus" id="plus${recipe.id}"></i>
@@ -83,7 +83,7 @@ const displayCurrentRecipes = () => {
         <p class="full-width not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
 					<div class="flex column">
-						<i class="far fa-heart fa-2x fa-cog-heart clickable fas" id="heart${recipe.id}"></i>
+						<i class="far fa-heart fa-2x red clickable fas" id="heart${recipe.id}"></i>
 					</div>
 					<div class="flex column">
 						<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
@@ -99,7 +99,7 @@ const displayCurrentRecipes = () => {
             <p class="full-width not-clickable">${recipe.name}</p>
             <div class="flex column around basis half-width full-height">
               <div class="flex column">
-                <i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
+                <i class="far fa-heart fa-2x red clickable" id="heart${recipe.id}"></i>
               </div>
               <div class="flex column">
                 <i class="fas fa-plus fa-2x clickable plus" id="plus${recipe.id}"></i>
@@ -115,7 +115,7 @@ const displayCurrentRecipes = () => {
             <p class="full-width not-clickable">${recipe.name}</p>
             <div class="flex column around basis half-width full-height">
               <div class="flex column">
-                <i class="far fa-heart fa-2x fa-cog-heart clickable" id="heart${recipe.id}"></i>
+                <i class="far fa-heart fa-2x red clickable" id="heart${recipe.id}"></i>
               </div>
               <div class="flex column">
                 <i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
@@ -393,7 +393,7 @@ const displayMealsToCook = () => {
     sideBarModal.innerHTML += `
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
-        <i class="fas fa-times fa-2x sml-right-marg clickable" id="delete${meal.id}"></i>
+        <i class="fas fa-times fa-2x sml-right-marg clickable red" id="delete${meal.id}"></i>
         <p id="${meal.id}">${meal.name}</p>
       </section>
     </section>`;
