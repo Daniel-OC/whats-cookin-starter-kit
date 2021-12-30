@@ -21,10 +21,12 @@ const bigModal = document.querySelector('#bigModal');
 const bigModalInstructions = document.querySelector('#bigModalInstructions');
 const bigModalImage = document.querySelector('#bigModalImage');
 const bigModalCost = document.querySelector('#bigModalCost');
+const bigModalIngredients = document.querySelector('#bigModalIngredients');
 const aside = document.querySelector('#aside');
 
 let cookbook;
 let user;
+let ingredients;
 
 Promise.all([recipeCalls, ingredientCalls, userCalls])
   .then(data => {
@@ -32,6 +34,7 @@ Promise.all([recipeCalls, ingredientCalls, userCalls])
       sum.push(new Recipe(recipe));
       return sum;
     }, []);
+    ingredients = data[1].ingredientsData;
     cookbook = new Cookbook(data[1].ingredientsData, recipes);
     user = new User(data[2].usersData[getRandomIndex(data[2].usersData)]);
     startSite();
@@ -176,6 +179,9 @@ const populateBigModal = (event) => {
   updateInnerText(bigModalInstructions, selectedRecipe.name);
   selectedRecipe.instructions.forEach((instruction, i) => {
     bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
+  });
+  selectedRecipe.ingredients.forEach((ingredient, i) => {
+    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.getIngredientNames(ingredients)[i]}</li>`;
   });
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
