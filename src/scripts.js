@@ -180,6 +180,7 @@ const populateBigModal = (event) => {
   selectedRecipe.instructions.forEach((instruction, i) => {
     bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
   });
+  bigModalIngredients.innerHTML = ''
   selectedRecipe.ingredients.forEach((ingredient, i) => {
     bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.getIngredientNames(ingredients)[i]}</li>`;
   });
