@@ -1,11 +1,11 @@
 # MOD2 What's Cookin, Good Lookin'?
 
 ## TABLE OF CONTENTS
-- [Project Overview](##-Project-Overview)
-- [Future Features](##-FUTURE-FEATURES)
-- [Tech Stack](##-TECHNOLOGIES-USED )
-- [Install Instructions](##-INSTRUCTIONS)
-- [Authors/Links](##-AUTHORS/LINKS)
+- [Project Overview](#project-overview)
+- [Future Features](#future-features)
+- [Tech Stack](#technologies-used)
+- [Install Instructions](#instructions)
+- [Authors/Links](#authorslinks)
 
 ### Project Overview
 
@@ -70,10 +70,11 @@ The filtering tags will also work within the user's favorited recipes section, a
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
 ### INSTRUCTIONS
-- Fork the repository
+- fork the repository
 - copy the SSH clone address
 - run ```git clone [remote-address]``` in your repo
-- Run ```npm start``` in the Terminal visit localhost:8080
+- run ```npm install``` in your terminal
+- run ```npm start``` in the Terminal visit localhost:8080
 
 ### AUTHORS/LINKS
 #### - Project
