@@ -62,14 +62,14 @@ function addClass(elements, rule) {
 
 const updateMainDisplay = () => {
   if (cookbook.currentRecipes.length) {
-    displayCurrentRecipes()
+    displayCurrentRecipes();
   } else {
-    displayErrorMessage()
+    displayErrorMessage();
   }
 }
 
 const displayErrorMessage = () => {
-  mainDisplay.innerText = "Sorry, no recipes match your criteria!"
+  mainDisplay.innerText = "Sorry, no recipes match your criteria!";
 }
 
 
