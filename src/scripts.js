@@ -321,20 +321,30 @@ const toggleMealPlan = (selectedRecipe) => {
   displayMealsToCook();
 }
 
-const searchForRecipe = () => {
+const determineRecipeList = () => {
   removeClass([clearSearch], 'hidden')
-  if (homeButton.classList.contains('hidden')) {
-    searchForRecipeHome();
+  if (favsButton.classList.contains('hidden')) {
+    searchForRecipe(user.favoriteRecipes);
   } else {
-    searchForRecipeFavs(cookbook);
+    searchForRecipe(cookbook.currentRecipes);
   }
+  cookbook.clearFilter();
 }
 
-const searchForRecipeHome = () => {
+// const searchForRecipe = () => {
+//   removeClass([clearSearch], 'hidden')
+//   if (homeButton.classList.contains('hidden')) {
+//     searchForRecipeHome();
+//   } else {
+//     searchForRecipeFavs(cookbook);
+//   }
+// }
+
+const searchForRecipe = (recipeList) => {
   let search = searchBar.value.toLowerCase();
   cookbook.addKeywords(search.split(' '));
   if (dropDown.value === 'name' && searchBar.value) {
-    cookbook.filterByRecipeName();
+    cookbook.filterByRecipeName(recipeList);
     displayCurrentRecipes();
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
     cookbook.filterByIngredient();
@@ -342,22 +352,36 @@ const searchForRecipeHome = () => {
   } else if (!dropDown.value || !searchBar.value) {
     mainDisplay.innerText = "Please select a category or search term!";
   }
-  cookbook.clearFilter();
 }
 
-const searchForRecipeFavs = (cookbook) => {
-  let search = searchBar.value.toLowerCase();
-  cookbook.addKeywords(search.split(' '));
-  if (dropDown.value === 'name' && searchBar.value) {
-    user.filterFavoritesByRecipeName(cookbook);
-    displayCurrentRecipes();
-  } else if (dropDown.value === 'ingredient' && searchBar.value) {
-    user.filterFavoritesByIngredient(cookbook);
-    displayCurrentRecipes();
-  } else if (!dropDown.value || !searchBar.value) {
-    mainDisplay.innerText = "Please select a category or search term!";
-  }
-}
+// const searchForRecipeHome = (recipeList) => {
+//   let search = searchBar.value.toLowerCase();
+//   cookbook.addKeywords(search.split(' '));
+//   if (dropDown.value === 'name' && searchBar.value) {
+//     cookbook.filterByRecipeName();
+//     displayCurrentRecipes();
+//   } else if (dropDown.value === 'ingredient' && searchBar.value) {
+//     cookbook.filterByIngredient();
+//     displayCurrentRecipes();
+//   } else if (!dropDown.value || !searchBar.value) {
+//     mainDisplay.innerText = "Please select a category or search term!";
+//   }
+//   cookbook.clearFilter();
+// }
+
+// const searchForRecipeFavs = (cookbook) => {
+//   let search = searchBar.value.toLowerCase();
+//   cookbook.addKeywords(search.split(' '));
+//   if (dropDown.value === 'name' && searchBar.value) {
+//     user.filterFavoritesByRecipeName(cookbook);
+//     displayCurrentRecipes();
+//   } else if (dropDown.value === 'ingredient' && searchBar.value) {
+//     user.filterFavoritesByIngredient(cookbook);
+//     displayCurrentRecipes();
+//   } else if (!dropDown.value || !searchBar.value) {
+//     mainDisplay.innerText = "Please select a category or search term!";
+//   }
+// }
 
 const createUser = () => {
   userName.innerText = user.name;
@@ -440,10 +464,18 @@ logoImage.addEventListener('click', () => {
   location.reload();
 });
 
-searchButton.addEventListener('click', searchForRecipe);
+searchButton.addEventListener('click', determineRecipeList);
 
 searchBar.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
-    searchForRecipe();
+    determineRecipeList();
   }
 });
+
+// searchButton.addEventListener('click', searchForRecipe);
+//
+// searchBar.addEventListener('keypress', (e) => {
+//   if (e.key === 'Enter') {
+//     searchForRecipe();
+//   }
+// });
