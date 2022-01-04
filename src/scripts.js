@@ -287,7 +287,6 @@ const displayByTag = (tag) => {
 }
 
 const displayAllByTag = (tag, recipeList) => {
-  console.log(recipeList);
   if (!cookbook.tags.includes(tag)) {
     cookbook.tags.push(tag);
     cookbook.filterByTag(cookbook.tags, recipeList);
@@ -331,15 +330,6 @@ const determineRecipeList = () => {
   cookbook.clearFilter();
 }
 
-// const searchForRecipe = () => {
-//   removeClass([clearSearch], 'hidden')
-//   if (homeButton.classList.contains('hidden')) {
-//     searchForRecipeHome();
-//   } else {
-//     searchForRecipeFavs(cookbook);
-//   }
-// }
-
 const searchForRecipe = (recipeList) => {
   let search = searchBar.value.toLowerCase();
   cookbook.addKeywords(search.split(' '));
@@ -353,35 +343,6 @@ const searchForRecipe = (recipeList) => {
     mainDisplay.innerText = "Please select a category or search term!";
   }
 }
-
-// const searchForRecipeHome = (recipeList) => {
-//   let search = searchBar.value.toLowerCase();
-//   cookbook.addKeywords(search.split(' '));
-//   if (dropDown.value === 'name' && searchBar.value) {
-//     cookbook.filterByRecipeName();
-//     displayCurrentRecipes();
-//   } else if (dropDown.value === 'ingredient' && searchBar.value) {
-//     cookbook.filterByIngredient();
-//     displayCurrentRecipes();
-//   } else if (!dropDown.value || !searchBar.value) {
-//     mainDisplay.innerText = "Please select a category or search term!";
-//   }
-//   cookbook.clearFilter();
-// }
-
-// const searchForRecipeFavs = (cookbook) => {
-//   let search = searchBar.value.toLowerCase();
-//   cookbook.addKeywords(search.split(' '));
-//   if (dropDown.value === 'name' && searchBar.value) {
-//     user.filterFavoritesByRecipeName(cookbook);
-//     displayCurrentRecipes();
-//   } else if (dropDown.value === 'ingredient' && searchBar.value) {
-//     user.filterFavoritesByIngredient(cookbook);
-//     displayCurrentRecipes();
-//   } else if (!dropDown.value || !searchBar.value) {
-//     mainDisplay.innerText = "Please select a category or search term!";
-//   }
-// }
 
 const createUser = () => {
   userName.innerText = user.name;
@@ -471,11 +432,3 @@ searchBar.addEventListener('keypress', (e) => {
     determineRecipeList();
   }
 });
-
-// searchButton.addEventListener('click', searchForRecipe);
-//
-// searchBar.addEventListener('keypress', (e) => {
-//   if (e.key === 'Enter') {
-//     searchForRecipe();
-//   }
-// });
