@@ -15,15 +15,17 @@
         <img type="image/png" class="sml-img sml-right-marg clickable" id="logoImage" src="./images/cookin_pan_icon.png" alt="company logo"/>
         <h1 class="flex">What's Cookin, Good Lookin?</h1>
       </section>
-      <section class="flex row">
-        <select class="sml-marg clickable" name="categories" id="dropDown">
-          <option value="" disabled selected hidden>Search By:</option>
-          <option value="name">Recipe Name</option>
-          <option value="ingredient">Ingredients</option>
-        </select>
-        <input class="no-brdr" id="searchBar" placeholder="search recipes"></input>
-				<button class="fas fa-search clickable" id="searchButton"></button>
-      </section>
+      <form>
+        <section class="flex row">
+          <select class="sml-marg clickable" name="categories" id="dropDown" required>
+            <option value="" disabled selected hidden>Search By:</option>
+            <option value="name">Recipe Name</option>
+            <option value="ingredient">Ingredients</option>
+          </select>
+          <input class="no-brdr" id="searchBar" placeholder="search recipes"></input>
+          <button class="fas fa-search clickable" id="searchButton"></button>
+        </section>
+      </form>
       <section class="flex between end">
         <div class="flex row">
           <p class="sml-right-marg" id="userName"></p>
