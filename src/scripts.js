@@ -59,6 +59,21 @@ function addClass(elements, rule) {
 }
 
 // Event handlers and their constituent functions
+
+const updateMainDisplay = () => {
+  if (cookbook.currentRecipes.length) {
+    displayCurrentRecipes()
+  } else {
+    displayErrorMessage()
+  }
+}
+
+const displayErrorMessage = () => {
+  mainDisplay.innerText = "Sorry, no recipes match your criteria!"
+}
+
+
+
 const displayCurrentRecipes = () => {
   let display = cookbook.currentRecipes;
   mainDisplay.innerHTML = '';
@@ -193,7 +208,7 @@ const clickHomeButton = () => {
   cookbook.clearFilter();
   populateFilterTags(getFilterTags())
   createFilterEventListener()
-  displayCurrentRecipes();
+  updateMainDisplay();
 }
 
 const clickFilterButton = () => {
@@ -217,7 +232,7 @@ const clickFilterFavView = () => {
     removeClass([filterButton], 'orange');
     cookbook.currentRecipes = user.favoriteRecipes;
     cookbook.tags = []
-    displayCurrentRecipes();
+    updateMainDisplay();
     clearCheckBoxes();
   }
 }
@@ -234,7 +249,7 @@ const clickFilterHomeView = () => {
     addClass([sideBarModal], 'hidden');
     removeClass([filterButton], 'orange');
     cookbook.clearFilter();
-    displayCurrentRecipes();
+    updateMainDisplay();
     clearCheckBoxes();
   }
 }
@@ -283,7 +298,7 @@ const displayByTag = (tag) => {
   } else {
     displayAllByTag(tag, cookbook.recipes);
   }
-  displayCurrentRecipes();
+  updateMainDisplay();
 }
 
 const displayAllByTag = (tag, recipeList) => {
@@ -305,7 +320,7 @@ const toggleFavoriteRecipe = (selectedRecipe) => {
   } else {
     removeClass([event.target], 'fas');
     user.removeFavoriteRecipe(selectedRecipe);
-    displayCurrentRecipes();
+    updateMainDisplay();
   }
 }
 
@@ -335,10 +350,10 @@ const searchForRecipe = (recipeList) => {
   cookbook.addKeywords(search.split(' '));
   if (dropDown.value === 'name' && searchBar.value) {
     cookbook.filterByRecipeName(recipeList);
-    displayCurrentRecipes();
+    updateMainDisplay();
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
     cookbook.filterByIngredient(recipeList);
-    displayCurrentRecipes();
+    updateMainDisplay();
   } else if (!dropDown.value || !searchBar.value) {
     mainDisplay.innerText = "Please select a category or search term!";
   }
@@ -349,13 +364,13 @@ const createUser = () => {
 }
 
 const startSite = () => {
-  displayCurrentRecipes();
+  updateMainDisplay();
   createUser();
 }
 
 const displayFavs = () => {
   cookbook.currentRecipes = user.favoriteRecipes;
-  displayCurrentRecipes();
+  updateMainDisplay();
   cookbook.tags = [];
   populateFilterTags(getFilterTags());
   createFilterEventListener();
@@ -384,7 +399,7 @@ const createMealPlanDeleteListener = () => {
       let selectedMeal = user.mealPlan.find(meal => `delete${meal.id}` === event.target.id);
       user.removeFromMealPlan(selectedMeal);
       displayMealsToCook();
-      displayCurrentRecipes();
+      updateMainDisplay();
     });
   });
 }
@@ -406,7 +421,7 @@ const clearSearchBar = () => {
   }
   searchBar.value = null;
   addClass([clearSearch], 'hidden');
-  displayCurrentRecipes();
+  updateMainDisplay();
 };
 
 //event listeners
