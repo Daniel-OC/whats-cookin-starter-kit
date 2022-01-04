@@ -272,44 +272,31 @@ const createFilterEventListener = () => {
   const checkBoxes = document.querySelectorAll('.filter');
   checkBoxes.forEach(checkBox => {
     checkBox.addEventListener('click', (event) => {
-      displayByTag(event.target.id, cookbook);
+      displayByTag(event.target.id);
     });
   });
 }
 
-const displayByTag = (tag, cookbook) => {
+const displayByTag = (tag) => {
   if (favsButton.classList.contains('hidden')) {
-    displayFavsByTag(tag, cookbook);
+    displayAllByTag(tag, user.favoriteRecipes);
   } else {
-    displayAllByTag(tag);
-  }
-}
-
-const displayFavsByTag = (tag, cookbook) => {
-  if (!cookbook.tags.includes(tag)) {
-    cookbook.tags.push(tag);
-    user.filterFavoritesByTag(cookbook.tags, cookbook);
-  } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
-    cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    user.filterFavoritesByTag(cookbook.tags, cookbook);
-  } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
-    cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    cookbook.currentRecipes = user.favoriteRecipes;
+    displayAllByTag(tag, cookbook.recipes);
   }
   displayCurrentRecipes();
 }
 
-const displayAllByTag = (tag) => {
+const displayAllByTag = (tag, recipeList) => {
+  console.log(recipeList);
   if (!cookbook.tags.includes(tag)) {
     cookbook.tags.push(tag);
-    cookbook.filterByTag(cookbook.tags);
+    cookbook.filterByTag(cookbook.tags, recipeList);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    cookbook.filterByTag(cookbook.tags);
+    cookbook.filterByTag(cookbook.tags, recipeList);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
-    cookbook.clearFilter();
+    cookbook.clearFilter(recipeList);
   }
-  displayCurrentRecipes();
 }
 
 const toggleFavoriteRecipe = (selectedRecipe) => {
