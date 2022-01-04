@@ -7,11 +7,11 @@ class User {
     this.mealPlan = [];
   }
 
-  filterFavoritesByRecipeName(cookbook) {
-    cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
-      return recipe.name.toLowerCase().includes(cookbook.keywords.join(" "));
-    });
-  }
+  // filterFavoritesByRecipeName(cookbook) {
+  //   cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
+  //     return recipe.name.toLowerCase().includes(cookbook.keywords.join(" "));
+  //   });
+  // }
 
   filterFavoritesByIngredient(cookbook) {
     cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
