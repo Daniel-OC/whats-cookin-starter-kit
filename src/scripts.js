@@ -197,7 +197,7 @@ const populateBigModal = (event) => {
   });
   bigModalIngredients.innerHTML = ''
   selectedRecipe.ingredients.forEach((ingredient, i) => {
-    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</li>`;
+    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.ingredients[i].quantity.amount} ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</li>`;
   });
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
