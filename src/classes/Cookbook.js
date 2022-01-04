@@ -13,14 +13,21 @@ class Cookbook {
     });
   }
 
-  filterByRecipeName() {
-    if (this.keywords.length) {
-      this.currentRecipes = this.currentRecipes.filter(recipe => {
-        return recipe.name.toLowerCase().includes(this.keywords.join(" "));
-      });
-    } else {
-      this.clearFilter();
-    }
+  // filterByRecipeName() {
+  //   if (this.keywords.length) {
+  //     this.currentRecipes = this.currentRecipes.filter(recipe => {
+  //       return recipe.name.toLowerCase().includes(this.keywords.join(" "));
+  //     });
+  //   }
+  //   else {
+  //     this.clearFilter();
+  //   }
+  // }
+
+  filterByRecipeName(recipeList) {
+    this.currentRecipes = recipeList.filter(recipe => {
+      return recipe.name.toLowerCase().includes(this.keywords.join(" "));
+    });
   }
 
   filterByIngredient() {
