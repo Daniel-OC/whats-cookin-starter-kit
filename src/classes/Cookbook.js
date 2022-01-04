@@ -7,8 +7,8 @@ class Cookbook {
     this.keywords = [];
   }
 
-  filterByTag(searchTags) {
-    this.currentRecipes = this.recipes.filter(recipe => {
+  filterByTag(searchTags, recipeList) {
+    this.currentRecipes = recipeList.filter(recipe => {
       return recipe.tags.some(tag => searchTags.includes(tag));
     });
   }
@@ -34,8 +34,8 @@ class Cookbook {
     }
   }
 
-  clearFilter() {
-    this.currentRecipes = this.recipes;
+  clearFilter(recipeList) {
+    this.currentRecipes = recipeList || this.recipes;
     this.tags = [];
     this.keywords = [];
   }
