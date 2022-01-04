@@ -354,9 +354,7 @@ const searchForRecipe = (recipeList) => {
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
     cookbook.filterByIngredient(recipeList);
     updateMainDisplay();
-  } else if (!dropDown.value || !searchBar.value) {
-    mainDisplay.innerText = "Please select a category or search term!";
-  }
+  } 
 }
 
 const createUser = () => {
