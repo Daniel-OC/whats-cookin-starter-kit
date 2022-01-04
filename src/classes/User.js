@@ -20,12 +20,6 @@ class User {
     });
   }
 
-  filterFavoritesByTag(searchTags, cookbook) {
-    cookbook.currentRecipes = this.favoriteRecipes.filter(recipe => {
-      return recipe.tags.some(tag => searchTags.includes(tag));
-    });
-  }
-
   addFavoriteRecipe(favRecipe) {
     if (!this.favoriteRecipes.includes(favRecipe)) {
       this.favoriteRecipes.push(favRecipe);
