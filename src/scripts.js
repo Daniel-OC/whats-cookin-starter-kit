@@ -182,7 +182,7 @@ const populateBigModal = (event) => {
   });
   bigModalIngredients.innerHTML = ''
   selectedRecipe.ingredients.forEach((ingredient, i) => {
-    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.getIngredientNames(ingredients)[i]}</li>`;
+    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</li>`;
   });
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
@@ -272,44 +272,30 @@ const createFilterEventListener = () => {
   const checkBoxes = document.querySelectorAll('.filter');
   checkBoxes.forEach(checkBox => {
     checkBox.addEventListener('click', (event) => {
-      displayByTag(event.target.id, cookbook);
+      displayByTag(event.target.id);
     });
   });
 }
 
-const displayByTag = (tag, cookbook) => {
+const displayByTag = (tag) => {
   if (favsButton.classList.contains('hidden')) {
-    displayFavsByTag(tag, cookbook);
+    displayAllByTag(tag, user.favoriteRecipes);
   } else {
-    displayAllByTag(tag);
-  }
-}
-
-const displayFavsByTag = (tag, cookbook) => {
-  if (!cookbook.tags.includes(tag)) {
-    cookbook.tags.push(tag);
-    user.filterFavoritesByTag(cookbook.tags, cookbook);
-  } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
-    cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    user.filterFavoritesByTag(cookbook.tags, cookbook);
-  } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
-    cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    cookbook.currentRecipes = user.favoriteRecipes;
+    displayAllByTag(tag, cookbook.recipes);
   }
   displayCurrentRecipes();
 }
 
-const displayAllByTag = (tag) => {
+const displayAllByTag = (tag, recipeList) => {
   if (!cookbook.tags.includes(tag)) {
     cookbook.tags.push(tag);
-    cookbook.filterByTag(cookbook.tags);
+    cookbook.filterByTag(cookbook.tags, recipeList);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length > 1) {
     cookbook.tags.splice(cookbook.tags.indexOf(tag), 1);
-    cookbook.filterByTag(cookbook.tags);
+    cookbook.filterByTag(cookbook.tags, recipeList);
   } else if (cookbook.tags.includes(tag) && cookbook.tags.length === 1) {
-    cookbook.clearFilter();
+    cookbook.clearFilter(recipeList);
   }
-  displayCurrentRecipes();
 }
 
 const toggleFavoriteRecipe = (selectedRecipe) => {
@@ -334,38 +320,24 @@ const toggleMealPlan = (selectedRecipe) => {
   displayMealsToCook();
 }
 
-const searchForRecipe = () => {
+const determineRecipeList = () => {
   removeClass([clearSearch], 'hidden')
-  if (homeButton.classList.contains('hidden')) {
-    searchForRecipeHome();
+  if (favsButton.classList.contains('hidden')) {
+    searchForRecipe(user.favoriteRecipes);
   } else {
-    searchForRecipeFavs(cookbook);
-  }
-}
-
-const searchForRecipeHome = () => {
-  let search = searchBar.value.toLowerCase();
-  cookbook.addKeywords(search.split(' '));
-  if (dropDown.value === 'name' && searchBar.value) {
-    cookbook.filterByRecipeName();
-    displayCurrentRecipes();
-  } else if (dropDown.value === 'ingredient' && searchBar.value) {
-    cookbook.filterByIngredient();
-    displayCurrentRecipes();
-  } else if (!dropDown.value || !searchBar.value) {
-    mainDisplay.innerText = "Please select a category or search term!";
+    searchForRecipe(cookbook.currentRecipes);
   }
   cookbook.clearFilter();
 }
 
-const searchForRecipeFavs = (cookbook) => {
+const searchForRecipe = (recipeList) => {
   let search = searchBar.value.toLowerCase();
   cookbook.addKeywords(search.split(' '));
   if (dropDown.value === 'name' && searchBar.value) {
-    user.filterFavoritesByRecipeName(cookbook);
+    cookbook.filterByRecipeName(recipeList);
     displayCurrentRecipes();
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
-    user.filterFavoritesByIngredient(cookbook);
+    cookbook.filterByIngredient(recipeList);
     displayCurrentRecipes();
   } else if (!dropDown.value || !searchBar.value) {
     mainDisplay.innerText = "Please select a category or search term!";
@@ -453,10 +425,10 @@ logoImage.addEventListener('click', () => {
   location.reload();
 });
 
-searchButton.addEventListener('click', searchForRecipe);
+searchButton.addEventListener('click', determineRecipeList);
 
 searchBar.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
-    searchForRecipe();
+    determineRecipeList();
   }
 });
