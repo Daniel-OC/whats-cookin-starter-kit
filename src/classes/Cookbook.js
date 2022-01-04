@@ -30,16 +30,24 @@ class Cookbook {
     });
   }
 
-  filterByIngredient() {
-    if (this.keywords.length) {
-      this.currentRecipes = this.recipes.filter(recipe => {
-        let ingredientNamesArray = recipe.getIngredientNames(this.ingredients).flat();
-        return this.keywords.every(keyword => ingredientNamesArray.includes(keyword));
-      });
-    } else {
-      this.clearFilter();
-    }
+  filterByIngredient(recipeList) {
+    this.currentRecipes = recipeList.filter(recipe => {
+      let ingredientNamesArray = recipe.getIngredientNames(this.ingredients).flat();
+      return this.keywords.every(keyword => ingredientNamesArray.includes(keyword));
+    });
   }
+
+  // filterByIngredient() {
+  //   if (this.keywords.length) {
+  //     this.currentRecipes = this.recipes.filter(recipe => {
+  //       let ingredientNamesArray = recipe.getIngredientNames(this.ingredients).flat();
+  //       return this.keywords.every(keyword => ingredientNamesArray.includes(keyword));
+  //     });
+  //   } else {
+  //     this.clearFilter();
+  //   }
+  // }
+
 
   clearFilter(recipeList) {
     this.currentRecipes = recipeList || this.recipes;
