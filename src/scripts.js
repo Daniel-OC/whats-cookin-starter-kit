@@ -182,7 +182,7 @@ const populateBigModal = (event) => {
   });
   bigModalIngredients.innerHTML = ''
   selectedRecipe.ingredients.forEach((ingredient, i) => {
-    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.getIngredientNames(ingredients)[i]}</li>`;
+    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</li>`;
   });
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
@@ -347,7 +347,7 @@ const searchForRecipe = (recipeList) => {
     cookbook.filterByRecipeName(recipeList);
     displayCurrentRecipes();
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
-    cookbook.filterByIngredient();
+    cookbook.filterByIngredient(recipeList);
     displayCurrentRecipes();
   } else if (!dropDown.value || !searchBar.value) {
     mainDisplay.innerText = "Please select a category or search term!";
