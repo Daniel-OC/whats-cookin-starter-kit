@@ -80,7 +80,7 @@ const displayCurrentRecipes = () => {
     <article class="flex column sml-brdr-radius shadow">
       <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
       <div class="flex row around full-width half-height yellow">
-        <p class="full-width not-clickable">${recipe.name}</p>
+        <p class="full-width med-font not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
 					<div class="flex column">
 						<i class="far fa-heart fa-2x clickable red" id="heart${recipe.id}"></i>
@@ -161,9 +161,9 @@ const populateBigModal = (event) => {
   selectedRecipe.instructions.forEach((instruction, i) => {
     bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
   });
-  bigModalIngredients.innerHTML = ''
+  bigModalIngredients.innerHTML = '';
   selectedRecipe.ingredients.forEach((ingredient, i) => {
-    bigModalIngredients.innerHTML += `<li class="flex align-start med-left-marg med-top-marg med-font">${selectedRecipe.ingredients[i].quantity.amount} ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</li>`;
+    bigModalIngredients.innerHTML += `<li class="flex align-start text-align med-left-marg med-top-marg med-font"><b>${selectedRecipe.ingredients[i].quantity.amount}</b>x ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</em></li>`;
   });
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
