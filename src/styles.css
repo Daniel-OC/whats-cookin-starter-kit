@@ -205,6 +205,10 @@ article p {
 	text-align: center;
 }
 
+.drop-down-error {
+  border: 5px solid red
+}
+
 .shadow {
 	box-shadow: 4px 4px 4px #26222D;
 }

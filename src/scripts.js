@@ -133,7 +133,7 @@ const createRecipeHeartListener = () => {
   recipeHearts.forEach(heart => {
     heart.addEventListener('click', (event) => {
       let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
-      toggleFavoriteRecipe(selectedRecipe);
+      toggleFavoriteRecipe(selectedRecipe, event);
     });
   });
 }
@@ -143,7 +143,7 @@ const createRecipePlusListener = () => {
   recipePluses.forEach(plus => {
     plus.addEventListener('click', (event) => {
       let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
-      toggleMealPlan(selectedRecipe);
+      toggleMealPlan(selectedRecipe, event);
     });
   });
 }
@@ -279,7 +279,7 @@ const displayAllByTag = (tag, recipeList) => {
   }
 }
 
-const toggleFavoriteRecipe = (selectedRecipe) => {
+const toggleFavoriteRecipe = (selectedRecipe, event) => {
   if (!user.favoriteRecipes.includes(selectedRecipe)) {
     addClass([event.target], 'fas');
     user.addFavoriteRecipe(selectedRecipe);
@@ -290,7 +290,7 @@ const toggleFavoriteRecipe = (selectedRecipe) => {
   }
 }
 
-const toggleMealPlan = (selectedRecipe) => {
+const toggleMealPlan = (selectedRecipe, event) => {
   if (!user.mealPlan.includes(selectedRecipe)) {
     addClass([event.target], 'plus')
     user.addToMealPlan(selectedRecipe);
@@ -301,12 +301,22 @@ const toggleMealPlan = (selectedRecipe) => {
   displayMealsToCook();
 }
 
-const determineRecipeList = () => {
+const handleLackOfChoice = (recipeList) => {
+  if (dropDown.value) {
+    dropDown.classList.remove('drop-down-error')
+    searchForRecipe(recipeList)
+  } else {
+    dropDown.classList.add('drop-down-error')
+    mainDisplay.innerText = "Please select a category for your search"
+  }
+}
+
+const determineRecipeList = (event) => {
   removeClass([clearSearch], 'hidden')
   if (favsButton.classList.contains('hidden')) {
-    searchForRecipe(user.favoriteRecipes);
+    handleLackOfChoice(user.favoriteRecipes);
   } else {
-    searchForRecipe(cookbook.currentRecipes);
+    handleLackOfChoice(cookbook.currentRecipes);
   }
   cookbook.clearFilter();
 }
