@@ -72,13 +72,10 @@ const displayErrorMessage = () => {
   mainDisplay.innerText = "Sorry, no recipes match your criteria!";
 }
 
-
-
 const displayCurrentRecipes = () => {
   let display = cookbook.currentRecipes;
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
-    if (user.favoriteRecipes.includes(recipe) && user.mealPlan.includes(recipe)) {
       mainDisplay.innerHTML += `
     <article class="flex column sml-brdr-radius shadow">
       <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
@@ -86,65 +83,34 @@ const displayCurrentRecipes = () => {
         <p class="full-width not-clickable">${recipe.name}</p>
         <div class="flex column around basis half-width full-height">
 					<div class="flex column">
-						<i class="far fa-heart fa-2x red clickable fas" id="heart${recipe.id}"></i>
-					</div>
-					<div class="flex column">
-						<i class="fas fa-plus fa-2x clickable plus" id="plus${recipe.id}"></i>
-					</div>
-        </div>
-      </div>
-    </article>`;
-    } else if (user.favoriteRecipes.includes(recipe) && !user.mealPlan.includes(recipe)) {
-      mainDisplay.innerHTML += `
-    <article class="flex column sml-brdr-radius shadow">
-      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
-      <div class="flex row around full-width half-height yellow">
-        <p class="full-width not-clickable">${recipe.name}</p>
-        <div class="flex column around basis half-width full-height">
-					<div class="flex column">
-						<i class="far fa-heart fa-2x red clickable fas" id="heart${recipe.id}"></i>
+						<i class="far fa-heart fa-2x clickable red" id="heart${recipe.id}"></i>
 					</div>
 					<div class="flex column">
 						<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
 					</div>
         </div>
       </div>
-    </article>`;
-    } else if (!user.favoriteRecipes.includes(recipe) && user.mealPlan.includes(recipe)) {
-      mainDisplay.innerHTML += `
-        <article class="flex column sml-brdr-radius shadow">
-          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
-          <div class="flex row around full-width half-height yellow">
-            <p class="full-width not-clickable">${recipe.name}</p>
-            <div class="flex column around basis half-width full-height">
-              <div class="flex column">
-                <i class="far fa-heart fa-2x red clickable" id="heart${recipe.id}"></i>
-              </div>
-              <div class="flex column">
-                <i class="fas fa-plus fa-2x clickable plus" id="plus${recipe.id}"></i>
-              </div>
-            </div>
-          </div>
-        </article>`
-    } else if (!user.favoriteRecipes.includes(recipe) && !user.mealPlan.includes(recipe)) {
-      mainDisplay.innerHTML += `
-        <article class="flex column sml-brdr-radius shadow">
-          <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
-          <div class="flex row around full-width half-height yellow">
-            <p class="full-width not-clickable">${recipe.name}</p>
-            <div class="flex column around basis half-width full-height">
-              <div class="flex column">
-                <i class="far fa-heart fa-2x red clickable" id="heart${recipe.id}"></i>
-              </div>
-              <div class="flex column">
-                <i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
-              </div>
-            </div>
-          </div>
-        </article>`
+    </article>`
+  })
+  fillIconsOnLoad();
+  createRecipeCardEventListener();
+}
+
+const fillIconsOnLoad = () => {
+  let heartIcons = document.querySelectorAll('.fa-heart');
+  let plusIcons = document.querySelectorAll('.fa-plus');
+  let favoriteIds = user.favoriteRecipes.map(recipe => recipe.id);
+  let mealplanIds = user.mealPlan.map(recipe => recipe.id);
+  heartIcons.forEach(heart => {
+    if (favoriteIds.includes(parseInt(heart.id.slice(5)))) {
+      heart.classList.add('fas');
     }
   });
-  createRecipeCardEventListener();
+  plusIcons.forEach(plus => {
+    if (mealplanIds.includes(parseInt(plus.id.slice(4)))) {
+      plus.classList.add('plus');
+    }
+  });
 }
 
 const createRecipeCardEventListener = () => {
