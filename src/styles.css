@@ -205,6 +205,10 @@ article p {
 	text-align: center;
 }
 
+.text-align {
+  text-align: left;
+}
+
 .drop-down-error {
   border: 5px solid red
 }
@@ -213,8 +217,16 @@ article p {
 	box-shadow: 4px 4px 4px #26222D;
 }
 
+.thirty-width {
+  width: 30%;
+}
+
 .half-width {
 	width: 50%;
+}
+
+.seventy-width {
+  width: 70%;
 }
 
 .eighty-width {
@@ -234,8 +246,8 @@ article p {
 }
 
 .max-height {
-  min-height: 87%;
-  max-height: 87%;
+  min-height: 83%;
+  max-height: 83%;
 }
 
 .no-brdr {
@@ -276,7 +288,6 @@ article p {
 	background-size: cover;
 	background-repeat: no-repeat;
 	overflow: hidden;
-  width: 60%;
 }
 
 .filter {
@@ -303,9 +314,18 @@ ul {
   font-weight: bold;
 }
 
+.sml-font {
+  font-size: 14px;
+}
+
 .med-font {
   font-size: 18px;
   font-weight: normal;
+}
+
+.lrg-font {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .red {
