@@ -128,7 +128,14 @@ const recipeData = [
     	{
         "id": 19335,
         "quantity": {
-          "amount": 0.5,
+          "amount": 9.5,
+          "unit": "c"
+        }
+    	},
+      {
+        "id": 666666,
+        "quantity": {
+          "amount": 6.66,
           "unit": "c"
         }
     	}
