@@ -59,28 +59,28 @@ const recipeData = [
       {
         "id": 20081,
         "quantity": {
-          "amount": 1.5,
+          "amount": 2.5,
           "unit": "c"
         }
     	},
     	{
         "id": 18372,
         "quantity": {
-          "amount": 0.5,
+          "amount": 3.5,
           "unit": "tsp"
         }
     	},
     	{
         "id": 1123,
         "quantity": {
-          "amount": 1,
+          "amount": 6,
           "unit": "large"
         }
     	},
     	{
         "id": 19335,
         "quantity": {
-          "amount": 0.5,
+          "amount": 5.5,
           "unit": "c"
         }
     	}
