@@ -30,7 +30,7 @@ describe('Pantry', () => {
   });
 
   it('should be an instance of Pantry', () => {
-    expect(user.pantry).to.be.an.instanceOf('Pantry');
+    expect(user.pantry).to.be.an.instanceOf(Pantry);
   });
 
   it('should hold an array of all user ingredients', () => {
@@ -38,7 +38,6 @@ describe('Pantry', () => {
   });
 
   it('should have checkPantryInventory function', () => {
-
     expect(user.pantry.checkPantryInventory).to.be.a('function');
   });
 
@@ -56,14 +55,23 @@ describe('Pantry', () => {
 
   it('should have listNeededIngredients function', () => {
     expect(user.pantry.listNeededIngredients).to.be.a('function');
-  })
+  });
 
   it('should determine the amount of ingredients still needed in order to cook a given meal', () => {
     let mealToCook = recipes[1];
 
     expect(user.pantry.listNeededIngredients(mealToCook)).to.be.deep.equal([
-      { id: 18372, quantity: { amount: 0.5, unit: 'tsp'}},
-      { id: 19335, quantity: { amount: 1.5, unit: 'c'}}
+      { id: 18372, quantity: { amount: 0.5, unit: 'tsp' }},
+      { id: 19335, quantity: { amount: 1.5, unit: 'c' }}
+    ]);
+  });
+
+  it('should inform the user of a missing ingredient not currently in their pantry', () => {
+    let mealToCook = recipes[2];
+
+    expect(user.pantry.listNeededIngredients(mealToCook)).to.be.deep.equal([
+      { id: 19335, quantity: { amount: 5.5, unit: 'c' }},
+      { id: 666666, quantity: { amount: 6.66, unit: 'c' }}
     ]);
   });
 })
