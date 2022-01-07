@@ -32,6 +32,10 @@ class User {
     let index = meals.findIndex(recipe => recipe === meal);
     meals.splice(index, 1);
   }
+
+  updatePantry(ingredient, amount) {
+
+  }
 }
 
 export default User;

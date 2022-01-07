@@ -10,8 +10,8 @@ const userCalls =
   fetch('http://localhost:3001/api/v1/users')
     .then(response => response.json());
 
-const pantryCalls = (ing, amt) => {
-  fetch('http://localhost:3001/api/v1/users', {
+const pantryCalls = (user, ing, amt) => {
+  return fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
     body: JSON.stringify({
       "userID": user.id,
@@ -22,7 +22,6 @@ const pantryCalls = (ing, amt) => {
       'Content-Type': 'application/json'
     }
   })
-  .then(response => checkForError(response));
 }
 
 

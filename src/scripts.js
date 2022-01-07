@@ -37,12 +37,16 @@ Promise.all([recipeCalls, ingredientCalls, userCalls])
     }, []);
     ingredients = data[1];
     cookbook = new Cookbook(data[1], recipes);
-    user = new User(data[2][getRandomIndex(data[2])]);
+    user = new User(data[2][0]);
+    //user = new User(data[2][getRandomIndex(data[2])]);
     startSite();
   }).catch(error => displayFetchErrorMessage(error));
 
 Promise.resolve(pantryCalls)
-  .catch(error => displayFetchErrorMessage(error));
+  //.then(response => checkForError(response))
+  //.then(response => response.json())
+  //.catch(error => console.log(error.message));
+  //.catch(error => displayFetchErrorMessage(error));
 
 // helper functions
 
@@ -362,6 +366,7 @@ const createUser = () => {
 const startSite = () => {
   updateMainDisplay();
   createUser();
+  console.log(user);
 }
 
 const displayFavs = () => {
@@ -372,6 +377,8 @@ const displayFavs = () => {
   createFilterEventListener();
   addClass([favsButton, bigModal], 'hidden');
   removeClass([homeButton, mainDisplay, aside], 'hidden');
+  pantryCalls(user, 11297, 3);
+  console.log(user);
 }
 
 const displayMealsToCook = () => {
