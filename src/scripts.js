@@ -1,5 +1,6 @@
 import './styles.css';
-import {recipeCalls, ingredientCalls, userCalls} from './apiCalls';
+import {recipeCalls, ingredientCalls, userCalls, pantryCalls} from './apiCalls';
+import Pantry from '../src/classes/Pantry';
 import Cookbook from '../src/classes/Cookbook';
 import User from '../src/classes/User';
 import Recipe from '../src/classes/Recipe';
@@ -30,15 +31,18 @@ let ingredients;
 
 Promise.all([recipeCalls, ingredientCalls, userCalls])
   .then(data => {
-    const recipes = data[0].recipeData.reduce((sum, recipe) => {
+    const recipes = data[0].reduce((sum, recipe) => {
       sum.push(new Recipe(recipe));
       return sum;
     }, []);
-    ingredients = data[1].ingredientsData;
-    cookbook = new Cookbook(data[1].ingredientsData, recipes);
-    user = new User(data[2].usersData[getRandomIndex(data[2].usersData)]);
+    ingredients = data[1];
+    cookbook = new Cookbook(data[1], recipes);
+    user = new User(data[2][getRandomIndex(data[2])]);
     startSite();
-  }).catch(error => console.log(error));
+  }).catch(error => displayFetchErrorMessage(error));
+
+Promise.resolve(pantryCalls)
+  .catch(error => displayFetchErrorMessage(error));
 
 // helper functions
 
@@ -59,6 +63,24 @@ function addClass(elements, rule) {
 }
 
 // Event handlers and their constituent functions
+
+const checkForError = response => {
+  if (!response.ok) {
+    throw new Error('Please make sure that all fields are filled out.');
+  } else {
+    return response.json();
+  }
+}
+
+const displayFetchErrorMessage = (error) => {
+  let message;
+  if (error.message === 'Failed to fetch') {
+    message = 'Something went wrong. Please check your internet connection';
+  } else {
+    message = error.message;
+  }
+  mainDisplay.innerText = message;
+}
 
 const updateMainDisplay = () => {
   if (cookbook.currentRecipes.length) {
@@ -330,7 +352,7 @@ const searchForRecipe = (recipeList) => {
   } else if (dropDown.value === 'ingredient' && searchBar.value) {
     cookbook.filterByIngredient(recipeList);
     updateMainDisplay();
-  } 
+  }
 }
 
 const createUser = () => {
