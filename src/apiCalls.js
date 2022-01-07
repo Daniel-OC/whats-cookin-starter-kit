@@ -22,7 +22,7 @@ const pantryCalls = (ing, amt) => {
       'Content-Type': 'application/json'
     }
   })
-  .then(response => response.json());
+  .then(response => checkForError(response));
 }
 
 
