@@ -11,20 +11,28 @@ const userCalls =
   fetch('http://localhost:3001/api/v1/users')
     .then(response => response.json());
 
-async function pantryCalls(user, ing, amt) {
+async function pantryCalls(pantryUpdate) {
   return fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
-    body: JSON.stringify({
-      userID: parseInt(user.id),
-      ingredientID: parseInt(ing),
-      ingredientModification: parseInt(amt)
-    }),
+    body: JSON.stringify(pantryUpdate),
     headers: {
       'Content-Type': 'application/json'
     }
   })
 }
 
-
+// async function pantryCalls(userID, ing, amt) {
+//   return fetch('http://localhost:3001/api/v1/users', {
+//     method: 'POST',
+//     body: JSON.stringify({
+//       userID: parseInt(userID),
+//       ingredientID: parseInt(ing),
+//       ingredientModification: parseInt(amt)
+//     }),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+// }
 
 module.exports = {recipeCalls, ingredientCalls, userCalls, pantryCalls};
