@@ -85,7 +85,7 @@ const createGlobalIng = (data) => {
 
 const createGlobalUser = (data) => {
   user = new User(data[2][getRandomIndex(data[2])]);
-} 
+}
 
 const createGlobalCookbook = (data, recipes) => {
   cookbook = new Cookbook(data[1], recipes);
@@ -96,6 +96,26 @@ const createGlobalRecipes = (data) => {
     sum.push(new Recipe(recipe));
     return sum;
   }, []);
+}
+
+async function addIngredientToPantry(ingredient, amount) {
+  let update = await user.updatePantry(ingredient, amount);
+  await pantryCalls(update);
+  await updateUserData();
+}
+
+// const mealHasBeenCooked = () => {
+//   // if (user.pantry.every(recipe.ingreddient))
+//   //removeIngredientsFromPantry(recipe)
+//   //else "you aint got enough stuff, dawg"
+// }
+
+async function removeIngredientsFromPantry(recipe) {
+  await recipe.ingredients.forEach(async (ingredient) => {
+    let update = await user.updatePantry(ingredient.id, -ingredient.quantity.amount);
+    await pantryCalls(update);
+  })
+  await updateUserData();
 }
 
 // helper functions
@@ -427,8 +447,15 @@ const startSite = () => {
 }
 
 async function displayFavs() {
-  await pantryCalls(user, 20081, 2)
-  await updateUserData()
+  //await pantryCalls(user.id, 20081, 2)
+  //await updateUserData()
+  await addIngredientToPantry(1001, 10);
+  await addIngredientToPantry(98871, 90);
+  await addIngredientToPantry(19296, 10);
+  await addIngredientToPantry(6168, 10);
+  await addIngredientToPantry(1002030, 10);
+  await addIngredientToPantry(1055062, 10);
+  await removeIngredientsFromPantry(recipes[45]);
   cookbook.currentRecipes = user.favoriteRecipes;
   updateMainDisplay();
   cookbook.tags = [];
