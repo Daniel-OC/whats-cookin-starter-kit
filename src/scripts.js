@@ -25,28 +25,67 @@ const bigModalCost = document.querySelector('#bigModalCost');
 const bigModalIngredients = document.querySelector('#bigModalIngredients');
 const aside = document.querySelector('#aside');
 
+let globalFavs;
+let globalMeals;
 let cookbook;
 let user;
 let ingredients;
+let recipes;
 
 Promise.all([recipeCalls, ingredientCalls, userCalls])
   .then(data => {
-    const recipes = data[0].reduce((sum, recipe) => {
-      sum.push(new Recipe(recipe));
-      return sum;
-    }, []);
-    ingredients = data[1];
-    cookbook = new Cookbook(data[1], recipes);
-    user = new User(data[2][0]);
+    createAllData(data);
+    // user = new User(data[2][0]);
     //user = new User(data[2][getRandomIndex(data[2])]);
     startSite();
   }).catch(error => displayFetchErrorMessage(error));
 
 Promise.resolve(pantryCalls)
-  //.then(response => checkForError(response))
-  //.then(response => response.json())
-  //.catch(error => console.log(error.message));
-  //.catch(error => displayFetchErrorMessage(error));
+.then(response => checkForError(response))
+.then(data => console.log(data))
+.catch(error => displayFetchErrorMessage(error))
+
+const updateUserData = () =>  {
+  fetch('http://localhost:3001/api/v1/users')
+    .then(response => response.json())
+    .then(data => createNewUser(data))
+    .catch(error => displayFetchErrorMessage(error))
+}
+
+const createNewUser = (data) => {
+  globalFavs = user.favoriteRecipes
+  globalMeals = user.mealPlan;
+  let newUser = data.find(newUser => newUser.id === user.id);
+  user = new User(newUser);
+  user.favoriteRecipes = globalFavs;
+  user.mealPlan = globalMeals;
+}
+
+const createAllData = (data) => {
+  createGlobalIng(data);
+  recipes = createGlobalRecipes(data);
+  createGlobalCookbook(data, recipes);
+  createGlobalUser(data);
+}
+
+const createGlobalIng = (data) => {
+  ingredients = data[1];
+}
+
+const createGlobalUser = (data) => {
+  user = new User(data[2][getRandomIndex(data[2])]);
+} 
+
+const createGlobalCookbook = (data, recipes) => {
+  cookbook = new Cookbook(data[1], recipes);
+}
+
+const createGlobalRecipes = (data) => {
+  return data[0].reduce((sum, recipe) => {
+    sum.push(new Recipe(recipe));
+    return sum;
+  }, []);
+}
 
 // helper functions
 
@@ -68,7 +107,7 @@ function addClass(elements, rule) {
 
 // Event handlers and their constituent functions
 
-const checkForError = response => {
+const checkForError = (response) => {
   if (!response.ok) {
     throw new Error('Please make sure that all fields are filled out.');
   } else {
@@ -83,7 +122,7 @@ const displayFetchErrorMessage = (error) => {
   } else {
     message = error.message;
   }
-  mainDisplay.innerText = message;
+  mainDisplay.innerText= message;
 }
 
 const updateMainDisplay = () => {
@@ -103,24 +142,32 @@ const displayCurrentRecipes = () => {
   mainDisplay.innerHTML = '';
   display.forEach(recipe => {
       mainDisplay.innerHTML += `
-    <article class="flex column sml-brdr-radius shadow">
-      <img class="full-width half-height recipe-image clickable" id="${recipe.id}" src=${recipe.image} alt="${recipe.name} smaller meal image">
-      <div class="flex row around full-width half-height yellow">
+    <section class="card flex column sml-brdr-radius shadow">
+      <button class="recipe-images full-width half-height recipe-image clickable" id="${recipe.id}" alt="${recipe.name} smaller meal image" aria-label=${recipe.name}></button>
+      <section class="flex row around full-width half-height yellow">
         <p class="full-width med-font not-clickable">${recipe.name}</p>
-        <div class="flex column around basis half-width full-height">
-					<div class="flex column">
-						<i class="far fa-heart fa-2x clickable red" id="heart${recipe.id}"></i>
-					</div>
-					<div class="flex column">
-						<i class="fas fa-plus fa-2x clickable" id="plus${recipe.id}"></i>
-					</div>
-        </div>
-      </div>
-    </article>`
+        <section class="flex column around basis half-width full-height">
+					<button class="icon far fa-heart fa-2x clickable red" id="heart${recipe.id}"></button>
+					<button class="icon fas fa-plus fa-2x clickable" id="plus${recipe.id}"></button>
+        </section>
+      </section>
+    </section>`
   })
+  loadRecipeImages();
   fillIconsOnLoad();
   createRecipeCardEventListener();
 }
+
+const loadRecipeImages = () => {
+  let recipeButtons = document.querySelectorAll('.recipe-images');
+  recipeButtons.forEach(button => {
+    let matchingID = recipes.find(recipe => recipe.id === parseInt(button.id));
+    if (matchingID) {
+      button.style.backgroundImage = `url(${matchingID.image})`;
+    }
+  })
+}
+
 
 const fillIconsOnLoad = () => {
   let heartIcons = document.querySelectorAll('.fa-heart');
@@ -366,10 +413,11 @@ const createUser = () => {
 const startSite = () => {
   updateMainDisplay();
   createUser();
-  console.log(user);
 }
 
 const displayFavs = () => {
+  pantryCalls(user, 20081, 2)
+  updateUserData()
   cookbook.currentRecipes = user.favoriteRecipes;
   updateMainDisplay();
   cookbook.tags = [];
@@ -377,8 +425,6 @@ const displayFavs = () => {
   createFilterEventListener();
   addClass([favsButton, bigModal], 'hidden');
   removeClass([homeButton, mainDisplay, aside], 'hidden');
-  pantryCalls(user, 11297, 3);
-  console.log(user);
 }
 
 const displayMealsToCook = () => {
@@ -408,6 +454,7 @@ const createMealPlanDeleteListener = () => {
 }
 
 const populateMealsToCook = () => {
+  console.log(user.pantry)
   if (sideBarModal.classList.contains('hidden')) {
     removeClass([sideBarModal], 'hidden');
     addClass([mealPlanButton], 'orange');
