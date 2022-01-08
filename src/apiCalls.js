@@ -11,7 +11,7 @@ const userCalls =
   fetch('http://localhost:3001/api/v1/users')
     .then(response => response.json());
 
-const pantryCalls = (user, ing, amt) => {
+async function pantryCalls(user, ing, amt) {
   return fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
     body: JSON.stringify({
