@@ -34,8 +34,20 @@ class User {
   }
 
   updatePantry(ingredient, amount) {
-
+    return {
+      userID: parseInt(this.id),
+      ingredientID: parseInt(ingredient),
+      ingredientModification: parseFloat(amount)
+    }
   }
+
+  // removeFromPantry(ingredient, amount) {
+  //   return {
+  //     userID: parseInt(this.id),
+  //     ingredientID: parseInt(ingredient),
+  //     ingredientModification: parseInt(amount)
+  //   }
+  // }
 }
 
 export default User;
