@@ -69,7 +69,7 @@ async function updateUserData() {
 
 const createNewUser = (data) => {
   let newUser = data.find(newUser => newUser.id === user.id);
-  user.pantry = new Pantry(newUser);
+  user.pantry = new Pantry(newUser.pantry);
 }
 
 const createAllData = (data) => {
