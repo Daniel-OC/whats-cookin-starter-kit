@@ -218,39 +218,39 @@ const fillIconsOnLoad = () => {
 }
 
 const createRecipeCardEventListener = () => {
-  createWholeCardListener();
-  createRecipeHeartListener();
-  createRecipePlusListener();
+  //createWholeCardListener();
+  //createRecipeHeartListener();
+  //createRecipePlusListener();
 }
 
-const createWholeCardListener = () => {
-  const recipeCards = document.querySelectorAll('.recipe-image');
-  recipeCards.forEach(recipeCard => {
-    recipeCard.addEventListener('click', (event) => {
-      displayBigModal(event);
-    });
-  });
-}
+// const createWholeCardListener = () => {
+//   const recipeCards = document.querySelectorAll('.recipe-image');
+//   recipeCards.forEach(recipeCard => {
+//     recipeCard.addEventListener('click', (event) => {
+//       displayBigModal(event);
+//     });
+//   });
+// }
 
-const createRecipeHeartListener = () => {
-  const recipeHearts = document.querySelectorAll('.fa-heart');
-  recipeHearts.forEach(heart => {
-    heart.addEventListener('click', (event) => {
-      let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
-      toggleFavoriteRecipe(selectedRecipe, event);
-    });
-  });
-}
+// const createRecipeHeartListener = () => {
+//   const recipeHearts = document.querySelectorAll('.fa-heart');
+//   recipeHearts.forEach(heart => {
+//     heart.addEventListener('click', (event) => {
+//       let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
+//       toggleFavoriteRecipe(selectedRecipe, event);
+//     });
+//   });
+// }
 
-const createRecipePlusListener = () => {
-  const recipePluses = document.querySelectorAll('.fa-plus');
-  recipePluses.forEach(plus => {
-    plus.addEventListener('click', (event) => {
-      let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
-      toggleMealPlan(selectedRecipe, event);
-    });
-  });
-}
+// const createRecipePlusListener = () => {
+//   const recipePluses = document.querySelectorAll('.fa-plus');
+//   recipePluses.forEach(plus => {
+//     plus.addEventListener('click', (event) => {
+//       let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
+//       toggleMealPlan(selectedRecipe, event);
+//     });
+//   });
+// }
 
 const displayBigModal = (event) => {
   removeClass([bigModal, homeButton, favsButton], 'hidden');
@@ -511,7 +511,24 @@ const clearSearchBar = () => {
   updateMainDisplay();
 };
 
+const determineMainDisplayEventTarget = (event) => {
+  console.log(event.target.id);
+  if (event.target.classList.contains('recipe-images')) {
+    displayBigModal(event)
+  } else if (event.target.classList.contains('fa-heart')) {
+    let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
+    toggleFavoriteRecipe(selectedRecipe, event);
+  } else if (event.target.classList.contains('fa-plus')) {
+    let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
+    toggleMealPlan(selectedRecipe, event);
+  }
+}
+
 //event listeners
+
+mainDisplay.addEventListener('click', (e) => {
+  determineMainDisplayEventTarget(e);
+});
 
 clearSearch.addEventListener('click', clearSearchBar);
 
