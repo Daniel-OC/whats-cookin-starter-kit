@@ -25,8 +25,8 @@ const bigModalCost = document.querySelector('#bigModalCost');
 const bigModalIngredients = document.querySelector('#bigModalIngredients');
 const aside = document.querySelector('#aside');
 
-let globalFavs;
-let globalMeals;
+// let globalFavs;
+// let globalMeals;
 let cookbook;
 let user;
 let ingredients;
@@ -45,20 +45,31 @@ Promise.resolve(pantryCalls)
 .then(data => console.log(data))
 .catch(error => displayFetchErrorMessage(error))
 
-const updateUserData = () =>  {
-  fetch('http://localhost:3001/api/v1/users')
-    .then(response => response.json())
-    .then(data => createNewUser(data))
-    .catch(error => displayFetchErrorMessage(error))
+// const updateUserData = () =>  {
+//   fetch('http://localhost:3001/api/v1/users')
+//     .then(response => response.json())
+//     .then(data => createNewUser(data))
+//     .catch(error => displayFetchErrorMessage(error))
+// }
+
+// const createNewUser = (data) => {
+//   globalFavs = user.favoriteRecipes
+//   globalMeals = user.mealPlan;
+//   let newUser = data.find(newUser => newUser.id === user.id);
+//   user = new User(newUser);
+//   user.favoriteRecipes = globalFavs;
+//   user.mealPlan = globalMeals;
+// }
+
+async function updateUserData() {
+  let response = await fetch('http://localhost:3001/api/v1/users');
+  let data = await response.json();
+  createNewUser(data);
 }
 
 const createNewUser = (data) => {
-  globalFavs = user.favoriteRecipes
-  globalMeals = user.mealPlan;
   let newUser = data.find(newUser => newUser.id === user.id);
-  user = new User(newUser);
-  user.favoriteRecipes = globalFavs;
-  user.mealPlan = globalMeals;
+  user.pantry = new Pantry(newUser);
 }
 
 const createAllData = (data) => {
@@ -415,9 +426,9 @@ const startSite = () => {
   createUser();
 }
 
-const displayFavs = () => {
-  pantryCalls(user, 20081, 2)
-  updateUserData()
+async function displayFavs() {
+  await pantryCalls(user, 20081, 2)
+  await updateUserData()
   cookbook.currentRecipes = user.favoriteRecipes;
   updateMainDisplay();
   cookbook.tags = [];
@@ -454,7 +465,6 @@ const createMealPlanDeleteListener = () => {
 }
 
 const populateMealsToCook = () => {
-  console.log(user.pantry)
   if (sideBarModal.classList.contains('hidden')) {
     removeClass([sideBarModal], 'hidden');
     addClass([mealPlanButton], 'orange');
