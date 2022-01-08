@@ -306,6 +306,8 @@ const determineSidebarModalEventTarget = (event) => {
     user.removeFromMealPlan(selectedMeal);
     displayMealsToCook();
     updateMainDisplay();
+  } else if (event.target.classList.contains('meals')) {
+    displayBigModal(event);
   }
 }
 
@@ -400,7 +402,7 @@ const displayMealsToCook = () => {
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
         <i class="fas fa-times fa-2x sml-right-marg clickable red" id="delete${meal.id}"></i>
-        <p id="${meal.id}">${meal.name}</p>
+        <button class="meals" id="${meal.id}">${meal.name}</button>
       </section>
     </section>`;
   });
