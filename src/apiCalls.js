@@ -21,18 +21,4 @@ async function pantryCalls(pantryUpdate) {
   })
 }
 
-// async function pantryCalls(userID, ing, amt) {
-//   return fetch('http://localhost:3001/api/v1/users', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       userID: parseInt(userID),
-//       ingredientID: parseInt(ing),
-//       ingredientModification: parseInt(amt)
-//     }),
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   })
-// }
-
 module.exports = {recipeCalls, ingredientCalls, userCalls, pantryCalls};
