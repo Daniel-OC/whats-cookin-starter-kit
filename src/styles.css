@@ -118,25 +118,30 @@ aside {
 	width: 20%;
 }
 
-article {
+.icon {
+  background: none;
+  border: none;
+}
+
+.card {
 	background-color: white;
 	height: 225px;
 	width: 275px;
 	margin: 25px;
 }
 
-article:hover {
+.card:hover {
 	-webkit-box-shadow: -5px -5px 5px 0px #26222D;
 	-moz-box-shadow: -5px -5px 5px 0px #26222D;
 	box-shadow: -5px -5px 5px 0px #26222D;
 }
 
-article > img {
+.card > img {
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
 
-article p {
+.card p {
   line-height: 150%;
   text-align: center;
   margin-left: 20px;

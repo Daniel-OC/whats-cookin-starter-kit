@@ -1,13 +1,30 @@
+
 const recipeCalls =
-  fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
+  fetch('http://localhost:3001/api/v1/recipes')
     .then(response => response.json());
 
 const ingredientCalls =
-  fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
+  fetch('http://localhost:3001/api/v1/ingredients')
     .then(response => response.json());
 
 const userCalls =
-  fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
+  fetch('http://localhost:3001/api/v1/users')
     .then(response => response.json());
 
-module.exports = {recipeCalls, ingredientCalls, userCalls};
+const pantryCalls = (user, ing, amt) => {
+  return fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    body: JSON.stringify({
+      userID: parseInt(user.id),
+      ingredientID: parseInt(ing),
+      ingredientModification: parseInt(amt)
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
+
+
+
+module.exports = {recipeCalls, ingredientCalls, userCalls, pantryCalls};
