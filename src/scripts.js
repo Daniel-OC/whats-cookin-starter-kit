@@ -28,6 +28,8 @@ const aside = document.querySelector('#aside');
 const pantryModal = document.querySelector('#pantryModal');
 const table = document.getElementById('table');
 const tableBody = document.getElementById('tableBody')
+const pantryDropdown = document.querySelector('#pantryDropdown');
+const customAddIngredientButton = document.querySelector('#addIngredientButton')
 
 let cookbook;
 let user;
@@ -478,8 +480,7 @@ const resetBigModalForPantry = () => {
 }
 
 const populatePantryDropDown = () => {
-  let pantryDropdown = document.querySelector('#pantryDropdown');
-  pantryDropdown.innerHTML = `<option value="" disabled selected hidden>Ingredients</option>`
+  pantryDropdown.innerHTML = `<option value="" disabled selected hidden>Select an Ingredient</option>`
   ingredients.forEach(ingredient => {
     pantryDropdown.innerHTML += `
     <option value="${ingredient.id}">${ingredient.name}</option>`
@@ -525,7 +526,21 @@ async function determinePantryDisplayEventTarget(event) {
   populatePantryDisplay();
 }
 
+async function addCustomIngredientToPantry() {
+  let customIngredient = pantryDropdown.value;
+  let customAmount = document.querySelector('#addIngredientAmount')
+  console.log(customIngredient)
+  console.log(customAmount.value)
+  await addIngredientToPantry(customIngredient, customAmount.value)
+  populatePantryDisplay()
+  customAmount.value = ""
+  
+  
+}
+
 //event listeners
+
+customAddIngredientButton.addEventListener('click', addCustomIngredientToPantry)
 
 table.addEventListener('click', async (e) => {
   await determinePantryDisplayEventTarget(e);
