@@ -467,19 +467,20 @@ const populatePantryDisplay = () => {
       </tbody>
     </table>
   </section>`
-  let tableBody = document.getElementById('tableBody')
-  let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients)
+  let tableBody = document.getElementById('tableBody');
+  let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
   user.pantry.ingredients.forEach(ingredient => {
-    let matchingName = ingredients.find(entry => entry.id === ingredient.ingredient).name
-    let matchingAmounts = allIngredients.find(entry => entry.id === ingredient.ingredient)
+    let matchingName = ingredients.find(entry => entry.id === ingredient.ingredient);
+    let matchingAmounts = user.pantry.ingredients.find(entry => entry.ingredient === ingredient.ingredient);
+    let matchingUnits = allIngredients.find(entry => entry.id === ingredient.ingredient);
     tableBody.innerHTML += `
     <tr>
-      <td>${matchingName}</td>
-      <td>${matchingAmounts.quantity.amount}</td>
-      <td>${matchingAmounts.quantity.unit}</td>
+      <td>${matchingName.name}</td>
+      <td>${matchingAmounts.amount}</td>
+      <td>${matchingUnits.quantity.unit}</td>
       <td class="no-bg">
-        <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.id}"></button>
-        <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.id}"></button>
+        <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.ingredient}"></button>
+        <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.ingredient}"></button>
       </td>
     </tr>`
   })
@@ -488,7 +489,21 @@ const populatePantryDisplay = () => {
   hideSearchFunctionality();
 }
 
+async function determinePantryDisplayEventTarget(event) {
+  if (event.target.classList.contains('fa-minus-circle')) {
+
+  } else if (event.target.classList.contains('fa-plus-circle')) {
+    let selectedIngredient = ingredients.find(ing => `add${ing.id}` === event.target.id)
+    await addIngredientToPantry(selectedIngredient.id, 1)
+  }
+  populatePantryDisplay();
+}
+
 //event listeners
+
+bigModal.addEventListener('click', async (e) => {
+  await determinePantryDisplayEventTarget(e);
+})
 
 mainDisplay.addEventListener('click', (e) => {
   determineMainDisplayEventTarget(e);
