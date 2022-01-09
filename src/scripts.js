@@ -212,11 +212,20 @@ const populateBigModal = (event) => {
 
 const clickHomeButton = () => {
   addClass([homeButton, bigModal], 'hidden');
-  removeClass([mainDisplay, favsButton, aside], 'hidden');
+  removeClass([mainDisplay, favsButton, , pantryButton, aside], 'hidden');
   cookbook.clearFilter();
   populateFilterTags(getFilterTags())
   //createFilterEventListener()
   updateMainDisplay();
+  hideSearchFunctionality();
+}
+
+const hideSearchFunctionality = () => {
+  if (!pantryButton.classList.contains('hidden')) {
+    removeClass([dropDown, searchBar, searchButton], 'hidden')
+  } else {
+    addClass([dropDown, searchBar, searchButton], 'hidden');
+  }
 }
 
 const clickFilterButton = () => {
@@ -392,7 +401,8 @@ const displayFavs = () => {
   cookbook.tags = [];
   populateFilterTags(getFilterTags());
   addClass([favsButton, bigModal], 'hidden');
-  removeClass([homeButton, mainDisplay, aside], 'hidden');
+  removeClass([homeButton, mainDisplay, aside, pantryButton], 'hidden');
+  hideSearchFunctionality();
 }
 
 const displayMealsToCook = () => {
@@ -459,9 +469,6 @@ const populatePantryDisplay = () => {
   </section>`
   let tableBody = document.getElementById('tableBody')
   let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients)
-  console.log('all ingredients', allIngredients)
-  console.log('ingredients', ingredients);
-  console.log('user pantry',user.pantry)
   user.pantry.ingredients.forEach(ingredient => {
     let matchingName = ingredients.find(entry => entry.id === ingredient.ingredient).name
     let matchingAmounts = allIngredients.find(entry => entry.id === ingredient.ingredient)
@@ -476,8 +483,9 @@ const populatePantryDisplay = () => {
       </td>
     </tr>`
   })
-  addClass([mainDisplay], 'hidden')
-  removeClass([bigModal], 'hidden')
+  addClass([mainDisplay, pantryButton], 'hidden');
+  removeClass([bigModal, homeButton, favsButton], 'hidden');
+  hideSearchFunctionality();
 }
 
 //event listeners
