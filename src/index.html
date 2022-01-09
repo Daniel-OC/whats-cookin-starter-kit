@@ -60,6 +60,29 @@
         </div>
       </section>
       <section class="flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="pantryModal">
+        <section class="flex">
+          <h2>Welcome to Your Pantry!</h2>
+          <section class ="flex">
+            <select class="pantry-dropdown" id="pantryDropdown">
+            </select>
+            <input class="add-ingredient-amount" id="addIngredientAmount" placeholder="Enter Amount"></input>
+            <button class="add-ingredient-button" id="addIngredientButton">Add to Pantry</button>
+          </section>
+        </section>
+        <section>
+          <table id="table">
+            <thead>
+              <tr>
+                <th>Ingredient</th>
+                <th>Quantity</th>
+                <th>Measurement</th>
+                <th>Remove/Add</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+          </table>
+        </section>
       </section>
       <section class="flex row around main-display lrg-brdr-radius med-marg lrg-font apricot shadow y-scroll" id="mainDisplay">
       </section>

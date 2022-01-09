@@ -26,6 +26,10 @@ const bigModalCost = document.querySelector('#bigModalCost');
 const bigModalIngredients = document.querySelector('#bigModalIngredients');
 const aside = document.querySelector('#aside');
 const pantryModal = document.querySelector('#pantryModal');
+const table = document.getElementById('table');
+const tableBody = document.getElementById('tableBody')
+const pantryDropdown = document.querySelector('#pantryDropdown');
+const customAddIngredientButton = document.querySelector('#addIngredientButton')
 
 let cookbook;
 let user;
@@ -472,22 +476,15 @@ const determineMainDisplayEventTarget = (event) => {
 }
 
 const resetBigModalForPantry = () => {
-  pantryModal.innerHTML = `
-  <h2>Welcome to Your Pantry!</h2>
-  <section>
-    <table id="table">
-      <thead>
-        <tr>
-          <th>Ingredient</th>
-          <th>Quantity</th>
-          <th>Measurement</th>
-          <th>Remove/Add</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-      </tbody>
-    </table>
-  </section>`;
+ tableBody.innerHTML = "" 
+}
+
+const populatePantryDropDown = () => {
+  pantryDropdown.innerHTML = `<option value="" disabled selected hidden>Select an Ingredient</option>`
+  ingredients.forEach(ingredient => {
+    pantryDropdown.innerHTML += `
+    <option value="${ingredient.id}">${ingredient.name}</option>`
+  })
 }
 
 const displayUserIngredients = (tableBody, allIngs) => {
@@ -509,28 +506,43 @@ const displayUserIngredients = (tableBody, allIngs) => {
 } 
 const populatePantryDisplay = () => {
   resetBigModalForPantry();
-  let tableBody = document.getElementById('tableBody');
   let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
   displayUserIngredients(tableBody, allIngredients);
+  populatePantryDropDown()
   addClass([mainDisplay, pantryButton, bigModal, aside], 'hidden');
   removeClass([pantryModal, homeButton, favsButton], 'hidden');
   hideSearchFunctionality();
 }
 
 async function determinePantryDisplayEventTarget(event) {
+  console.log(event.target)
   if (event.target.classList.contains('fa-minus-circle')) {
     let selectedIngredient = ingredients.find(ing => `subtract${ing.id}` === event.target.id)
     await removeIndividualIngredientFromPantry(selectedIngredient.id, -1)
   } else if (event.target.classList.contains('fa-plus-circle')) {
     let selectedIngredient = ingredients.find(ing => `add${ing.id}` === event.target.id)
     await addIngredientToPantry(selectedIngredient.id, 1)
-  }
+  } 
   populatePantryDisplay();
+}
+
+async function addCustomIngredientToPantry() {
+  let customIngredient = pantryDropdown.value;
+  let customAmount = document.querySelector('#addIngredientAmount')
+  console.log(customIngredient)
+  console.log(customAmount.value)
+  await addIngredientToPantry(customIngredient, customAmount.value)
+  populatePantryDisplay()
+  customAmount.value = ""
+  
+  
 }
 
 //event listeners
 
-bigModal.addEventListener('click', async (e) => {
+customAddIngredientButton.addEventListener('click', addCustomIngredientToPantry)
+
+table.addEventListener('click', async (e) => {
   await determinePantryDisplayEventTarget(e);
 })
 
