@@ -450,7 +450,7 @@ const determineMainDisplayEventTarget = (event) => {
   }
 }
 
-const populatePantryDisplay = () => {
+const resetBigModalForPantry = () => {
   bigModal.innerHTML = `
   <h2>Welcome to Your Pantry!</h2>
   <section>
@@ -466,13 +466,14 @@ const populatePantryDisplay = () => {
       <tbody id="tableBody">
       </tbody>
     </table>
-  </section>`
-  let tableBody = document.getElementById('tableBody');
-  let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
+  </section>`;
+}
+
+const displayUserIngredients = (tableBody, allIngs) => {
   user.pantry.ingredients.forEach(ingredient => {
     let matchingName = ingredients.find(entry => entry.id === ingredient.ingredient);
     let matchingAmounts = user.pantry.ingredients.find(entry => entry.ingredient === ingredient.ingredient);
-    let matchingUnits = allIngredients.find(entry => entry.id === ingredient.ingredient);
+    let matchingUnits = allIngs.find(entry => entry.id === ingredient.ingredient);
     tableBody.innerHTML += `
     <tr>
       <td>${matchingName.name}</td>
@@ -482,8 +483,14 @@ const populatePantryDisplay = () => {
         <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.ingredient}"></button>
         <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.ingredient}"></button>
       </td>
-    </tr>`
-  })
+    </tr>`;
+  });
+} 
+const populatePantryDisplay = () => {
+  resetBigModalForPantry();
+  let tableBody = document.getElementById('tableBody');
+  let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
+  displayUserIngredients(tableBody, allIngredients);
   addClass([mainDisplay, pantryButton], 'hidden');
   removeClass([bigModal, homeButton, favsButton], 'hidden');
   hideSearchFunctionality();
