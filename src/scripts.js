@@ -30,11 +30,14 @@ const table = document.getElementById('table');
 const tableBody = document.getElementById('tableBody')
 const pantryDropdown = document.querySelector('#pantryDropdown');
 const customAddIngredientButton = document.querySelector('#addIngredientButton')
+const toggleAllIngredientsButton = document.querySelector('#toggleAllIngredients')
+const toggleNeededIngredientsButton = document.querySelector('#toggleNeededIngredients')
 
 let cookbook;
 let user;
 let ingredients;
 let recipes;
+
 
 Promise.all([recipeCalls, ingredientCalls, userCalls])
   .then(data => {
@@ -202,19 +205,19 @@ const fillIconsOnLoad = () => {
 }
 
 const displayBigModal = (event) => {
-  removeClass([bigModal, homeButton, favsButton], 'hidden');
-  addClass([mainDisplay, aside], 'hidden');
+  removeClass([bigModal, homeButton, favsButton, toggleNeededIngredientsButton], 'hidden');
+  addClass([mainDisplay, aside, toggleAllIngredientsButton], 'hidden');
   populateBigModal(event);
 }
 
 const populateBigModal = (event) => {
-  let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.id));
-  bigModalImage.src = selectedRecipe.image;
-  updateInnerText(bigModalInstructions, selectedRecipe.name);
-  populateBigModalImageAndText(selectedRecipe);
-  populateBigModalInstructions(selectedRecipe);
-  populateBigModalIngredients(selectedRecipe);
-  updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
+  user.selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.id));
+  bigModalImage.src = user.selectedRecipe.image;
+  updateInnerText(bigModalInstructions, user.selectedRecipe.name);
+  populateBigModalImageAndText(user.selectedRecipe);
+  populateBigModalInstructions(user.selectedRecipe);
+  populateBigModalIngredients(user.selectedRecipe);
+  updateInnerText(bigModalCost, user.selectedRecipe.getCost(cookbook.ingredients));
 }
 
 const populateBigModalImageAndText = (selectedRecipe) => {
@@ -230,6 +233,7 @@ const populateBigModalInstructions = (selectedRecipe) => {
 }
 
 const populateBigModalIngredients = (selectedRecipe) => {
+  bigModalIngredients.innerHTML = ""
   selectedRecipe.ingredients.forEach((ingredient, i) => {
     bigModalIngredients.innerHTML += `<li class="flex align-start text-align med-left-marg med-top-marg med-font"><b>${selectedRecipe.ingredients[i].quantity.amount}</b>x ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</em></li>`;
   });
@@ -467,11 +471,11 @@ const determineMainDisplayEventTarget = (event) => {
   if (event.target.classList.contains('recipe-images')) {
     displayBigModal(event)
   } else if (event.target.classList.contains('fa-heart')) {
-    let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
-    toggleFavoriteRecipe(selectedRecipe, event);
+    user.selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
+    toggleFavoriteRecipe(user.selectedRecipe, event);
   } else if (event.target.classList.contains('fa-plus')) {
-    let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
-    toggleMealPlan(selectedRecipe, event);
+    user.selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
+    toggleMealPlan(user.selectedRecipe, event);
   }
 }
 
@@ -515,7 +519,6 @@ const populatePantryDisplay = () => {
 }
 
 async function determinePantryDisplayEventTarget(event) {
-  console.log(event.target)
   if (event.target.classList.contains('fa-minus-circle')) {
     let selectedIngredient = ingredients.find(ing => `subtract${ing.id}` === event.target.id)
     await removeIndividualIngredientFromPantry(selectedIngredient.id, -1)
@@ -529,16 +532,40 @@ async function determinePantryDisplayEventTarget(event) {
 async function addCustomIngredientToPantry() {
   let customIngredient = pantryDropdown.value;
   let customAmount = document.querySelector('#addIngredientAmount')
-  console.log(customIngredient)
-  console.log(customAmount.value)
   await addIngredientToPantry(customIngredient, customAmount.value)
   populatePantryDisplay()
   customAmount.value = ""
-  
-  
 }
 
-//event listeners
+const showIngredientsNeeded = () => {
+  if (user.pantry.checkPantryInventory(user.selectedRecipe)) {
+    bigModalIngredients.innerHTML = `<p class="flex align-start text-align med-left-marg med-top-marg med-font">You have all the ingredients you need, let's get cooking!</p>`
+  } else {
+    let neededIngredients = user.pantry.listNeededIngredients(user.selectedRecipe)
+    bigModalIngredients.innerHTML = ""
+    neededIngredients.forEach((neededIngredient, i) => {
+      let matchingName = ingredients.find(entry => entry.id === neededIngredient.id);
+      bigModalIngredients.innerHTML  += `<li class="flex align-start text-align med-left-marg med-top-marg med-font red"><b>${neededIngredient.quantity.amount}</b>x ${neededIngredient.quantity.unit} ${matchingName.name}</em></li>`
+    })
+  }
+  removeClass([toggleAllIngredientsButton], 'hidden')
+  addClass([toggleNeededIngredientsButton], 'hidden')
+}
+
+const determineBigModalEventTarget = (event) => {
+  if (event.target.classList.contains('toggle-needed-ingredients')) {
+    showIngredientsNeeded()
+  } else if (event.target.classList.contains('toggle-all-ingredients')) {
+    populateBigModalIngredients(user.selectedRecipe)
+    addClass([toggleAllIngredientsButton], 'hidden')
+    removeClass([toggleNeededIngredientsButton], 'hidden')
+
+  } 
+}
+
+bigModal.addEventListener('click', determineBigModalEventTarget)
+
+toggleNeededIngredientsButton.addEventListener('click', showIngredientsNeeded)
 
 customAddIngredientButton.addEventListener('click', addCustomIngredientToPantry)
 
