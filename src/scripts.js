@@ -25,6 +25,7 @@ const bigModalImage = document.querySelector('#bigModalImage');
 const bigModalCost = document.querySelector('#bigModalCost');
 const bigModalIngredients = document.querySelector('#bigModalIngredients');
 const aside = document.querySelector('#aside');
+const pantryModal = document.querySelector('#pantryModal');
 
 let cookbook;
 let user;
@@ -206,18 +207,32 @@ const populateBigModal = (event) => {
   let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.id));
   bigModalImage.src = selectedRecipe.image;
   updateInnerText(bigModalInstructions, selectedRecipe.name);
-  selectedRecipe.instructions.forEach((instruction, i) => {
-    bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
-  });
-  bigModalIngredients.innerHTML = '';
-  selectedRecipe.ingredients.forEach((ingredient, i) => {
-    bigModalIngredients.innerHTML += `<li class="flex align-start text-align med-left-marg med-top-marg med-font"><b>${selectedRecipe.ingredients[i].quantity.amount}</b>x ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</em></li>`;
-  });
+  populateBigModalImageAndText(selectedRecipe);
+  populateBigModalInstructions(selectedRecipe);
+  populateBigModalIngredients(selectedRecipe);
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
 
+const populateBigModalImageAndText = (selectedRecipe) => {
+  bigModalImage.src = selectedRecipe.image;
+  updateInnerText(bigModalInstructions, selectedRecipe.name);
+  updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
+}
+
+const populateBigModalInstructions = (selectedRecipe) => {
+  selectedRecipe.instructions.forEach((instruction, i) => {
+    bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
+  });
+}
+
+const populateBigModalIngredients = (selectedRecipe) => {
+  selectedRecipe.ingredients.forEach((ingredient, i) => {
+    bigModalIngredients.innerHTML += `<li class="flex align-start text-align med-left-marg med-top-marg med-font"><b>${selectedRecipe.ingredients[i].quantity.amount}</b>x ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</em></li>`;
+  });
+}
+
 const clickHomeButton = () => {
-  addClass([homeButton, bigModal], 'hidden');
+  addClass([homeButton, bigModal, pantryModal], 'hidden');
   removeClass([mainDisplay, favsButton, , pantryButton, aside], 'hidden');
   cookbook.clearFilter();
   populateFilterTags(getFilterTags());
@@ -230,6 +245,7 @@ const hideSearchFunctionality = () => {
     removeClass([dropDown, searchBar, searchButton], 'hidden')
   } else {
     addClass([dropDown, searchBar, searchButton], 'hidden');
+    removeClass([pantryModal], 'hidden');
   }
 }
 
@@ -350,7 +366,7 @@ const toggleFavoriteRecipe = (selectedRecipe, event) => {
 
 const toggleMealPlan = (selectedRecipe, event) => {
   if (!user.mealPlan.includes(selectedRecipe)) {
-    addClass([event.target], 'plus')
+    addClass([event.target], 'plus');
     user.addToMealPlan(selectedRecipe);
   } else {
     removeClass([event.target], 'plus')
@@ -361,16 +377,16 @@ const toggleMealPlan = (selectedRecipe, event) => {
 
 const handleLackOfChoice = (recipeList) => {
   if (dropDown.value) {
-    dropDown.classList.remove('drop-down-error')
-    searchForRecipe(recipeList)
+    dropDown.classList.remove('drop-down-error');
+    searchForRecipe(recipeList);
   } else {
-    dropDown.classList.add('drop-down-error')
-    mainDisplay.innerText = "Please select a category for your search"
+    dropDown.classList.add('drop-down-error');
+    mainDisplay.innerText = "Please select a category for your search";
   }
 }
 
 const determineRecipeList = (event) => {
-  removeClass([clearSearch], 'hidden')
+  removeClass([clearSearch], 'hidden');
   if (favsButton.classList.contains('hidden')) {
     handleLackOfChoice(user.favoriteRecipes);
   } else {
@@ -405,7 +421,7 @@ const displayFavs = () => {
   updateMainDisplay();
   cookbook.tags = [];
   populateFilterTags(getFilterTags());
-  addClass([favsButton, bigModal], 'hidden');
+  addClass([favsButton, bigModal, pantryModal], 'hidden');
   removeClass([homeButton, mainDisplay, aside, pantryButton], 'hidden');
   hideSearchFunctionality();
 }
@@ -436,7 +452,7 @@ const populateMealsToCook = () => {
 
 const clearSearchBar = () => {
   if (favsButton.classList.contains('hidden')) {
-    cookbook.currentRecipes = user.favoriteRecipes
+    cookbook.currentRecipes = user.favoriteRecipes;
   }
   searchBar.value = null;
   addClass([clearSearch], 'hidden');
@@ -456,7 +472,7 @@ const determineMainDisplayEventTarget = (event) => {
 }
 
 const resetBigModalForPantry = () => {
-  bigModal.innerHTML = `
+  pantryModal.innerHTML = `
   <h2>Welcome to Your Pantry!</h2>
   <section>
     <table id="table">
@@ -496,8 +512,8 @@ const populatePantryDisplay = () => {
   let tableBody = document.getElementById('tableBody');
   let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
   displayUserIngredients(tableBody, allIngredients);
-  addClass([mainDisplay, pantryButton], 'hidden');
-  removeClass([bigModal, homeButton, favsButton], 'hidden');
+  addClass([mainDisplay, pantryButton, bigModal, aside], 'hidden');
+  removeClass([pantryModal, homeButton, favsButton], 'hidden');
   hideSearchFunctionality();
 }
 
