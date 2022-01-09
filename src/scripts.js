@@ -25,8 +25,6 @@ const bigModalCost = document.querySelector('#bigModalCost');
 const bigModalIngredients = document.querySelector('#bigModalIngredients');
 const aside = document.querySelector('#aside');
 
-// let globalFavs;
-// let globalMeals;
 let cookbook;
 let user;
 let ingredients;
@@ -35,8 +33,6 @@ let recipes;
 Promise.all([recipeCalls, ingredientCalls, userCalls])
   .then(data => {
     createAllData(data);
-    // user = new User(data[2][0]);
-    //user = new User(data[2][getRandomIndex(data[2])]);
     startSite();
   }).catch(error => displayFetchErrorMessage(error));
 
@@ -44,22 +40,6 @@ Promise.resolve(pantryCalls)
 .then(response => checkForError(response))
 .then(data => console.log(data))
 .catch(error => displayFetchErrorMessage(error))
-
-// const updateUserData = () =>  {
-//   fetch('http://localhost:3001/api/v1/users')
-//     .then(response => response.json())
-//     .then(data => createNewUser(data))
-//     .catch(error => displayFetchErrorMessage(error))
-// }
-
-// const createNewUser = (data) => {
-//   globalFavs = user.favoriteRecipes
-//   globalMeals = user.mealPlan;
-//   let newUser = data.find(newUser => newUser.id === user.id);
-//   user = new User(newUser);
-//   user.favoriteRecipes = globalFavs;
-//   user.mealPlan = globalMeals;
-// }
 
 async function updateUserData() {
   let response = await fetch('http://localhost:3001/api/v1/users');
@@ -103,12 +83,6 @@ async function addIngredientToPantry(ingredient, amount) {
   await pantryCalls(update);
   await updateUserData();
 }
-
-// const mealHasBeenCooked = () => {
-//   // if (user.pantry.every(recipe.ingreddient))
-//   //removeIngredientsFromPantry(recipe)
-//   //else "you aint got enough stuff, dawg"
-// }
 
 async function removeIngredientsFromPantry(recipe) {
   await recipe.ingredients.forEach(async (ingredient) => {
@@ -186,7 +160,6 @@ const displayCurrentRecipes = () => {
   })
   loadRecipeImages();
   fillIconsOnLoad();
-  createRecipeCardEventListener();
 }
 
 const loadRecipeImages = () => {
@@ -217,41 +190,6 @@ const fillIconsOnLoad = () => {
   });
 }
 
-const createRecipeCardEventListener = () => {
-  createWholeCardListener();
-  createRecipeHeartListener();
-  createRecipePlusListener();
-}
-
-const createWholeCardListener = () => {
-  const recipeCards = document.querySelectorAll('.recipe-image');
-  recipeCards.forEach(recipeCard => {
-    recipeCard.addEventListener('click', (event) => {
-      displayBigModal(event);
-    });
-  });
-}
-
-const createRecipeHeartListener = () => {
-  const recipeHearts = document.querySelectorAll('.fa-heart');
-  recipeHearts.forEach(heart => {
-    heart.addEventListener('click', (event) => {
-      let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
-      toggleFavoriteRecipe(selectedRecipe, event);
-    });
-  });
-}
-
-const createRecipePlusListener = () => {
-  const recipePluses = document.querySelectorAll('.fa-plus');
-  recipePluses.forEach(plus => {
-    plus.addEventListener('click', (event) => {
-      let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
-      toggleMealPlan(selectedRecipe, event);
-    });
-  });
-}
-
 const displayBigModal = (event) => {
   removeClass([bigModal, homeButton, favsButton], 'hidden');
   addClass([mainDisplay, aside], 'hidden');
@@ -277,7 +215,7 @@ const clickHomeButton = () => {
   removeClass([mainDisplay, favsButton, aside], 'hidden');
   cookbook.clearFilter();
   populateFilterTags(getFilterTags())
-  createFilterEventListener()
+  //createFilterEventListener()
   updateMainDisplay();
 }
 
@@ -295,7 +233,6 @@ const clickFilterFavView = () => {
     removeClass([sideBarModal], 'hidden');
     let tags = getFilterTags();
     populateFilterTags(tags);
-    createFilterEventListener();
     updateInnerText(filterButton, 'Clear Filters');
   } else {
     addClass([sideBarModal], 'hidden');
@@ -313,7 +250,6 @@ const clickFilterHomeView = () => {
     removeClass([sideBarModal], 'hidden');
     let tags = getFilterTags();
     populateFilterTags(tags);
-    createFilterEventListener();
     updateInnerText(filterButton, 'Clear Filters');
   } else {
     addClass([sideBarModal], 'hidden');
@@ -353,15 +289,6 @@ const populateFilterTags = (tags) => {
   });
 }
 
-const createFilterEventListener = () => {
-  const checkBoxes = document.querySelectorAll('.filter');
-  checkBoxes.forEach(checkBox => {
-    checkBox.addEventListener('click', (event) => {
-      displayByTag(event.target.id);
-    });
-  });
-}
-
 const displayByTag = (tag) => {
   if (favsButton.classList.contains('hidden')) {
     displayAllByTag(tag, user.favoriteRecipes);
@@ -369,6 +296,19 @@ const displayByTag = (tag) => {
     displayAllByTag(tag, cookbook.recipes);
   }
   updateMainDisplay();
+}
+
+const determineSidebarModalEventTarget = (event) => {
+  if (event.target.classList.contains('filter')) {
+    displayByTag(event.target.id);
+  } else if (event.target.classList.contains('fa-times')) {
+    let selectedMeal = user.mealPlan.find(meal => `delete${meal.id}` === event.target.id);
+    user.removeFromMealPlan(selectedMeal);
+    displayMealsToCook();
+    updateMainDisplay();
+  } else if (event.target.classList.contains('meals')) {
+    displayBigModal(event);
+  }
 }
 
 const displayAllByTag = (tag, recipeList) => {
@@ -446,21 +386,11 @@ const startSite = () => {
   createUser();
 }
 
-async function displayFavs() {
-  //await pantryCalls(user.id, 20081, 2)
-  //await updateUserData()
-  await addIngredientToPantry(1001, 10);
-  await addIngredientToPantry(98871, 90);
-  await addIngredientToPantry(19296, 10);
-  await addIngredientToPantry(6168, 10);
-  await addIngredientToPantry(1002030, 10);
-  await addIngredientToPantry(1055062, 10);
-  await removeIngredientsFromPantry(recipes[45]);
+const displayFavs = () => {
   cookbook.currentRecipes = user.favoriteRecipes;
   updateMainDisplay();
   cookbook.tags = [];
   populateFilterTags(getFilterTags());
-  createFilterEventListener();
   addClass([favsButton, bigModal], 'hidden');
   removeClass([homeButton, mainDisplay, aside], 'hidden');
 }
@@ -472,22 +402,9 @@ const displayMealsToCook = () => {
     <section class="flex column align-start eighty-width sml-marg">
       <section class="flex row">
         <i class="fas fa-times fa-2x sml-right-marg clickable red" id="delete${meal.id}"></i>
-        <p id="${meal.id}">${meal.name}</p>
+        <button class="meals" id="${meal.id}">${meal.name}</button>
       </section>
     </section>`;
-  });
-  createMealPlanDeleteListener();
-}
-
-const createMealPlanDeleteListener = () => {
-  const mealDeletes = document.querySelectorAll('.fa-times');
-  mealDeletes.forEach(meal => {
-    meal.addEventListener('click', (event) => {
-      let selectedMeal = user.mealPlan.find(meal => `delete${meal.id}` === event.target.id);
-      user.removeFromMealPlan(selectedMeal);
-      displayMealsToCook();
-      updateMainDisplay();
-    });
   });
 }
 
@@ -511,7 +428,27 @@ const clearSearchBar = () => {
   updateMainDisplay();
 };
 
+const determineMainDisplayEventTarget = (event) => {
+  if (event.target.classList.contains('recipe-images')) {
+    displayBigModal(event)
+  } else if (event.target.classList.contains('fa-heart')) {
+    let selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
+    toggleFavoriteRecipe(selectedRecipe, event);
+  } else if (event.target.classList.contains('fa-plus')) {
+    let selectedRecipe = cookbook.recipes.find(recipe => `plus${recipe.id}` === event.target.id);
+    toggleMealPlan(selectedRecipe, event);
+  }
+}
+
 //event listeners
+
+mainDisplay.addEventListener('click', (e) => {
+  determineMainDisplayEventTarget(e);
+});
+
+sideBarModal.addEventListener('click', (e) => {
+  determineSidebarModalEventTarget(e);
+});
 
 clearSearch.addEventListener('click', clearSearchBar);
 
