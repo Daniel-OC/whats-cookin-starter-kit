@@ -85,6 +85,12 @@ async function addIngredientToPantry(ingredient, amount) {
   await updateUserData();
 }
 
+async function removeIndividualIngredientFromPantry(ingredient, amount) {
+  let update = await user.updatePantry(ingredient, amount);
+  await pantryCalls(update);
+  await updateUserData();
+}
+
 async function removeIngredientsFromPantry(recipe) {
   await recipe.ingredients.forEach(async (ingredient) => {
     let update = await user.updatePantry(ingredient.id, -ingredient.quantity.amount);
@@ -214,8 +220,7 @@ const clickHomeButton = () => {
   addClass([homeButton, bigModal], 'hidden');
   removeClass([mainDisplay, favsButton, , pantryButton, aside], 'hidden');
   cookbook.clearFilter();
-  populateFilterTags(getFilterTags())
-  //createFilterEventListener()
+  populateFilterTags(getFilterTags());
   updateMainDisplay();
   hideSearchFunctionality();
 }
@@ -498,7 +503,8 @@ const populatePantryDisplay = () => {
 
 async function determinePantryDisplayEventTarget(event) {
   if (event.target.classList.contains('fa-minus-circle')) {
-
+    let selectedIngredient = ingredients.find(ing => `subtract${ing.id}` === event.target.id)
+    await removeIndividualIngredientFromPantry(selectedIngredient.id, -1)
   } else if (event.target.classList.contains('fa-plus-circle')) {
     let selectedIngredient = ingredients.find(ing => `add${ing.id}` === event.target.id)
     await addIngredientToPantry(selectedIngredient.id, 1)
