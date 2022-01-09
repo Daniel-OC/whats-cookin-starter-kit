@@ -7,7 +7,7 @@ class User {
     this.pantry = new Pantry(user.pantry);
     this.favoriteRecipes = [];
     this.mealPlan = [];
-    this.selectedRecipe = null
+    this.selectedRecipe = null;
   }
 
   addFavoriteRecipe(favRecipe) {

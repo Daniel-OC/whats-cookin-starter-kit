@@ -29,15 +29,14 @@ const pantryModal = document.querySelector('#pantryModal');
 const table = document.getElementById('table');
 const tableBody = document.getElementById('tableBody')
 const pantryDropdown = document.querySelector('#pantryDropdown');
-const customAddIngredientButton = document.querySelector('#addIngredientButton')
-const toggleAllIngredientsButton = document.querySelector('#toggleAllIngredients')
-const toggleNeededIngredientsButton = document.querySelector('#toggleNeededIngredients')
+const customAddIngredientButton = document.querySelector('#addIngredientButton');
+const toggleAllIngredientsButton = document.querySelector('#toggleAllIngredients');
+const toggleNeededIngredientsButton = document.querySelector('#toggleNeededIngredients');
 
 let cookbook;
 let user;
 let ingredients;
 let recipes;
-
 
 Promise.all([recipeCalls, ingredientCalls, userCalls])
   .then(data => {
@@ -233,7 +232,7 @@ const populateBigModalInstructions = (selectedRecipe) => {
 }
 
 const populateBigModalIngredients = (selectedRecipe) => {
-  bigModalIngredients.innerHTML = ""
+  bigModalIngredients.innerHTML = '';
   selectedRecipe.ingredients.forEach((ingredient, i) => {
     bigModalIngredients.innerHTML += `<li class="flex align-start text-align med-left-marg med-top-marg med-font"><b>${selectedRecipe.ingredients[i].quantity.amount}</b>x ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</em></li>`;
   });
@@ -250,7 +249,7 @@ const clickHomeButton = () => {
 
 const hideSearchFunctionality = () => {
   if (!pantryButton.classList.contains('hidden')) {
-    removeClass([dropDown, searchBar, searchButton], 'hidden')
+    removeClass([dropDown, searchBar, searchButton], 'hidden');
   } else {
     addClass([dropDown, searchBar, searchButton], 'hidden');
     removeClass([pantryModal], 'hidden');
@@ -276,7 +275,7 @@ const clickFilterFavView = () => {
     addClass([sideBarModal], 'hidden');
     removeClass([filterButton], 'orange');
     cookbook.currentRecipes = user.favoriteRecipes;
-    cookbook.tags = []
+    cookbook.tags = [];
     updateMainDisplay();
     clearCheckBoxes();
   }
@@ -469,7 +468,7 @@ const clearSearchBar = () => {
 
 const determineMainDisplayEventTarget = (event) => {
   if (event.target.classList.contains('recipe-images')) {
-    displayBigModal(event)
+    displayBigModal(event);
   } else if (event.target.classList.contains('fa-heart')) {
     user.selectedRecipe = cookbook.recipes.find(recipe => `heart${recipe.id}` === event.target.id);
     toggleFavoriteRecipe(user.selectedRecipe, event);
@@ -512,7 +511,7 @@ const populatePantryDisplay = () => {
   resetBigModalForPantry();
   let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
   displayUserIngredients(tableBody, allIngredients);
-  populatePantryDropDown()
+  populatePantryDropDown();
   addClass([mainDisplay, pantryButton, bigModal, aside], 'hidden');
   removeClass([pantryModal, homeButton, favsButton], 'hidden');
   hideSearchFunctionality();
@@ -531,47 +530,44 @@ async function determinePantryDisplayEventTarget(event) {
 
 async function addCustomIngredientToPantry() {
   let customIngredient = pantryDropdown.value;
-  let customAmount = document.querySelector('#addIngredientAmount')
-  await addIngredientToPantry(customIngredient, customAmount.value)
-  populatePantryDisplay()
+  let customAmount = document.querySelector('#addIngredientAmount');
+  await addIngredientToPantry(customIngredient, customAmount.value);
+  populatePantryDisplay();
   customAmount.value = ""
 }
 
 const showIngredientsNeeded = () => {
   if (user.pantry.checkPantryInventory(user.selectedRecipe)) {
-    bigModalIngredients.innerHTML = `<p class="flex align-start text-align med-left-marg med-top-marg med-font">You have all the ingredients you need, let's get cooking!</p>`
+    bigModalIngredients.innerHTML = `<p class="flex align-start text-align med-left-marg med-top-marg med-font">You have all the ingredients you need, let's get cooking!</p>`;
   } else {
-    let neededIngredients = user.pantry.listNeededIngredients(user.selectedRecipe)
-    bigModalIngredients.innerHTML = ""
+    let neededIngredients = user.pantry.listNeededIngredients(user.selectedRecipe);
+    bigModalIngredients.innerHTML = "";
     neededIngredients.forEach((neededIngredient, i) => {
       let matchingName = ingredients.find(entry => entry.id === neededIngredient.id);
-      bigModalIngredients.innerHTML  += `<li class="flex align-start text-align med-left-marg med-top-marg med-font red"><b>${neededIngredient.quantity.amount}</b>x ${neededIngredient.quantity.unit} ${matchingName.name}</em></li>`
+      bigModalIngredients.innerHTML  += `<li class="flex align-start text-align med-left-marg med-top-marg med-font red"><b>${neededIngredient.quantity.amount}</b>x ${neededIngredient.quantity.unit} ${matchingName.name}</em></li>`;
     })
   }
-  removeClass([toggleAllIngredientsButton], 'hidden')
-  addClass([toggleNeededIngredientsButton], 'hidden')
+  removeClass([toggleAllIngredientsButton], 'hidden');
+  addClass([toggleNeededIngredientsButton], 'hidden');
 }
 
 const determineBigModalEventTarget = (event) => {
   if (event.target.classList.contains('toggle-needed-ingredients')) {
-    showIngredientsNeeded()
+    showIngredientsNeeded();
   } else if (event.target.classList.contains('toggle-all-ingredients')) {
-    populateBigModalIngredients(user.selectedRecipe)
-    addClass([toggleAllIngredientsButton], 'hidden')
-    removeClass([toggleNeededIngredientsButton], 'hidden')
-
+    populateBigModalIngredients(user.selectedRecipe);
+    addClass([toggleAllIngredientsButton], 'hidden');
+    removeClass([toggleNeededIngredientsButton], 'hidden');
   } 
 }
 
-bigModal.addEventListener('click', determineBigModalEventTarget)
+bigModal.addEventListener('click', determineBigModalEventTarget);
 
-toggleNeededIngredientsButton.addEventListener('click', showIngredientsNeeded)
-
-customAddIngredientButton.addEventListener('click', addCustomIngredientToPantry)
+customAddIngredientButton.addEventListener('click', addCustomIngredientToPantry);
 
 table.addEventListener('click', async (e) => {
   await determinePantryDisplayEventTarget(e);
-})
+});
 
 mainDisplay.addEventListener('click', (e) => {
   determineMainDisplayEventTarget(e);
