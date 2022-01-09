@@ -25,6 +25,7 @@ const bigModalImage = document.querySelector('#bigModalImage');
 const bigModalCost = document.querySelector('#bigModalCost');
 const bigModalIngredients = document.querySelector('#bigModalIngredients');
 const aside = document.querySelector('#aside');
+const pantryModal = document.querySelector('#pantryModal');
 
 let cookbook;
 let user;
@@ -80,6 +81,12 @@ const createGlobalRecipes = (data) => {
 }
 
 async function addIngredientToPantry(ingredient, amount) {
+  let update = await user.updatePantry(ingredient, amount);
+  await pantryCalls(update);
+  await updateUserData();
+}
+
+async function removeIndividualIngredientFromPantry(ingredient, amount) {
   let update = await user.updatePantry(ingredient, amount);
   await pantryCalls(update);
   await updateUserData();
@@ -200,23 +207,46 @@ const populateBigModal = (event) => {
   let selectedRecipe = cookbook.currentRecipes.find(recipe => recipe.id === parseInt(event.target.id));
   bigModalImage.src = selectedRecipe.image;
   updateInnerText(bigModalInstructions, selectedRecipe.name);
-  selectedRecipe.instructions.forEach((instruction, i) => {
-    bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
-  });
-  bigModalIngredients.innerHTML = '';
-  selectedRecipe.ingredients.forEach((ingredient, i) => {
-    bigModalIngredients.innerHTML += `<li class="flex align-start text-align med-left-marg med-top-marg med-font"><b>${selectedRecipe.ingredients[i].quantity.amount}</b>x ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</em></li>`;
-  });
+  populateBigModalImageAndText(selectedRecipe);
+  populateBigModalInstructions(selectedRecipe);
+  populateBigModalIngredients(selectedRecipe);
   updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
 }
 
+const populateBigModalImageAndText = (selectedRecipe) => {
+  bigModalImage.src = selectedRecipe.image;
+  updateInnerText(bigModalInstructions, selectedRecipe.name);
+  updateInnerText(bigModalCost, selectedRecipe.getCost(cookbook.ingredients));
+}
+
+const populateBigModalInstructions = (selectedRecipe) => {
+  selectedRecipe.instructions.forEach((instruction, i) => {
+    bigModalInstructions.innerHTML += `<li class="med-top-marg med-font">${selectedRecipe.getInstructions()[i]}</li>`;
+  });
+}
+
+const populateBigModalIngredients = (selectedRecipe) => {
+  selectedRecipe.ingredients.forEach((ingredient, i) => {
+    bigModalIngredients.innerHTML += `<li class="flex align-start text-align med-left-marg med-top-marg med-font"><b>${selectedRecipe.ingredients[i].quantity.amount}</b>x ${selectedRecipe.ingredients[i].quantity.unit} ${selectedRecipe.getIngredientNames(ingredients)[i].join(' ')}</em></li>`;
+  });
+}
+
 const clickHomeButton = () => {
-  addClass([homeButton, bigModal], 'hidden');
-  removeClass([mainDisplay, favsButton, aside], 'hidden');
+  addClass([homeButton, bigModal, pantryModal], 'hidden');
+  removeClass([mainDisplay, favsButton, , pantryButton, aside], 'hidden');
   cookbook.clearFilter();
-  populateFilterTags(getFilterTags())
-  //createFilterEventListener()
+  populateFilterTags(getFilterTags());
   updateMainDisplay();
+  hideSearchFunctionality();
+}
+
+const hideSearchFunctionality = () => {
+  if (!pantryButton.classList.contains('hidden')) {
+    removeClass([dropDown, searchBar, searchButton], 'hidden')
+  } else {
+    addClass([dropDown, searchBar, searchButton], 'hidden');
+    removeClass([pantryModal], 'hidden');
+  }
 }
 
 const clickFilterButton = () => {
@@ -336,7 +366,7 @@ const toggleFavoriteRecipe = (selectedRecipe, event) => {
 
 const toggleMealPlan = (selectedRecipe, event) => {
   if (!user.mealPlan.includes(selectedRecipe)) {
-    addClass([event.target], 'plus')
+    addClass([event.target], 'plus');
     user.addToMealPlan(selectedRecipe);
   } else {
     removeClass([event.target], 'plus')
@@ -347,16 +377,16 @@ const toggleMealPlan = (selectedRecipe, event) => {
 
 const handleLackOfChoice = (recipeList) => {
   if (dropDown.value) {
-    dropDown.classList.remove('drop-down-error')
-    searchForRecipe(recipeList)
+    dropDown.classList.remove('drop-down-error');
+    searchForRecipe(recipeList);
   } else {
-    dropDown.classList.add('drop-down-error')
-    mainDisplay.innerText = "Please select a category for your search"
+    dropDown.classList.add('drop-down-error');
+    mainDisplay.innerText = "Please select a category for your search";
   }
 }
 
 const determineRecipeList = (event) => {
-  removeClass([clearSearch], 'hidden')
+  removeClass([clearSearch], 'hidden');
   if (favsButton.classList.contains('hidden')) {
     handleLackOfChoice(user.favoriteRecipes);
   } else {
@@ -391,8 +421,9 @@ const displayFavs = () => {
   updateMainDisplay();
   cookbook.tags = [];
   populateFilterTags(getFilterTags());
-  addClass([favsButton, bigModal], 'hidden');
-  removeClass([homeButton, mainDisplay, aside], 'hidden');
+  addClass([favsButton, bigModal, pantryModal], 'hidden');
+  removeClass([homeButton, mainDisplay, aside, pantryButton], 'hidden');
+  hideSearchFunctionality();
 }
 
 const displayMealsToCook = () => {
@@ -421,7 +452,7 @@ const populateMealsToCook = () => {
 
 const clearSearchBar = () => {
   if (favsButton.classList.contains('hidden')) {
-    cookbook.currentRecipes = user.favoriteRecipes
+    cookbook.currentRecipes = user.favoriteRecipes;
   }
   searchBar.value = null;
   addClass([clearSearch], 'hidden');
@@ -440,8 +471,8 @@ const determineMainDisplayEventTarget = (event) => {
   }
 }
 
-const populatePantryDisplay = () => {
-  bigModal.innerHTML = `
+const resetBigModalForPantry = () => {
+  pantryModal.innerHTML = `
   <h2>Welcome to Your Pantry!</h2>
   <section>
     <table id="table">
@@ -456,31 +487,52 @@ const populatePantryDisplay = () => {
       <tbody id="tableBody">
       </tbody>
     </table>
-  </section>`
-  let tableBody = document.getElementById('tableBody')
-  let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients)
-  console.log('all ingredients', allIngredients)
-  console.log('ingredients', ingredients);
-  console.log('user pantry',user.pantry)
+  </section>`;
+}
+
+const displayUserIngredients = (tableBody, allIngs) => {
   user.pantry.ingredients.forEach(ingredient => {
-    let matchingName = ingredients.find(entry => entry.id === ingredient.ingredient).name
-    let matchingAmounts = allIngredients.find(entry => entry.id === ingredient.ingredient)
+    let matchingName = ingredients.find(entry => entry.id === ingredient.ingredient);
+    let matchingAmounts = user.pantry.ingredients.find(entry => entry.ingredient === ingredient.ingredient);
+    let matchingUnits = allIngs.find(entry => entry.id === ingredient.ingredient);
     tableBody.innerHTML += `
     <tr>
-      <td>${matchingName}</td>
-      <td>${matchingAmounts.quantity.amount}</td>
-      <td>${matchingAmounts.quantity.unit}</td>
+      <td>${matchingName.name}</td>
+      <td>${matchingAmounts.amount}</td>
+      <td>${matchingUnits.quantity.unit}</td>
       <td class="no-bg">
-        <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.id}"></button>
-        <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.id}"></button>
+        <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.ingredient}"></button>
+        <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.ingredient}"></button>
       </td>
-    </tr>`
-  })
-  addClass([mainDisplay], 'hidden')
-  removeClass([bigModal], 'hidden')
+    </tr>`;
+  });
+} 
+const populatePantryDisplay = () => {
+  resetBigModalForPantry();
+  let tableBody = document.getElementById('tableBody');
+  let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
+  displayUserIngredients(tableBody, allIngredients);
+  addClass([mainDisplay, pantryButton, bigModal, aside], 'hidden');
+  removeClass([pantryModal, homeButton, favsButton], 'hidden');
+  hideSearchFunctionality();
+}
+
+async function determinePantryDisplayEventTarget(event) {
+  if (event.target.classList.contains('fa-minus-circle')) {
+    let selectedIngredient = ingredients.find(ing => `subtract${ing.id}` === event.target.id)
+    await removeIndividualIngredientFromPantry(selectedIngredient.id, -1)
+  } else if (event.target.classList.contains('fa-plus-circle')) {
+    let selectedIngredient = ingredients.find(ing => `add${ing.id}` === event.target.id)
+    await addIngredientToPantry(selectedIngredient.id, 1)
+  }
+  populatePantryDisplay();
 }
 
 //event listeners
+
+bigModal.addEventListener('click', async (e) => {
+  await determinePantryDisplayEventTarget(e);
+})
 
 mainDisplay.addEventListener('click', (e) => {
   determineMainDisplayEventTarget(e);
