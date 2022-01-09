@@ -14,6 +14,7 @@ const searchBar = document.querySelector('#searchBar');
 const searchButton = document.querySelector('#searchButton');
 const homeButton = document.querySelector('#homeButton');
 const favsButton = document.querySelector('#yourFavsButton');
+const pantryButton = document.querySelector('#yourPantryButton')
 const filterButton = document.querySelector('#filterButton');
 const mealPlanButton = document.querySelector('#mealPlanButton');
 const sideBarModal = document.querySelector('#sideBarModal');
@@ -171,7 +172,6 @@ const loadRecipeImages = () => {
     }
   })
 }
-
 
 const fillIconsOnLoad = () => {
   let heartIcons = document.querySelectorAll('.fa-heart');
@@ -440,6 +440,46 @@ const determineMainDisplayEventTarget = (event) => {
   }
 }
 
+const populatePantryDisplay = () => {
+  bigModal.innerHTML = `
+  <h2>Welcome to Your Pantry!</h2>
+  <section>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Ingredient</th>
+          <th>Quantity</th>
+          <th>Measurement</th>
+          <th>Remove/Add</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+  </section>`
+  let tableBody = document.getElementById('tableBody')
+  let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients)
+  console.log('all ingredients', allIngredients)
+  console.log('ingredients', ingredients);
+  console.log('user pantry',user.pantry)
+  user.pantry.ingredients.forEach(ingredient => {
+    let matchingName = ingredients.find(entry => entry.id === ingredient.ingredient).name
+    let matchingAmounts = allIngredients.find(entry => entry.id === ingredient.ingredient)
+    tableBody.innerHTML += `
+    <tr>
+      <td>${matchingName}</td>
+      <td>${matchingAmounts.quantity.amount}</td>
+      <td>${matchingAmounts.quantity.unit}</td>
+      <td class="no-bg">
+        <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.id}"></button>
+        <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.id}"></button>
+      </td>
+    </tr>`
+  })
+  addClass([mainDisplay], 'hidden')
+  removeClass([bigModal], 'hidden')
+}
+
 //event listeners
 
 mainDisplay.addEventListener('click', (e) => {
@@ -455,6 +495,8 @@ clearSearch.addEventListener('click', clearSearchBar);
 mealPlanButton.addEventListener('click', populateMealsToCook);
 
 favsButton.addEventListener('click', displayFavs);
+
+pantryButton.addEventListener('click', populatePantryDisplay);
 
 filterButton.addEventListener('click', clickFilterButton);
 
