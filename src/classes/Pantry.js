@@ -17,10 +17,6 @@ class Pantry {
   }
 
   listNeededIngredients(recipe) {
-
-  }
-
-  listNeededIngredients(recipe) {
     return recipe.ingredients.reduce((neededIngredients, ingredient) => {
       let matchedIng = this.ingredients.find(userIng => userIng.ingredient === ingredient.id)
       if (matchedIng === undefined) {
