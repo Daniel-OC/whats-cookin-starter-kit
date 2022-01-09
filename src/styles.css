@@ -350,6 +350,34 @@ section ~ div {
   width: 250px;
 }
 
+table {
+  font-family: 'Roboto', sans-serif;
+  width: 90%;
+}
+
+td {
+  background-color: rgba(105, 169, 255, .6);
+  color: white;
+  text-align: left;
+  padding: 5px 20px 5px 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+th {
+  padding: 5px 20px 5px 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: black;
+  font-size: 22px;
+  text-align: left;
+}
+
+.no-bg {
+  background: 0;
+}
+
 .hidden {
 	display: none;
 }
