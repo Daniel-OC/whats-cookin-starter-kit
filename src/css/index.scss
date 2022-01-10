@@ -1,3 +1,8 @@
+@import './_variables.scss';
+@import './mixins.scss';
+@import './reset.scss';
+@import './keyframes.scss';
+
 * {
 	font-family: Comfortaa;
 }
@@ -6,14 +11,12 @@ body {
 	margin: 0;
 	overflow: hidden;
 	height: 100vh;
-	background-color: white;
 }
 
 header {
-	width: 100%;
-	height: 60px;
-	font-family: 'Comfortaa', cursive;
-	border-bottom: 3px solid #FF9F1C;
+  font-family: 'Comfortaa', cursive;
+	border-bottom: 3px solid $orange;
+  @include height-width(60px, 100%);
 }
 
 main {
@@ -77,45 +80,49 @@ h1 {
 }
 
 h1 ~ img {
-	height: 50px;
-	width: 60px;
+  @include height-width(50px, 60px);
 }
 
 input {
-	width: 100%;
-	height: 50px;
 	font-size: 24px;
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
+  @include height-width(50px, 100%);
 }
 
-input:hover {
-	background-color: rgba(255, 255, 255, 0.90);
+select:hover,
+input:hover,
+input ~ button:hover {
+	background-color: $beige;
 }
 
 input ~ button {
-	height: 52px;
-	width: 50px;
-	background: white;
+	background: $white;
 	border: none;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
+  @include height-width(52px, 50px);
 }
 
-button:hover {
-	background-color: rgba(255, 153, 94, .9);
+.user-box > button:hover,
+aside > button:hover {
+	background-color: $hover-orange;
+}
+
+i:hover,
+.icon:hover {
+  -webkit-animation: blink-2 0.9s both;
+  animation: blink-2 0.9s both;
 }
 
 .main-display {
 	flex-wrap: wrap;
 	flex-flow: row wrap;
-	height: 85%;
-	width: 90%;
+  @include height-width(85%, 90%);
 }
 
 aside {
-	height: 85%;
-	width: 20%;
+  @include height-width(85%, 20%);
 }
 
 .icon {
@@ -124,16 +131,14 @@ aside {
 }
 
 .card {
-	background-color: white;
-	height: 225px;
-	width: 275px;
 	margin: 25px;
+  @include height-width(225px, 275px);
 }
 
 .card:hover {
-	-webkit-box-shadow: -5px -5px 5px 0px #26222D;
-	-moz-box-shadow: -5px -5px 5px 0px #26222D;
-	box-shadow: -5px -5px 5px 0px #26222D;
+	-webkit-box-shadow: -5px -5px 5px 0px $black;
+	-moz-box-shadow: -5px -5px 5px 0px $black;
+	box-shadow: -5px -5px 5px 0px $black;
 }
 
 .card > img {
@@ -148,26 +153,28 @@ aside {
   font-weight: 600;
 }
 
+.recipe-images {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 .sml-btn {
-	background-color: #FFF;
-	width: 100px;
-	height: 40px;
+	background-color: $white;
 	font-size: 16px;
   margin-top: 4px;
+  @include height-width(40px, 100px);
 }
 
 .lrg-btn {
-	background-color: #FFF;
-	width: 200px;
-	height: 60px;
+	background-color: $white;
 	margin: 20px;
 	font-size: 20px;
+  @include height-width(60px, 200px);
 }
 
 .modal {
-	height: 65%;
-	width: 85%;
 	margin-top: 80px;
+  @include height-width(65%, 85%);
 }
 
 .sml-top-marg {
@@ -215,39 +222,39 @@ aside {
 }
 
 .drop-down-error {
-  border: 5px solid red
+  border: 5px solid $red;
 }
 
 .shadow {
-	box-shadow: 4px 4px 4px #26222D;
+	box-shadow: 4px 4px 4px $black;
 }
 
 .thirty-width {
-  width: 30%;
+  @include height-width("", 30%);
 }
 
 .half-width {
-	width: 50%;
+  @include height-width("", 50%);
 }
 
 .seventy-width {
-  width: 70%;
+  @include height-width("", 70%);
 }
 
 .eighty-width {
-	width: 80%;
+  @include height-width("", 80%);
 }
 
 .full-width {
-	width: 100%;
+  @include height-width("", 100%);
 }
 
 .half-height {
-	height: 50%;
+  @include height-width(50%);
 }
 
 .full-height {
-	height: 100%;
+  @include height-width(100%);
 }
 
 .max-height {
@@ -260,33 +267,31 @@ aside {
 }
 
 .apricot {
-	background-color: #FFBF69;
+	background-color: $apricot;
 }
 
 .orange {
-	background-color: #FF9F1C;
+	background-color: $orange;
 }
 
 .yellow {
-	background-color: rgba(255, 153, 94, .5);
+	background-color: $background-yellow;
 }
 
 .plus {
-  color: blue;
+  color: $plus-blue;
 }
 
 .blue {
-	background-color: rgba(105, 169, 255, .6);
+	background-color: $background-blue;
 }
 
 .sml-img {
-	height: 50px;
-	width: 50px;
+  @include height-width(50px, 50px);
 }
 
 .med-img {
-	height: 150px;
-	width: 150px;
+  @include height-width(150px, 150px);
 }
 
 .big-img {
@@ -296,8 +301,7 @@ aside {
 }
 
 .filter {
-	width: 20px;
-	height: 20px;
+  @include height-width(20px, 20px);
 }
 
 .main-display::-webkit-scrollbar,
@@ -334,7 +338,7 @@ ul {
 }
 
 .red {
-  color: red;
+  color: $red;
 }
 
 .not-clickable {
@@ -345,37 +349,36 @@ ul {
 	cursor: pointer;
 }
 
+.recipe-cost {
+  @include height-width(50px, 100%);
+}
+
+.cook-meal, .toggle-needed-ingredients,
+.toggle-all-ingredients {
+  @include height-width(50px, 100%);
+  @include top-bottom-margin(10px, 10px);
+}
+
 section ~ div {
-  height: 100%;
-  width: 250px;
+  @include height-width(100%, 250px);
 }
 
 table {
   font-family: 'Roboto', sans-serif;
-  width: 90%;
+  width: 60%;
 }
 
 td {
-  background-color: rgba(105, 169, 255, .6);
-  color: white;
-  text-align: left;
-  padding: 5px 20px 5px 10px;
-  margin-left: 20px;
-  margin-right: 20px;
+  background-color: $background-blue;
+  border: 1px solid black;
   font-size: 20px;
+  @include side-margin(20px, 20px);
 }
 
 th {
-  padding: 5px 20px 5px 10px;
-  margin-left: 20px;
-  margin-right: 20px;
-  color: black;
+  color: $black;
   font-size: 22px;
-  text-align: left;
-}
-
-.no-bg {
-  background: 0;
+  @include side-margin(20px, 20px);
 }
 
 .hidden {

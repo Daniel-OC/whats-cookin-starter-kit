@@ -26,7 +26,7 @@
           <button class="fas fa-search clickable" id="searchButton"></button>
         </section>
       </section>
-      <section class="flex between end">
+      <section class="user-box flex between end">
         <div class="flex row">
           <p class="sml-right-marg" id="userName"></p>
           <i class="fas fa-user-alt fa-2x"></i>
@@ -35,7 +35,6 @@
         <button class="sml-btn med-brdr-radius no-brdr shadow clickable hidden" id="homeButton">Home</button>
         <button class="sml-btn med-brdr-radius no-brdr shadow clickable" id="yourPantryButton">Your Pantry</button>
         <button class="sml-btn med-brdr-radius no-brdr shadow clickable" id="yourFavsButton">Your Favs</button>
-
       </section>
     </header>
     <main class="flex row around">
@@ -50,29 +49,31 @@
 					  </ul>
           </section>
           <div class="flex column thirty-width full-height">
-            <section class="flex column full-width med-brdr-radius blue">
+            <section class="recipe-cost flex column align full-width med-brdr-radius blue">
 							<p class="text-center lrg-font" id="bigModalCost"></p>
             </section>
-            <button class="cook-meal hidden" id="cookMeal">Cook Meal</button>
-            <button class="toggle-all-ingredients hidden" id="toggleAllIngredients">Show all Ingredients</button>
-            <button id="toggleNeededIngredients" class="toggle-needed-ingredients">What Ingredients do I Still Need?</button>
+            <button class="cook-meal hidden" id="cookMeal">Cook This Meal!</button>
+            <button class="toggle-all-ingredients hidden" id="toggleAllIngredients">Show All Ingredients</button>
+            <button class="toggle-needed-ingredients" id="toggleNeededIngredients">What Ingredients Are Needed?</button>
             <section class="ingredient-box flex column align-start max-height full-width med-brdr-radius med-top-marg y-scroll blue">
               <p class="med-font" id="bigModalIngredients"></p>
             </section>
           </div>
         </div>
       </section>
-      <section class="flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="pantryModal">
-        <section class="flex">
-          <h2>Welcome to Your Pantry!</h2>
-          <section class ="flex">
+      <section class="flex column main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="pantryModal">
+        <section class="flex between med-top-marg center full-width">
+          <section class="flex">
+            <h2 class="lrg-font center">Welcome to Your Pantry!</h2>
+          </section>
+          <section class="flex">
             <select class="pantry-dropdown" id="pantryDropdown">
             </select>
             <input class="add-ingredient-amount" id="addIngredientAmount" placeholder="Enter Amount"></input>
-            <button class="add-ingredient-button" id="addIngredientButton">Add to Pantry</button>
+            <button class="add-ingredient-button fas fa-plus-square" id="addIngredientButton"></button>
           </section>
         </section>
-        <section>
+        <section class="flex full-width center">
           <table id="table">
             <thead>
               <tr>
