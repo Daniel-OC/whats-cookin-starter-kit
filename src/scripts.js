@@ -32,6 +32,7 @@ const pantryDropdown = document.querySelector('#pantryDropdown');
 const customAddIngredientButton = document.querySelector('#addIngredientButton');
 const toggleAllIngredientsButton = document.querySelector('#toggleAllIngredients');
 const toggleNeededIngredientsButton = document.querySelector('#toggleNeededIngredients');
+const cookMealButton = document.querySelector('#cookMeal');
 
 let cookbook;
 let user;
@@ -52,10 +53,10 @@ Promise.resolve(pantryCalls)
 async function updateUserData() {
   let response = await fetch('http://localhost:3001/api/v1/users');
   let data = await response.json();
-  createNewUser(data);
+  await createNewUser(data);
 }
 
-const createNewUser = (data) => {
+async function createNewUser(data) {
   let newUser = data.find(newUser => newUser.id === user.id);
   user.pantry = new Pantry(newUser.pantry);
 }
@@ -479,7 +480,7 @@ const determineMainDisplayEventTarget = (event) => {
 }
 
 const resetBigModalForPantry = () => {
- tableBody.innerHTML = "" 
+ tableBody.innerHTML = ""
 }
 
 const populatePantryDropDown = () => {
@@ -506,7 +507,7 @@ const displayUserIngredients = (tableBody, allIngs) => {
       </td>
     </tr>`;
   });
-} 
+}
 const populatePantryDisplay = () => {
   resetBigModalForPantry();
   let allIngredients = cookbook.recipes.flatMap(recipe => recipe.ingredients);
@@ -524,7 +525,7 @@ async function determinePantryDisplayEventTarget(event) {
   } else if (event.target.classList.contains('fa-plus-circle')) {
     let selectedIngredient = ingredients.find(ing => `add${ing.id}` === event.target.id)
     await addIngredientToPantry(selectedIngredient.id, 1)
-  } 
+  }
   populatePantryDisplay();
 }
 
@@ -537,8 +538,10 @@ async function addCustomIngredientToPantry() {
 }
 
 const showIngredientsNeeded = () => {
-  if (user.pantry.checkPantryInventory(user.selectedRecipe)) {
+  if (!user.pantry.listNeededIngredients(user.selectedRecipe).length) {
+    bigModalIngredients.innerHTML = "";
     bigModalIngredients.innerHTML = `<p class="flex align-start text-align med-left-marg med-top-marg med-font">You have all the ingredients you need, let's get cooking!</p>`;
+    removeClass([cookMealButton], 'hidden');
   } else {
     let neededIngredients = user.pantry.listNeededIngredients(user.selectedRecipe);
     bigModalIngredients.innerHTML = "";
@@ -551,17 +554,30 @@ const showIngredientsNeeded = () => {
   addClass([toggleNeededIngredientsButton], 'hidden');
 }
 
-const determineBigModalEventTarget = (event) => {
+async function determineBigModalEventTarget(event) {
   if (event.target.classList.contains('toggle-needed-ingredients')) {
     showIngredientsNeeded();
   } else if (event.target.classList.contains('toggle-all-ingredients')) {
     populateBigModalIngredients(user.selectedRecipe);
     addClass([toggleAllIngredientsButton], 'hidden');
     removeClass([toggleNeededIngredientsButton], 'hidden');
-  } 
+  } else if (event.target.classList.contains('cook-meal')) {
+    await removeIngredientsFromPantry(user.selectedRecipe);
+    bigModalIngredients.innerHTML = "";
+    bigModalIngredients.innerHTML = `<p class="flex align-start text-align med-left-marg med-top-marg med-font">Your meal has been cooked and the ingredients used have been removed from your pantry.</p>`;
+    addClass([cookMealButton, toggleNeededIngredientsButton], 'hidden');
+    removeClass([toggleAllIngredientsButton], 'hidden');
+
+  }
 }
 
-bigModal.addEventListener('click', determineBigModalEventTarget);
+// const cookSelectedMeal = (selectedRecipe) => {
+//   removeIngredientsFromPantry(ingredient.id)
+// }
+
+bigModal.addEventListener('click', async (e) => {
+  await determineBigModalEventTarget(e);
+});
 
 customAddIngredientButton.addEventListener('click', addCustomIngredientToPantry);
 
