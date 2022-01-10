@@ -1,0 +1,23 @@
+@mixin side-padding($left:"", $right:"") {
+  padding-left: $left;
+  padding-right: $right;
+}
+
+@mixin side-margin($left, $right) {
+  margin-left: $left;
+  margin-right: $right;
+}
+
+@mixin top-bottom-margin($top, $bottom) {
+  margin-top: $top;
+  margin-bottom: $bottom;
+}
+
+@mixin height-width($height:"", $width:"") {
+  height: $height;
+  width: $width;
+}
+
+@mixin border-radius($amount) {
+  border-radius: $amount;
+}

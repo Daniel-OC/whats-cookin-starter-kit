@@ -1,0 +1,386 @@
+@import './_variables.scss';
+@import './mixins.scss';
+@import './reset.scss';
+@import './keyframes.scss';
+
+* {
+	font-family: Comfortaa;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	height: 100vh;
+}
+
+header {
+  font-family: 'Comfortaa', cursive;
+	border-bottom: 3px solid $orange;
+  @include height-width(60px, 100%);
+}
+
+main {
+	height: 93%;
+}
+
+.flex {
+	display: flex;
+}
+
+.row {
+	flex-direction: row;
+	align-items: center;
+}
+
+.start {
+	flex-flow: column wrap;
+}
+
+.end {
+	flex-direction: row-reverse;
+}
+
+.column {
+	flex-direction: column;
+	align-items: center;
+}
+
+.around {
+	justify-content: space-around;
+}
+
+.between {
+	justify-content: space-between;
+}
+
+.align-start {
+	align-items: flex-start;
+}
+
+.center {
+	align-self: center;
+	justify-content: center;
+}
+
+.basis {
+	flex-basis: 40%;
+}
+
+.text-center {
+	text-align: center;
+}
+
+header > section {
+  width: 30%;
+}
+
+h1 {
+	max-width: 150px;
+	font-size: 16px;
+}
+
+h1 ~ img {
+  @include height-width(50px, 60px);
+}
+
+input {
+	font-size: 24px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+  @include height-width(50px, 100%);
+}
+
+select:hover,
+input:hover,
+input ~ button:hover {
+	background-color: $beige;
+}
+
+input ~ button {
+	background: $white;
+	border: none;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+  @include height-width(52px, 50px);
+}
+
+.user-box > button:hover,
+aside > button:hover {
+	background-color: $hover-orange;
+}
+
+i:hover,
+.icon:hover {
+  -webkit-animation: blink-2 0.9s both;
+  animation: blink-2 0.9s both;
+}
+
+.main-display {
+	flex-wrap: wrap;
+	flex-flow: row wrap;
+  @include height-width(85%, 90%);
+}
+
+aside {
+  @include height-width(85%, 20%);
+}
+
+.icon {
+  background: none;
+  border: none;
+}
+
+.card {
+	margin: 25px;
+  @include height-width(225px, 275px);
+}
+
+.card:hover {
+	-webkit-box-shadow: -5px -5px 5px 0px $black;
+	-moz-box-shadow: -5px -5px 5px 0px $black;
+	box-shadow: -5px -5px 5px 0px $black;
+}
+
+.card > img {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.card p {
+  line-height: 150%;
+  text-align: center;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.recipe-images {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.sml-btn {
+	background-color: $white;
+	font-size: 16px;
+  margin-top: 4px;
+  @include height-width(40px, 100px);
+}
+
+.lrg-btn {
+	background-color: $white;
+	margin: 20px;
+	font-size: 20px;
+  @include height-width(60px, 200px);
+}
+
+.modal {
+	margin-top: 80px;
+  @include height-width(65%, 85%);
+}
+
+.sml-top-marg {
+	margin-top: 10px;
+}
+
+.med-top-marg {
+	margin-top: 30px;
+}
+
+.sml-marg {
+	margin: 10px;
+}
+
+.med-left-marg {
+  margin-left: 30px;
+}
+
+.sml-right-marg {
+	margin-right: 10px;
+}
+
+.med-marg {
+	margin: 30px;
+}
+
+.sml-brdr-radius {
+	border-radius: 5px;
+}
+
+.med-brdr-radius {
+	border-radius: 20px;
+}
+
+.lrg-brdr-radius {
+	border-radius: 40px;
+}
+
+.text-cntr {
+	text-align: center;
+}
+
+.text-align {
+  text-align: left;
+}
+
+.drop-down-error {
+  border: 5px solid $red;
+}
+
+.shadow {
+	box-shadow: 4px 4px 4px $black;
+}
+
+.thirty-width {
+  @include height-width("", 30%);
+}
+
+.half-width {
+  @include height-width("", 50%);
+}
+
+.seventy-width {
+  @include height-width("", 70%);
+}
+
+.eighty-width {
+  @include height-width("", 80%);
+}
+
+.full-width {
+  @include height-width("", 100%);
+}
+
+.half-height {
+  @include height-width(50%);
+}
+
+.full-height {
+  @include height-width(100%);
+}
+
+.max-height {
+  min-height: 83%;
+  max-height: 83%;
+}
+
+.no-brdr {
+	border: 0;
+}
+
+.apricot {
+	background-color: $apricot;
+}
+
+.orange {
+	background-color: $orange;
+}
+
+.yellow {
+	background-color: $background-yellow;
+}
+
+.plus {
+  color: $plus-blue;
+}
+
+.blue {
+	background-color: $background-blue;
+}
+
+.sml-img {
+  @include height-width(50px, 50px);
+}
+
+.med-img {
+  @include height-width(150px, 150px);
+}
+
+.big-img {
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.filter {
+  @include height-width(20px, 20px);
+}
+
+.main-display::-webkit-scrollbar,
+.big-modal::-webkit-scrollbar,
+.tags::-webkit-scrollbar,
+.instruction-box::-webkit-scrollbar,
+.ingredient-box::-webkit-scrollbar {
+	display: none;
+}
+
+.y-scroll {
+	overflow-y: scroll;
+}
+
+ul {
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.sml-font {
+  font-size: 14px;
+}
+
+.med-font {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.lrg-font {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.red {
+  color: $red;
+}
+
+.not-clickable {
+  pointer-events: none;
+}
+
+.clickable:hover {
+	cursor: pointer;
+}
+
+.recipe-cost {
+  @include height-width(50px, 100%);
+}
+
+.cook-meal, .toggle-needed-ingredients,
+.toggle-all-ingredients {
+  @include height-width(50px, 100%);
+  @include top-bottom-margin(10px, 10px);
+}
+
+section ~ div {
+  @include height-width(100%, 250px);
+}
+
+table {
+  font-family: 'Roboto', sans-serif;
+  width: 60%;
+}
+
+td {
+  background-color: $background-blue;
+  border: 1px solid black;
+  font-size: 20px;
+  @include side-margin(20px, 20px);
+}
+
+th {
+  color: $black;
+  font-size: 22px;
+  @include side-margin(20px, 20px);
+}
+
+.hidden {
+	display: none;
+}
