@@ -103,8 +103,8 @@ async function removeIngredientsFromPantry(recipe) {
   await recipe.ingredients.forEach(async (ingredient) => {
     let update = await user.updatePantry(ingredient.id, -ingredient.quantity.amount);
     await pantryCalls(update);
+    await updateUserData();
   })
-  await updateUserData();
 }
 
 // helper functions
