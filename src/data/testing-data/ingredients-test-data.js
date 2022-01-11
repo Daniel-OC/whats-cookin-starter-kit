@@ -18,7 +18,12 @@ const ingredientsData = [
 		"id": 19335,
 		"name": "sucrose",
 		"estimatedCostInCents": 902
-	}
+	},
+  {
+    "id": 1012046,
+    "name": "whole grain dijon mustard",
+    "estimatedCostInCents": 867
+  }
 ];
 
 export default {ingredientsData}

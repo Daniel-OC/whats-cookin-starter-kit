@@ -5,6 +5,7 @@ import ingredientTestData from '../src/data/testing-data/ingredients-test-data';
 import userTestData from '../src/data/testing-data/user-test-data';
 import recipeTestData from '../src/data/testing-data/recipe-test-data';
 import Recipe from '../src/classes/Recipe';
+import Pantry from '../src/classes/Pantry';
 
 
 describe('User', () => {
@@ -43,7 +44,7 @@ describe('User', () => {
   });
 
   it('should have a pantry', () => {
-    expect(testUser.pantry).to.be.an('array');
+    expect(testUser.pantry).to.be.instanceOf(Pantry);
   });
 
   it('should be able to keep track of favorite recipes', () => {
@@ -53,6 +54,10 @@ describe('User', () => {
   it('should be able to keep track of meals to cook', () => {
     expect(testUser.mealPlan).to.be.an('array');
   });
+
+  it('should have the ability to store a selectedRecipe', () => {
+    expect(testUser.selectedRecipe).to.be.an('null')
+  })
 
   it('should be able to add favorite recipes', () => {
     let newRecipe = new Recipe(recipes[0]);
@@ -68,36 +73,6 @@ describe('User', () => {
     expect(testUser.favoriteRecipes.length).to.deep.equal(0);
   });
 
-  it('should be able to filter favorite recipes by name', () => {
-    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
-    testUser.addFavoriteRecipe(recipes[0]);
-    testUser.addFavoriteRecipe(recipes[1]);
-    testUser.addFavoriteRecipe(recipes[2]);
-    cookbook.addKeywords(['loaded', 'chocolate']);
-    testUser.filterFavoritesByRecipeName(cookbook);
-    expect(cookbook.currentRecipes.length).to.be.deep.equal(1);
-  });
-
-  it('should be able to filter favorite recipes by ingredients', () => {
-    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
-    testUser.addFavoriteRecipe(recipes[0]);
-    testUser.addFavoriteRecipe(recipes[1]);
-    testUser.addFavoriteRecipe(recipes[2]);
-    cookbook.addKeywords(['eggs', 'sucrose']);
-    testUser.filterFavoritesByIngredient(cookbook);
-    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
-  });
-
-  it('should be able to filter favorite recipes by tags', () => {
-    expect(cookbook.currentRecipes.length).to.be.deep.equal(3);
-    testUser.addFavoriteRecipe(recipes[0]);
-    testUser.addFavoriteRecipe(recipes[1]);
-    testUser.addFavoriteRecipe(recipes[2]);
-    cookbook.tags.push('sauce');
-    testUser.filterFavoritesByTag('sauce', cookbook);
-    expect(cookbook.currentRecipes.length).to.be.deep.equal(1);
-  });
-
   it('should be able to add recipes to mealplan', () => {
     let newRecipe = new Recipe(recipes[0]);
     testUser.addToMealPlan(newRecipe);
@@ -111,4 +86,17 @@ describe('User', () => {
     testUser.removeFromMealPlan(newRecipe);
     expect(testUser.mealPlan.length).to.deep.equal(0);
   });
+
+  it('should have an updatePantry function', () => {
+    expect(testUser.updatePantry).to.be.a('function')
+  });
+
+  it('should be able to structure a pantry addition to properly feed into the API', () => {
+    let pantryAddition = {
+      userID: parseInt(1),
+      ingredientID: parseInt(11360),
+      ingredientModification: parseFloat(1)
+    }
+    expect(testUser.updatePantry(11360,1)).to.deep.equal(pantryAddition)
+  })
 });
