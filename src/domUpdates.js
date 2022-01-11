@@ -95,8 +95,8 @@ let domUpdates = {
           <section class="flex row around full-width half-height yellow">
             <p class="full-width med-font not-clickable">${recipe.name}</p>
             <section class="flex column around basis half-width full-height">
-    					<button class="icon far fa-heart fa-2x clickable red" id="heart${recipe.id}" aria-label="${recipe.name} add to favorites button"></button>
-    					<button class="icon fas fa-plus fa-2x clickable" id="plus${recipe.id}" aria-label="${recipe.name} add to meal plan button"></button>
+    					<button class="far fa-heart fa-2x no-brdr no-back blink clickable red" id="heart${recipe.id}" aria-label="${recipe.name} add to favorites button"></button>
+    					<button class="fas fa-plus fa-2x no-brdr no-back blink clickable" id="plus${recipe.id}" aria-label="${recipe.name} add to meal plan button"></button>
             </section>
           </section>
         </section>`
@@ -237,7 +237,7 @@ let domUpdates = {
       sideBarModal.innerHTML += `
       <section class="flex column align-start eighty-width sml-marg">
         <section class="flex row">
-          <input class="filter" type="checkbox" name="${tag}" id="${tag}"/ >
+          <input class="filter no-brdr" type="checkbox" name="${tag}" id="${tag}"/ >
           <label for="${tag}">${tag}</label>
         </section>
       </section>`;
@@ -264,8 +264,8 @@ let domUpdates = {
       sideBarModal.innerHTML += `
       <section class="flex column align-start eighty-width sml-marg">
         <section class="flex row">
-          <button class="fas fa-times fa-2x sml-right-marg clickable red" id="delete${meal.id}" aria-label="remove recipe from meal plan button"></button>
-          <button class="meals" id="${meal.id}" aria-label="inspect recipe button">${meal.name}</button>
+          <button class="fas fa-times fa-2x sml-right-marg no-back no-brdr blink clickable red" id="delete${meal.id}" aria-label="remove recipe from meal plan button"></button>
+          <button class="meals no-brdr no-back blink clickable" id="${meal.id}" aria-label="inspect recipe button">${meal.name}</button>
         </section>
       </section>`;
     });
@@ -283,7 +283,7 @@ let domUpdates = {
   },
 
   resetBigModalForPantry() {
-   tableBody.innerHTML = "";
+   tableBody.innerHTML = '';
   },
 
   populatePantryDropDown() {
@@ -308,8 +308,8 @@ let domUpdates = {
         <td>${matchingAmounts.amount}</td>
         <td>${matchingUnits.quantity.unit}</td>
         <td class="no-bg">
-          <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.ingredient}" aria-label="subtract single igredient amount from pantry button"></button>
-          <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.ingredient}" aria-label="add single igredient amount from pantry button"></button>
+          <button class="fas fa-minus-circle fa-2x no-brdr no-back blink clickable" id="subtract${ingredient.ingredient}" aria-label="subtract single igredient amount from pantry button"></button>
+          <button class="fas fa-plus-circle fa-2x no-brdr no-back blink clickable" id="add${ingredient.ingredient}" aria-label="add single igredient amount from pantry button"></button>
         </td>
       </tr>`;
     });
@@ -330,13 +330,13 @@ let domUpdates = {
   },
 
   displayYouCanCookMessage() {
-    bigModalIngredients.innerHTML = "";
+    bigModalIngredients.innerHTML = '';
     bigModalIngredients.innerHTML = `<p class="flex align-start text-align med-left-marg med-top-marg med-font">You have all the ingredients you need, let's get cooking!</p>`;
   },
 
   displayNeededIngredients() {
     let neededIngredients = user.pantry.listNeededIngredients(user.selectedRecipe);
-    bigModalIngredients.innerHTML = "";
+    bigModalIngredients.innerHTML = '';
     neededIngredients.forEach((neededIngredient, i) => {
       let matchingName = ingredients.find(entry => entry.id === neededIngredient.id);
       bigModalIngredients.innerHTML  += `<li class="flex align-start text-align med-left-marg med-top-marg med-font red"><b>${neededIngredient.quantity.amount}</b>x ${neededIngredient.quantity.unit} ${matchingName.name}</em></li>`;
@@ -344,7 +344,7 @@ let domUpdates = {
   },
 
   displaySuccessfullyCookedMealMessage() {
-    bigModalIngredients.innerHTML = "";
+    bigModalIngredients.innerHTML = '';
     bigModalIngredients.innerHTML = `<p class="flex align-start text-align med-left-marg med-top-marg med-font">Your meal has been cooked and the ingredients used have been removed from your pantry.</p>`;
   },
 }

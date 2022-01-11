@@ -23,7 +23,7 @@
             <option value="ingredient">Ingredients</option>
           </select>
           <input class="no-brdr" id="searchBar" placeholder="search recipes" aria-label="search bar"></input>
-          <button class="fas fa-search clickable" id="searchButton" aria-hidden="false" aria-label="search"></button>
+          <button class="fas fa-search no-brdr clickable" id="searchButton" aria-hidden="false" aria-label="search"></button>
         </section>
       </section>
       <section class="user-box flex between end" aria-hidden="false">
@@ -61,16 +61,16 @@
           </div>
         </div>
       </section>
-      <section class="flex column main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="pantryModal">
+      <section class="pantry flex column main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="pantryModal">
         <section class="flex between med-top-marg center full-width">
-          <section class="flex">
+          <section class="flex column">
             <h2 class="lrg-font center">Welcome to Your Pantry!</h2>
-          </section>
-          <section class="flex">
-            <select class="pantry-dropdown" id="pantryDropdown" aria-label="choose ingredient to add to pantry">
-            </select>
-            <input class="add-ingredient-amount" id="addIngredientAmount" placeholder="Enter Amount" aria-label="choose ingredient amount to add to pantry"></input>
-            <button class="add-ingredient-button fas fa-plus-square" id="addIngredientButton" aria-label="add ingredient to pantry button"></button>
+            <div class="flex pantry-input-field">
+              <select class="pantry-dropdown no-brdr" id="pantryDropdown" aria-label="choose ingredient to add to pantry">
+              </select>
+              <input class="add-ingredient-amount no-brdr" id="addIngredientAmount" placeholder="Enter Amount" aria-label="choose ingredient amount to add to pantry"></input>
+              <button class="add-ingredient-button no-brdr fas fa-plus-square" id="addIngredientButton" aria-label="add ingredient to pantry button"></button>
+            </div>
           </section>
         </section>
         <section class="flex full-width center">
@@ -92,8 +92,8 @@
       </section>
       <aside class="flex column around lrg-brdr-radius med-marg apricot shadow" id="aside">
         <div class="flex column">
-          <button class="lrg-btn med-brdr-radius no-brdr shadow clickable" id="filterButton">Filter</button>
-          <button class="lrg-btn med-brdr-radius no-brdr shadow clickable" id="mealPlanButton">Meal Plan</button>
+          <button class="aside-button lrg-btn med-brdr-radius no-brdr shadow clickable" id="filterButton">Filter</button>
+          <button class="aside-button lrg-btn med-brdr-radius no-brdr shadow clickable" id="mealPlanButton">Meal Plan</button>
         </div>
         <div class="flex column tags full-height eighty-width med-marg med-brdr-radius blue y-scroll hidden" id="sideBarModal">
           <section class="flex column align-start full-width sml-marg hidden">
