@@ -83,7 +83,7 @@ h1 ~ img {
   @include height-width(50px, 60px);
 }
 
-input {
+input, .add-ingredient-amount {
 	font-size: 24px;
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
@@ -98,19 +98,18 @@ input ~ button:hover {
 
 input ~ button {
 	background: $white;
-	border: none;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
   @include height-width(52px, 50px);
 }
 
 .user-box > button:hover,
-aside > button:hover {
+.aside-button:hover {
 	background-color: $hover-orange;
 }
 
 i:hover,
-.icon:hover {
+.blink:hover {
   -webkit-animation: blink-2 0.9s both;
   animation: blink-2 0.9s both;
 }
@@ -123,11 +122,6 @@ i:hover,
 
 aside {
   @include height-width(85%, 20%);
-}
-
-.icon {
-  background: none;
-  border: none;
 }
 
 .card {
@@ -270,6 +264,10 @@ aside {
 	border: 0;
 }
 
+.no-back {
+  background: none;
+}
+
 .apricot {
 	background-color: $apricot;
 }
@@ -306,6 +304,10 @@ aside {
 
 .filter {
   @include height-width(20px, 20px);
+}
+
+.pantry-input-field {
+  @include top-bottom-margin(20px, 20px);
 }
 
 .main-display::-webkit-scrollbar,
