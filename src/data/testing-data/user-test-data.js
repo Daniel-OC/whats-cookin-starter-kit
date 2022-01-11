@@ -8,7 +8,7 @@ const usersTestData = [
         "amount": 4
       },
       {
-        "ingredient": 1082047,
+        "ingredient": 82047,
         "amount": 10
       },
       {

@@ -10,7 +10,8 @@ class Recipe {
 
   getIngredientNames(ingredientData) {
     return this.ingredients.map(ingredient => {
-      return ingredientData.find(data => ingredient.id === data.id).name.toLowerCase().split(' ');
+      let currentIngredient = ingredientData.find(data => ingredient.id === data.id)
+      return currentIngredient.name.toLowerCase().split(' ');
     });
   }
 

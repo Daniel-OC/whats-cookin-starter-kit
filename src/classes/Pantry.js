@@ -28,6 +28,15 @@ class Pantry {
       return neededIngredients;
     }, [])
   }
+
+  checkPantryInventory(recipe) {
+    if (!this.listNeededIngredients(recipe).length) {
+      return true
+    } else {
+      return false
+    }
+  }
+
 }
 
 module.exports = Pantry;

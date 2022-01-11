@@ -260,7 +260,7 @@ async function addCustomIngredientToPantry() {
 }
 
 const toggleIngredientsNeeded = () => {
-  if (!user.pantry.listNeededIngredients(user.selectedRecipe).length) {
+  if (user.pantry.checkPantryInventory(user.selectedRecipe)) {
     domUpdates.displayYouCanCookMessage();
     domUpdates.removeClass([cookMealButton], 'hidden');
   } else {
