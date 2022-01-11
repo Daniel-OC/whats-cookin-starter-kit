@@ -91,12 +91,12 @@ let domUpdates = {
     display.forEach(recipe => {
       mainDisplay.innerHTML += `
         <section class="card flex column sml-brdr-radius shadow">
-          <button class="recipe-images full-width half-height recipe-image clickable" id="${recipe.id}" alt="${recipe.name} smaller meal image" aria-label=${recipe.name}></button>
+          <button class="recipe-images full-width half-height recipe-image clickable" id="${recipe.id}" aria-label="inspect ${recipe.name} recipe button"></button>
           <section class="flex row around full-width half-height yellow">
             <p class="full-width med-font not-clickable">${recipe.name}</p>
             <section class="flex column around basis half-width full-height">
-    					<button class="icon far fa-heart fa-2x clickable red" id="heart${recipe.id}"></button>
-    					<button class="icon fas fa-plus fa-2x clickable" id="plus${recipe.id}"></button>
+    					<button class="icon far fa-heart fa-2x clickable red" id="heart${recipe.id}" aria-label="${recipe.name} add to favorites button"></button>
+    					<button class="icon fas fa-plus fa-2x clickable" id="plus${recipe.id}" aria-label="${recipe.name} add to meal plan button"></button>
             </section>
           </section>
         </section>`
@@ -264,8 +264,8 @@ let domUpdates = {
       sideBarModal.innerHTML += `
       <section class="flex column align-start eighty-width sml-marg">
         <section class="flex row">
-          <i class="fas fa-times fa-2x sml-right-marg clickable red" id="delete${meal.id}"></i>
-          <button class="meals" id="${meal.id}">${meal.name}</button>
+          <button class="fas fa-times fa-2x sml-right-marg clickable red" id="delete${meal.id}" aria-label="remove recipe from meal plan button"></button>
+          <button class="meals" id="${meal.id}" aria-label="inspect recipe button">${meal.name}</button>
         </section>
       </section>`;
     });
@@ -308,8 +308,8 @@ let domUpdates = {
         <td>${matchingAmounts.amount}</td>
         <td>${matchingUnits.quantity.unit}</td>
         <td class="no-bg">
-          <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.ingredient}"></button>
-          <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.ingredient}"></button>
+          <button class="icon fas fa-minus-circle fa-2x clickable" id="subtract${ingredient.ingredient}" aria-label="subtract single igredient amount from pantry button"></button>
+          <button class="icon fas fa-plus-circle fa-2x clickable" id="add${ingredient.ingredient}" aria-label="add single igredient amount from pantry button"></button>
         </td>
       </tr>`;
     });
