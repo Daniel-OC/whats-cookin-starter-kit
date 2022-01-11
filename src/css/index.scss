@@ -104,7 +104,8 @@ input ~ button {
 }
 
 .user-box > button:hover,
-.aside-button:hover {
+.aside-button:hover,
+.big-modal button:hover {
 	background-color: $hover-orange;
 }
 
@@ -318,6 +319,10 @@ aside {
 	display: none;
 }
 
+.ingredient-box {
+  min-height: 75%;
+}
+
 .y-scroll {
 	overflow-y: scroll;
 }
@@ -355,14 +360,22 @@ ul {
 	cursor: pointer;
 }
 
-.recipe-cost {
-  @include height-width(50px, 100%);
+.big-modal-cost {
+  min-height: 50px;
+  max-height: 50px;
+  width: 100%;
+}
+
+.big-modal-cost > p {
+  padding: 15px;
 }
 
 .cook-meal, .toggle-needed-ingredients,
 .toggle-all-ingredients {
-  @include height-width(50px, 100%);
-  @include top-bottom-margin(10px, 10px);
+  min-height: 50px;
+  max-height: 50px;
+  width: 100%;
+  @include top-bottom-margin(15px, 15px);
 }
 
 section ~ div {

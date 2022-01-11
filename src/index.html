@@ -16,7 +16,7 @@
         <h1 class="flex">What's Cookin, Good Lookin?</h1>
       </section>
       <section>
-        <section class="flex row lrg-right-marg">
+        <section class="flex row">
           <select class="sml-marg clickable" name="categories" id="dropDown" required>
             <option value="" disabled selected hidden>Search By:</option>
             <option value="name">Recipe Name</option>
@@ -38,7 +38,7 @@
       </section>
     </header>
     <main class="flex row around">
-      <section class="flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="bigModal">
+      <section class="big-modal flex column around main-display lrg-brdr-radius med-marg apricot shadow y-scroll hidden" id="bigModal">
 				<div class="flex column center full-width half-height">
           <img class="big-img sml-brdr-radius" id="bigModalImage" alt="larger meal display">
 				</div>
@@ -49,13 +49,13 @@
 					  </ul>
           </section>
           <div class="flex column thirty-width full-height">
-            <section class="recipe-cost flex column align full-width med-brdr-radius blue">
-							<p class="text-center lrg-font" id="bigModalCost"></p>
-            </section>
-            <button class="cook-meal hidden" id="cookMeal">Cook This Meal!</button>
-            <button class="toggle-all-ingredients hidden" id="toggleAllIngredients">Show All Ingredients</button>
-            <button class="toggle-needed-ingredients" id="toggleNeededIngredients">What Ingredients Are Needed?</button>
-            <section class="ingredient-box flex column align-start max-height full-width med-brdr-radius med-top-marg y-scroll blue">
+            <div class="big-modal-cost flex column text-center align med-brdr-radius blue">
+              <p class="lrg-font" id="bigModalCost"></p>
+            </div>
+            <button class="cook-meal lrg-brdr-radius white no-brdr shadow hidden" id="cookMeal">Cook This Meal!</button>
+            <button class="toggle-all-ingredients lrg-brdr-radius white no-brdr shadow hidden" id="toggleAllIngredients">Show All Ingredients</button>
+            <button class="toggle-needed-ingredients lrg-brdr-radius white shadow no-brdr" id="toggleNeededIngredients">What Ingredients Are Needed?</button>
+            <section class="ingredient-box flex column align-start eighty-height full-width med-brdr-radius med-top-marg y-scroll blue">
               <p class="med-font" id="bigModalIngredients"></p>
             </section>
           </div>
