@@ -9,6 +9,7 @@ import {
   pantryDropdown,
   customAmount,
   cookMealButton,
+  filterButton,
   toggleAllIngredientsButton,
   toggleNeededIngredientsButton
 } from './domUpdates';
@@ -180,7 +181,7 @@ const toggleMealPlan = (selectedRecipe, event) => {
     domUpdates.removeClass([event.target], 'plus')
     user.removeFromMealPlan(selectedRecipe);
   }
-  domUpdates.displayMealsToCook();
+  filterButton.classList.contains('hidden') ? domUpdates.displayMealsToCook() : null;
 }
 
 const handleLackOfChoice = (recipeList) => {
