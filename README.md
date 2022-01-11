@@ -108,5 +108,5 @@ If the user has the necessary ingredients, the ingredients will be replaced with
    - [Turing School of Software & Design](https://turing.edu/)
 
 
-## [BACK TO THE TOP!](#MOD2-What's-Cookin,-Good-Lookin'?)
+## [BACK TO THE TOP!](#mod2-whats-cookin-good-lookin)
 
