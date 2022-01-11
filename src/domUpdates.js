@@ -206,39 +206,6 @@ let domUpdates = {
     }
   },
 
-  // clickFilterFavView() {
-  //   if (sideBarModal.classList.contains('hidden')) {
-  //     //domUpdates.addClass([filterButton], 'orange');
-  //     domUpdates.removeClass([sideBarModal], 'hidden');
-  //     let tags = getFilterTags();
-  //     domUpdates.populateFilterTags(tags);
-  //     domUpdates.updateInnerText(filterButton, 'Clear Filters');
-  //   } else {
-  //     domUpdates.addClass([sideBarModal], 'hidden');
-  //     //domUpdates.removeClass([filterButton], 'orange');
-  //     cookbook.currentRecipes = user.favoriteRecipes;
-  //     cookbook.tags = [];
-  //     domUpdates.updateMainDisplay();
-  //     domUpdates.clearCheckBoxes();
-  //   }
-  // },
-
-  // clickFilterHomeView() {
-  //   if (sideBarModal.classList.contains('hidden')) {
-  //     //domUpdates.addClass([filterButton], 'orange');
-  //     domUpdates.removeClass([sideBarModal], 'hidden');
-  //     let tags = getFilterTags();
-  //     domUpdates.populateFilterTags(tags);
-  //     domUpdates.updateInnerText(filterButton, 'Clear Filters');
-  //   } else {
-  //     domUpdates.addClass([sideBarModal], 'hidden');
-  //     //domUpdates.removeClass([filterButton], 'orange');
-  //     cookbook.clearFilter();
-  //     domUpdates.updateMainDisplay();
-  //     domUpdates.clearCheckBoxes();
-  //   }
-  // },
-
   clearCheckBoxes() {
     sideBarModal.innerHTML = '';
     domUpdates.updateInnerText(filterButton, 'Filter');
