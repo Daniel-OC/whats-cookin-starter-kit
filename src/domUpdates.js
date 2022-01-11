@@ -65,6 +65,10 @@ let domUpdates = {
     element.innerText = update;
   },
 
+  toggleClass(elements, rule) {
+    elements.forEach(item => item.classList.toggle(rule));
+  },
+
   removeClass(elements, rule) {
     elements.forEach(item => item.classList.remove(rule));
   },
@@ -186,45 +190,54 @@ let domUpdates = {
   },
 
   clickFilterButton() {
-    if (favsButton.classList.contains('hidden')) {
-      domUpdates.clickFilterFavView();
-    } else {
-      domUpdates.clickFilterHomeView();
-    }
-  },
-
-  clickFilterFavView() {
+    domUpdates.toggleClass([filterButton], 'orange');
+    domUpdates.addClass([mealPlanButton], 'hidden');
     if (sideBarModal.classList.contains('hidden')) {
-      domUpdates.addClass([filterButton], 'orange');
       domUpdates.removeClass([sideBarModal], 'hidden');
       let tags = getFilterTags();
       domUpdates.populateFilterTags(tags);
       domUpdates.updateInnerText(filterButton, 'Clear Filters');
     } else {
       domUpdates.addClass([sideBarModal], 'hidden');
-      domUpdates.removeClass([filterButton], 'orange');
-      cookbook.currentRecipes = user.favoriteRecipes;
-      cookbook.tags = [];
+      domUpdates.removeClass([mealPlanButton], 'hidden');
+      favsButton.classList.contains('hidden') ? cookbook.clearFilter(user.favoriteRecipes) : cookbook.clearFilter();
       domUpdates.updateMainDisplay();
       domUpdates.clearCheckBoxes();
     }
   },
 
-  clickFilterHomeView() {
-    if (sideBarModal.classList.contains('hidden')) {
-      domUpdates.addClass([filterButton], 'orange');
-      domUpdates.removeClass([sideBarModal], 'hidden');
-      let tags = getFilterTags();
-      domUpdates.populateFilterTags(tags);
-      domUpdates.updateInnerText(filterButton, 'Clear Filters');
-    } else {
-      domUpdates.addClass([sideBarModal], 'hidden');
-      domUpdates.removeClass([filterButton], 'orange');
-      cookbook.clearFilter();
-      domUpdates.updateMainDisplay();
-      domUpdates.clearCheckBoxes();
-    }
-  },
+  // clickFilterFavView() {
+  //   if (sideBarModal.classList.contains('hidden')) {
+  //     //domUpdates.addClass([filterButton], 'orange');
+  //     domUpdates.removeClass([sideBarModal], 'hidden');
+  //     let tags = getFilterTags();
+  //     domUpdates.populateFilterTags(tags);
+  //     domUpdates.updateInnerText(filterButton, 'Clear Filters');
+  //   } else {
+  //     domUpdates.addClass([sideBarModal], 'hidden');
+  //     //domUpdates.removeClass([filterButton], 'orange');
+  //     cookbook.currentRecipes = user.favoriteRecipes;
+  //     cookbook.tags = [];
+  //     domUpdates.updateMainDisplay();
+  //     domUpdates.clearCheckBoxes();
+  //   }
+  // },
+
+  // clickFilterHomeView() {
+  //   if (sideBarModal.classList.contains('hidden')) {
+  //     //domUpdates.addClass([filterButton], 'orange');
+  //     domUpdates.removeClass([sideBarModal], 'hidden');
+  //     let tags = getFilterTags();
+  //     domUpdates.populateFilterTags(tags);
+  //     domUpdates.updateInnerText(filterButton, 'Clear Filters');
+  //   } else {
+  //     domUpdates.addClass([sideBarModal], 'hidden');
+  //     //domUpdates.removeClass([filterButton], 'orange');
+  //     cookbook.clearFilter();
+  //     domUpdates.updateMainDisplay();
+  //     domUpdates.clearCheckBoxes();
+  //   }
+  // },
 
   clearCheckBoxes() {
     sideBarModal.innerHTML = '';
@@ -272,13 +285,14 @@ let domUpdates = {
   },
 
   populateMealsToCook() {
+    domUpdates.toggleClass([mealPlanButton], 'orange');
+    domUpdates.addClass([filterButton], 'hidden');
     if (sideBarModal.classList.contains('hidden')) {
       domUpdates.removeClass([sideBarModal], 'hidden');
-      domUpdates.addClass([mealPlanButton], 'orange');
       domUpdates.displayMealsToCook();
     } else {
-      domUpdates.removeClass([mealPlanButton], 'orange');
       domUpdates.addClass([sideBarModal], 'hidden');
+      domUpdates.removeClass([filterButton], 'hidden');
     }
   },
 
@@ -403,6 +417,7 @@ export {
   pantryDropdown,
   customAmount,
   cookMealButton,
+  filterButton,
   toggleAllIngredientsButton,
   toggleNeededIngredientsButton
 };
