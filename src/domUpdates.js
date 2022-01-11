@@ -172,6 +172,9 @@ let domUpdates = {
   },
 
   clickHomeButton() {
+    if (!sideBarModal.classList.contains('hidden')) {
+      domUpdates.resetSideBarModal();
+    }
     domUpdates.addClass([homeButton, bigModal, pantryModal], 'hidden');
     domUpdates.removeClass([mainDisplay, favsButton, pantryButton, aside], 'hidden');
     cookbook.clearFilter();
@@ -229,6 +232,9 @@ let domUpdates = {
   },
 
   displayFavs() {
+    if (!sideBarModal.classList.contains('hidden')) {
+      domUpdates.resetSideBarModal();
+    }
     cookbook.currentRecipes = user.favoriteRecipes;
     domUpdates.updateMainDisplay();
     cookbook.tags = [];
@@ -236,6 +242,13 @@ let domUpdates = {
     domUpdates.addClass([favsButton, bigModal, pantryModal], 'hidden');
     domUpdates.removeClass([homeButton, mainDisplay, aside, pantryButton], 'hidden');
     domUpdates.hideSearchFunctionality();
+  },
+
+  resetSideBarModal() {
+    domUpdates.clearCheckBoxes();
+    domUpdates.removeClass([mealPlanButton, filterButton], 'hidden');
+    domUpdates.removeClass([filterButton, mealPlanButton], 'orange');
+    domUpdates.addClass([sideBarModal], 'hidden');
   },
 
   displayMealsToCook() {

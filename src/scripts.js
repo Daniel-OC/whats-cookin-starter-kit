@@ -202,6 +202,7 @@ function determineRecipeList(event) {
     handleLackOfChoice(cookbook.currentRecipes);
   }
   cookbook.clearFilter();
+  domUpdates.resetInputField(searchBar);
 }
 
 const searchForRecipe = (recipeList) => {
