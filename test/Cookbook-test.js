@@ -44,13 +44,15 @@ describe('Cookbook', () => {
   });
 
   it('should be able to filter by 1 tag', () => {
-    cookbook.filterByTag(['sauce']);
+    cookbook.filterByTag(['sauce'], cookbook.recipes);
     expect(cookbook.currentRecipes.length).to.deep.equal(1);
+    expect(cookbook.currentRecipes).to.deep.equal([recipes[2]])
   });
 
   it('should be able to filter by 2 or more tags', () => {
-    cookbook.filterByTag(['snack', 'lunch']);
+    cookbook.filterByTag(['snack', 'lunch'], cookbook.recipes);
     expect(cookbook.currentRecipes.length).to.deep.equal(2);
+    expect(cookbook.currentRecipes).to.deep.equal([recipes[0], recipes[1]])
   });
 
   it('should be able to store keywords', () => {
@@ -61,17 +63,20 @@ describe('Cookbook', () => {
 
   it('should be able to filter by name', () => {
     cookbook.keywords = ['loaded', 'chocolate'];
-    cookbook.filterByRecipeName();
+    cookbook.filterByRecipeName(cookbook.recipes);
     expect(cookbook.currentRecipes.length).to.deep.equal(1);
+    expect(cookbook.currentRecipes).to.deep.equal([recipes[0]])
   });
 
   it('should be able to filter by ingredient', () => {
-    cookbook.filterByIngredient('eggs');
+    cookbook.keywords = ['eggs']
+    cookbook.filterByIngredient(cookbook.recipes);
     expect(cookbook.currentRecipes.length).to.deep.equal(3);
+    expect(cookbook.currentRecipes).to.deep.equal([recipes[0], recipes[1], recipes[2]]);
   });
 
   it('should reset search or filter terms', () => {
-    cookbook.filterByIngredient('eggs');
+    cookbook.filterByIngredient(cookbook.recipes);
     expect(cookbook.currentRecipes.length).to.deep.equal(3);
     cookbook.clearFilter();
     expect(cookbook.currentRecipes).to.deep.equal(cookbook.recipes);

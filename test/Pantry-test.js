@@ -71,7 +71,7 @@ describe('Pantry', () => {
 
     expect(user.pantry.listNeededIngredients(mealToCook)).to.be.deep.equal([
       { id: 19335, quantity: { amount: 5.5, unit: 'c' }},
-      { id: 666666, quantity: { amount: 6.66, unit: 'c' }}
+      { id: 1012046, quantity: { amount: 6.66, unit: 'c' }}
     ]);
   });
 })
