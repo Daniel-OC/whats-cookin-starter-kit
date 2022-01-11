@@ -45,12 +45,25 @@ The user may also use the search bar to filter through all potential recipes by 
 
 The filtering tags will also work within the user's favorited recipes section, as does the search by Recipe Name or ingredients in the search bar.
 
+As of January 2022, the user now has a "Pantry", in which they can keep track of the ingredients they have at home, adding and removing them, either with simple incrementer buttons or with a custom "add ingredient" section.
+
+![](https://media.giphy.com/media/tbeA70UcS5lfr0Da1s/giphy.gif)
+
+![](https://media.giphy.com/media/xdkWxbwTE6NQjzVxBt/giphy.gif)
+
+![](https://media.giphy.com/media/yOGqbI7VwcvdcCIjCW/giphy.gif)
+
+The new pantry function also allows a user to check if they have the ingredients necessary to create  a meal. After clicking on a recipe, while in the single recipe display, they have the option of pressing a button to determine if they have the necessary ingredients. If not, the list of ingredients will update with a list of ingredients they still require.
+
+![](https://media.giphy.com/media/Tuap8o7nQS5EPEf4PW/giphy.gif)
+
+If the user has the necessary ingredients, the ingredients will be replaced with a message informing them as such. They will also have the option of selecting "Cook this Meal", which will consider the meal "cooked", and remove the requisite ingredients from their pantry.
+
+![](https://media.giphy.com/media/t1wCI2pbTRa9lgiygA/giphy.gif)
+
 
 ### FUTURE FEATURES
-- Introduce a pantry feature that allows the user to keep track of their current ingredients to determine if they can cook selected meals based on the current ingredients in their pantry
-- Allow the user to update their pantry's ingredients
-- Incorporate SASS to dry up CSS stylings
-- Provide a better UX via updating the UI
+- Provide a better UX by updating the UI
 
 ### TECHNOLOGIES USED 
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -75,6 +88,10 @@ The filtering tags will also work within the user's favorited recipes section, a
 - run ```git clone [remote-address]``` in your repo
 - run ```npm install``` in your terminal
 - run ```npm start``` in the Terminal visit localhost:8080
+
+- now fork and clone the APIs that the site will be drawing it's data and Pantry functonality from: (https://github.com/Daniel-OC/whats-cookin-api)
+- run ```npm install``` in your terminal
+- run ```npm start``` in the Terminal
 
 ### AUTHORS/LINKS
 #### - Project
